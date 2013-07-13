@@ -1,0 +1,324 @@
+<!DOCTYPE html>
+<!--[if lt IE 7 ]><html class="ie ie6" lang="en"> <![endif]-->
+<!--[if IE 7 ]><html class="ie ie7" lang="en"> <![endif]-->
+<!--[if IE 8 ]><html class="ie ie8" lang="en"> <![endif]-->
+<!--[if (gte IE 9)|!(IE)]><!--><html lang="en"> <!--<![endif]-->
+<head>
+    <!-- Basic Page Needs
+  ================================================== -->
+	<meta charset="utf-8">
+	<title>Fault Tolerant Code Generation Using Transactions</title>
+
+	<!-- Mobile Specific Metas
+  ================================================== -->
+	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+	<!-- CSS
+  ================================================== -->
+	<link href='http://fonts.googleapis.com/css?family=Source+Code+Pro' rel='stylesheet' type='text/css'>
+	<link rel="stylesheet" type="text/css" href="../../../css/base.css">
+	<link rel="stylesheet" type="text/css" href="../../../css/skeleton.css">
+	<link rel="stylesheet" type="text/css" href="../../../css/layout.css">
+	<link rel="stylesheet" type="text/css" href="../../../css/transfuse.css"/>
+	<link rel="stylesheet" type="text/css" href="../../../css/coderay.css"/>
+	
+	<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.0/jquery.min.js" type="text/javascript"></script>
+	<script src="../../../js/scroll.js"></script>
+
+</head>
+<body>
+
+<div class="container" itemscope itemtype="http://schema.org/CreativeWork">
+
+	<h2 class="remove-bottom" style="margin-top: 10px"><img itemprop="image" src="../../../images/icon.png"/><a class="title" href="../../../index.html" itemprop="url"><span itemprop="name">Transfuse</span></a></h2>
+	for Google Android
+	<br/>
+
+	<div id="socialwidget">
+		<a href="https://twitter.com/attransfuse" class="twitter-follow-button" data-show-count="false">Follow @attransfuse</a>
+        	<div class="g-plusone" data-size="medium" data-href="http://androidtransfuse.org/"></div>
+	</div>
+	<hr />
+
+	<div class="three columns">
+		<nav>
+			<ul>
+				<li><a href="../../../index.html">About</a></li>
+				<li><a href="../../../getting_started.html">Getting Started</a></li>
+				<li><span id="poststoggle" class="arrow arrowright"></span><a href="../../../posts.html">Blog</a>
+					<ul id="posts" class="posts">
+					
+						<li><a href="/2013/01/29/parcels.html">Parcels</a></li>
+					
+						<li><a href="/2013/01/06/transactions.html">Transactions</a></li>
+					
+					</ul>
+				</li>
+				<li><span id="documentationtoggle" class="arrow arrowright"></span><a href="../../../documentation.html">Documentation</a>
+					<ul id="documentation">
+						<li><a href="../../../documentation.html#introduction">Introduction</a></li>
+						<li><a href="../../../documentation.html#_activity">@Activity</a></li>
+						<li><a href="../../../documentation.html#_fragment">@Fragment</a></li>
+						<li><a href="../../../documentation.html#_service">@Service</a></li>
+						<li><a href="../../../documentation.html#_broadcastreceiver">@BroadcastReceiver</a></li>
+						<li><a href="../../../documentation.html#_application">@Application</a></li>
+						<li><a href="../../../documentation.html#intent_factory">Intent Factory</a></li>
+						<li><a href="../../../documentation.html#dependency_injection_di">Dependency Injection</a></li>
+						<li><a href="../../../documentation.html#method_interceptors">Method Interceptors</a></li>
+						<li><a href="../../../documentation.html#configuration">Configuration</a></li>
+						<li><a href="../../../documentation.html#events">Events</a></li>
+						<li><a href="../../../documentation.html#_parcel">@Parcel</a></li>
+						<li><a href="../../../documentation.html#_factory">@Factory</a></li>
+						<li><a href="../../../documentation.html#legacy_support">Legacy Support</a></li>
+						<li><a href="../../../documentation.html#reference">Reference</a></li>
+					</ul>	
+				</li>
+				<li><a href="http://search.maven.org/#search%7Cga%7C1%7Cg%3A%22org.androidtransfuse%22">Download</a></li>
+			</ul>
+		</nav>
+	</div>
+	
+	<div class="thirteen columns content">
+
+		<div class="sect2">
+<h3 id="transfuse_technical_blog">Transfuse Technical Blog</h3>
+<div class="sect3">
+<h4 id="fault_tolerant_code_generation_using_transactions">Fault Tolerant Code Generation Using Transactions</h4>
+<div class="paragraph">
+<p>January 6, 2013</p>
+</div>
+<div class="paragraph">
+<p>A short time ago a <a href="https://github.com/square/dagger/issues/108">bug posted on the Dagger issue list</a> prompted an <a href="https://github.com/johncarl81/transfuse/issues/30">architectural rework</a> in the way Transfuse performs analysis and code generation.  This was a significant change which resulted in a very resilient and fascinating design with some positive side effects.  The following covers the core concepts and results of the change in hopes that it will provide some guidance for implementing Annotation Processors.</p>
+</div>
+<div class="sect4">
+<h5 id="basics">Basics</h5>
+<div class="paragraph">
+<p>Transfuse implements the JSR-269 Annotation Processor standard.  An Annotation Processor can be viewed as a function, taking annotated Java code as input and producing Java classes and resources as output.  What must not be overlooked is an Annotation Processor may be running in an ecosystem of Processors, each of which may be producing code that may be input for other Annotation Processors.  One Processor&#8217;s output could be the input for another Processor.</p>
+</div>
+<div class="paragraph">
+<p>Each Annotation Processor performs its work in rounds.  Work can be defined as analysis of classes under compilation, code generation, validation, etc.  A round is a single call to <code>Processor.process()</code> with a set of Elements earmarked for the given Processor.  During compilation, Java calls the <code>Processor.process()</code> on a registered Processor until there exists a round with both no input Elements, and no code or resources were written.  A final round is called with <code>RoundEnvironment.processingOver() == true</code> for any error handling or cleanup that may be required.  This round is known as the <em>last round.</em></p>
+</div>
+
+</div>
+<div class="sect4">
+<h5 id="the_errortype">The ErrorType</h5>
+<div class="paragraph">
+<p>What happens when an Annotation Processor encounters an instance whose class is not defined?  The <code>Processor.process()</code> method is passed an <code>ErrorType</code> Element.  This can be viewed as an indication of one of two problems.  Either the developer has mistyped / not implemented the given class, or another Processor which may be running is actively implementing this class.  As we cannot know the difference, we have to assume that the class will be implemented in a subsequent round.  Therefore, when an <code>ErrorType</code> is encountered, the related work must be rolled back and retried in the next round.</p>
+</div>
+<div class="paragraph">
+<p>To retry, the given <code>ErrorType</code> Element must be reloaded using the <a href="http://docs.oracle.com/javase/6/docs/api/javax/lang/model/util/Elements.html">Elements</a> utility class:</p>
+</div>
+<div class="listingblock">
+<div class="content monospaced">
+<pre class="CodeRay"><code class="java language-java">TypeElement reloaded = elements.getTypeElement(element.asType().toString());</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Also, between rounds the input elements must be stored as they will not be provided again via <code>Processor.process()</code> input.</p>
+</div>
+
+</div>
+<div class="sect4">
+<h5 id="the_transaction_pattern">The Transaction Pattern</h5>
+<div class="paragraph">
+<p>Transfuse implements this rollback / retry technique using the Transaction pattern.  Transactions wrap a unit of code analysis and generation with a try catch block, catching a <code>TransactionRuntimeException</code>.  If an <code>ErrorType</code> is encountered a <code>TransactionRuntimeException</code> is thrown so the unit may be canceled before any code is written:</p>
+</div>
+<div class="listingblock">
+<div class="content monospaced">
+<pre class="CodeRay"><code class="java language-java"><span class="directive">public</span> <span class="type">class</span> <span class="class">TransactionWorker</span> {
+    <span class="comment">//...</span>
+    <span class="directive">public</span> R run(V value) {
+        <span class="keyword">try</span> {
+            R result = scoped.run(value);
+            complete = <span class="predefined-constant">true</span>;
+            <span class="keyword">return</span> result;
+        } <span class="keyword">catch</span> (TransactionRuntimeException re) {
+            <span class="comment">//retry later</span>
+            complete = <span class="predefined-constant">false</span>;
+        }
+        <span class="keyword">return</span> <span class="predefined-constant">null</span>;
+    }
+}</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Conveniently, in Transfuse each Element is converted to an AST Adapter class using the <code>ASTTypeBuilderVisitor</code>.  Therefore, each Element <code>ErrorType</code> is identified early and handled in one place.  Visiting the <code>ErrorType</code> simply throws the <code>TransactionRuntimeException</code>:</p>
+</div>
+<div class="listingblock">
+<div class="content monospaced">
+<pre class="CodeRay"><code class="java language-java"><span class="directive">public</span> <span class="type">class</span> <span class="class">ASTTypeBuilderVisitor</span> <span class="directive">extends</span> SimpleTypeVisitor6&lt;ASTType, <span class="predefined-type">Void</span>&gt; {
+    <span class="comment">//...</span>
+    <span class="directive">public</span> ASTType visitError(ErrorType errorType, <span class="predefined-type">Void</span> v) {
+        <span class="keyword">throw</span> <span class="keyword">new</span> TransactionRuntimeException(...);
+    }
+}</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>A second place where the <code>ErrorType</code> creeps up, is in annotation class parameters:</p>
+</div>
+<div class="listingblock">
+<div class="content monospaced">
+<pre class="CodeRay"><code class="java language-java"><span class="annotation">@Bind</span>(type = BaseType.class, to = ToBeGeneratedImpl.class)</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Again, Transfuse uses a Visitor to resolve this type, so for the annotation <code>ErrorType</code> a <code>TransactionRuntimeException</code> is thrown early and in one place.  Surprisingly, the <code>ErrorType</code> for annotations is represented as the String value <code>"&lt;error&gt;"</code>:</p>
+</div>
+<div class="listingblock">
+<div class="content monospaced">
+<pre class="CodeRay"><code class="java language-java"><span class="directive">public</span> <span class="type">class</span> <span class="class">AnnotationValueConverterVisitor</span>&lt;T&gt; <span class="directive">extends</span> SimpleAnnotationValueVisitor6&lt;T, <span class="predefined-type">Void</span>&gt; {
+    <span class="directive">private</span> <span class="directive">static</span> <span class="directive">final</span> <span class="predefined-type">String</span> ERROR_TYPE = <span class="string"><span class="delimiter">&quot;</span><span class="content">&lt;error&gt;</span><span class="delimiter">&quot;</span></span>;
+    <span class="comment">//...</span>
+    <span class="directive">public</span> T visitString(<span class="predefined-type">String</span> value, <span class="predefined-type">Void</span> aVoid) {
+        <span class="comment">//...</span>
+        <span class="keyword">if</span> (value.equals(ERROR_TYPE)){
+            <span class="keyword">throw</span> <span class="keyword">new</span> TransactionRuntimeException(...);
+        }
+        <span class="keyword">return</span> <span class="predefined-constant">null</span>;
+    }
+}</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Worth noting, if any code is written via the <code>Filer</code> before a Transaction is canceled, the code will persist and may cause problems retrying the given Transaction.  Transfuse avoids this problem through its use of the <a href="http://codemodel.java.net/">CodeModel</a> library.  CodeModel allows Transfuse to queue code during a Transaction without writing it out via the <code>Filer</code>.  Only after all analysis and code generation is complete will Transfuse write CodeModel&#8217;s queued code to disk via the <code>Filer</code>.  This is analogous to a commit of a Database Transaction.</p>
+</div>
+<div class="paragraph">
+<p>During each round, Transfuse wraps input Elements in a Transaction execution class and stores them in a collection.  Transfuse executes the collection of Transactions and the completion status related to a Transaction is stored.  If a Transaction did not complete, it will simply be retried as a member of the collection in the next round.  If there exists incomplete Transactions during the last round, Transfuse will throw the exceptions associated with the failed Transactions.</p>
+</div>
+
+</div>
+<div class="sect4">
+<h5 id="deeper_down_the_rabbit_hole">Deeper Down the Rabbit Hole</h5>
+<div class="paragraph">
+<p>The core concept of the Transactional Processing has been covered, but there are some larger issues to consider when implementing Annotation Processors.  Specifically, if a set of Transactions depends on another, processing of one set of Transactions must wait for another set to complete.  For example, Transfuse is configured using a class annotated with <code>@TransfuseModule</code>.  All Component processing must wait on the Modules to be processed. If there is an error in the Module processing, Component processing should not start as there will be incomplete configuration information.  Transfuse solves this problem by wrapping Transactions with logical Processors.  Processors come in a couple of different styles.  Processors may wrap a set of Transactions (<code>TransactionProcessorPool</code>), wrap a set of Processors to be executed in parallel (<code>TransactionProcessorComposite</code>), ensure one Processor executes fully before another (<code>TransactionProcessorChain</code>), or pass one Processor&#8217;s aggregate input/output set into a second Processor after completing (<code>TransactionProcessorChannel</code>).  These Processors combine to give Transfuse the following powerful Processor chain:</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="http://androidtransfuse.org/images/transfuse_processors.png" alt="Transfuse">
+</div>
+</div>
+<div class="paragraph">
+<p>In this diagram, each rectangle represents a Processor and each arrow represents the dependency relationship between Processors.  The Processor on the pointer end of the arrow waits for the Processor on the opposite side to finish before executing.</p>
+</div>
+<div class="paragraph">
+<p>The beauty of this approach is in the API.  Transfuse has to merely add the Elements to the appropriate processor (<code>@TransfuseModule</code> into the Module Processor, <code>@Activity</code> into the Components Processor, etc) and hit <code>execute()</code>.  The Processor chain contains the logic necessary to ensure the order of processing is respected.</p>
+</div>
+
+</div>
+<div class="sect4">
+<h5 id="serendipity">Serendipity</h5>
+<div class="paragraph">
+<p>Due to this change in Transfuse, a couple of unexpected benefits have emerged. First and foremost, because each Transaction is essentially self-contained, the Transactions can be run in their own threads.  In fact, a Transaction class is an extension of the <code>Runnable</code> interface and executed via the <code>ExecutionService</code>.  This was more an issue of discipline than performance, as running them in their own threads requires them to be side-effect free and thread safe.</p>
+</div>
+<div class="paragraph">
+<p>Second, partitioning the code into separate Processors decoupled the code generation facilities.  The result of this was the <code>@Parcel</code> Processor is implemented in its own Annotation Processor and a candidate for its own library (<code>org.androidtransfuse.ParcelAnnotationProcessor</code>).</p>
+</div>
+
+</div>
+<div class="sect4">
+<h5 id="conclusion">Conclusion</h5>
+<div class="paragraph">
+<p>Developing Annotation Processors is a challenge due to a number of factors.  This technique is becoming popular due to the performance aspects, especially in the Android space.  The Transfuse library found some positive gains in implementing fault tolerance by a Transactional model, which resulted in resilient code and a great execution model.  The hope is that this post sheds some light on one of the more interesting concepts behind the Transfuse Annotation Processor so that other Annotation Processor implementations may take advantage of this technique.</p>
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+
+
+
+		
+		 
+		<div id="disqus_thread"></div>
+		<script type="text/javascript">
+			var disqus_shortname = 'transfuse';
+
+			(function() {
+			    var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+			    dsq.src = 'http://' + disqus_shortname + '.disqus.com/embed.js';
+			    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+			})();
+		</script>
+		<noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+		<a href="http://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+		 
+	
+	</div>
+
+</div>
+
+<a href="https://github.com/johncarl81/transfuse"><img style="position: absolute; top: 0; right: 0; border: 0;" src="https://s3.amazonaws.com/github/ribbons/forkme_right_green_007200.png" alt="Fork me on GitHub" /></a>
+
+<div id="footer">
+</div>
+
+<script type="text/javascript">
+var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
+document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));
+</script>
+<script type="text/javascript">
+try {
+var pageTracker = _gat._getTracker("UA-11587475-2");
+pageTracker._trackPageview();
+} catch(err) {}
+
+//twitter button
+!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0];if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src="//platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);}}(document,"script","twitter-wjs");
+
+//google +1 button
+  (function() {
+    var po = document.createElement('script'); po.type = 'text/javascript'; po.async = true;
+    po.src = 'https://apis.google.com/js/plusone.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(po, s);
+  })();
+
+function setupToggle(expanded, toggleId, toggleBodyId){
+
+	var updateArrows = function(){
+		updateArrowCss(expanded? 'arrowdown' : 'arrowright');
+	}
+
+	var updateArrowCss = function updateArrowCss(classifier){
+		$(toggleId).removeClass('arrowright');
+		$(toggleId).removeClass('arrowdiag');
+		$(toggleId).removeClass('arrowdown');
+		$(toggleId).addClass(classifier);
+	}
+
+	if(expanded){
+		$(toggleBodyId).show();
+	}
+	else{
+		$(toggleBodyId).hide();
+	}
+	updateArrows();
+
+	$(toggleId).mousedown(function() {
+		updateArrowCss('arrowdiag');
+	});
+
+	$(toggleId).mouseout(function() {
+		updateArrows();
+	});
+
+	$(toggleId).click(function() {
+		if(expanded){
+			$(toggleBodyId).slideUp();
+		}
+		else{
+			$(toggleBodyId).slideDown();
+		}
+		expanded = !expanded;
+		updateArrows();
+	});
+}
+
+setupToggle(false, '#documentationtoggle', '#documentation');
+setupToggle(true, '#poststoggle', '#posts');
+
+</script>
+</body>

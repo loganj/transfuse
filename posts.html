@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<!--[if lt IE 7 ]><html class="ie ie6" lang="en"> <![endif]-->
+<!--[if IE 7 ]><html class="ie ie7" lang="en"> <![endif]-->
+<!--[if IE 8 ]><html class="ie ie8" lang="en"> <![endif]-->
+<!--[if (gte IE 9)|!(IE)]><!--><html lang="en"> <!--<![endif]-->
+<head>
+    <!-- Basic Page Needs
+  ================================================== -->
+	<meta charset="utf-8">
+	<title>Transfuse</title>
+
+	<!-- Mobile Specific Metas
+  ================================================== -->
+	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+	<!-- CSS
+  ================================================== -->
+	<link href='http://fonts.googleapis.com/css?family=Source+Code+Pro' rel='stylesheet' type='text/css'>
+	<link rel="stylesheet" type="text/css" href="css/base.css">
+	<link rel="stylesheet" type="text/css" href="css/skeleton.css">
+	<link rel="stylesheet" type="text/css" href="css/layout.css">
+	<link rel="stylesheet" type="text/css" href="css/transfuse.css"/>
+	<link rel="stylesheet" type="text/css" href="css/coderay.css"/>
+	
+	<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.0/jquery.min.js" type="text/javascript"></script>
+	<script src="js/scroll.js"></script>
+
+</head>
+<body>
+
+<div class="container" itemscope itemtype="http://schema.org/CreativeWork">
+
+	<h2 class="remove-bottom" style="margin-top: 10px"><img itemprop="image" src="images/icon.png"/><a class="title" href="index.html" itemprop="url"><span itemprop="name">Transfuse</span></a></h2>
+	for Google Android
+	<br/>
+
+	<div id="socialwidget">
+		<a href="https://twitter.com/attransfuse" class="twitter-follow-button" data-show-count="false">Follow @attransfuse</a>
+        	<div class="g-plusone" data-size="medium" data-href="http://androidtransfuse.org/"></div>
+	</div>
+	<hr />
+
+	<div class="three columns">
+		<nav>
+			<ul>
+				<li><a href="index.html">About</a></li>
+				<li><a href="getting_started.html">Getting Started</a></li>
+				<li><span id="poststoggle" class="arrow arrowright"></span><a href="posts.html">Blog</a>
+					<ul id="posts" class="posts">
+					
+						<li><a href="/2013/01/29/parcels.html">Parcels</a></li>
+					
+						<li><a href="/2013/01/06/transactions.html">Transactions</a></li>
+					
+					</ul>
+				</li>
+				<li><span id="documentationtoggle" class="arrow arrowright"></span><a href="documentation.html">Documentation</a>
+					<ul id="documentation">
+						<li><a href="documentation.html#introduction">Introduction</a></li>
+						<li><a href="documentation.html#_activity">@Activity</a></li>
+						<li><a href="documentation.html#_fragment">@Fragment</a></li>
+						<li><a href="documentation.html#_service">@Service</a></li>
+						<li><a href="documentation.html#_broadcastreceiver">@BroadcastReceiver</a></li>
+						<li><a href="documentation.html#_application">@Application</a></li>
+						<li><a href="documentation.html#intent_factory">Intent Factory</a></li>
+						<li><a href="documentation.html#dependency_injection_di">Dependency Injection</a></li>
+						<li><a href="documentation.html#method_interceptors">Method Interceptors</a></li>
+						<li><a href="documentation.html#configuration">Configuration</a></li>
+						<li><a href="documentation.html#events">Events</a></li>
+						<li><a href="documentation.html#_parcel">@Parcel</a></li>
+						<li><a href="documentation.html#_factory">@Factory</a></li>
+						<li><a href="documentation.html#legacy_support">Legacy Support</a></li>
+						<li><a href="documentation.html#reference">Reference</a></li>
+					</ul>	
+				</li>
+				<li><a href="http://search.maven.org/#search%7Cga%7C1%7Cg%3A%22org.androidtransfuse%22">Download</a></li>
+			</ul>
+		</nav>
+	</div>
+	
+	<div class="thirteen columns content">
+
+		<h3 id='transfuse_technical_blog'>Transfuse Technical Blog</h3>
+<ul>
+	
+	<li>
+		<h4><a class='title' href='/2013/01/29/parcels.html' title='Generated Parcelables'>Generated Parcelables</a></h4>
+		<span class='date'>
+			<span class='month'><abbr>Jan</abbr></span>
+			<span class='day'>29</span>
+			<span class='year'>2013</span>
+		</span>
+		<br />
+		<span class='excerpt'>One of my favorite rough spots in Android to rag on is the Parcelable.  Parcelable classes are used by Android as a high-performance serialization option, especially useful when passing data between Activities/Contexts.  What is so rough about Parcelable classes are the API requirements.  Yes, Parcelable is an interface that defines the contract, but Android expects more!  <a href='/2013/01/29/parcels.html'>Read more...</a></span>
+		<hr />
+	</li>
+	
+	<li>
+		<h4><a class='title' href='/2013/01/06/transactions.html' title='Fault Tolerant Code Generation Using Transactions'>Fault Tolerant Code Generation Using Transactions</a></h4>
+		<span class='date'>
+			<span class='month'><abbr>Jan</abbr></span>
+			<span class='day'>06</span>
+			<span class='year'>2013</span>
+		</span>
+		<br />
+		<span class='excerpt'>A short time ago a bug posted on the Dagger issue list prompted an architectural rework in the way Transfuse performs analysis and code generation.  This was a significant change which resulted in a very resilient and fascinating design with some positive side effects.  The following covers the core concepts and results of the change in hopes that it will provide some guidance for implementing Annotation Processors.  <a href='/2013/01/06/transactions.html'>Read more...</a></span>
+		<hr />
+	</li>
+	
+</ul>
+
+		
+		 
+	
+	</div>
+
+</div>
+
+<a href="https://github.com/johncarl81/transfuse"><img style="position: absolute; top: 0; right: 0; border: 0;" src="https://s3.amazonaws.com/github/ribbons/forkme_right_green_007200.png" alt="Fork me on GitHub" /></a>
+
+<div id="footer">
+</div>
+
+<script type="text/javascript">
+var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
+document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));
+</script>
+<script type="text/javascript">
+try {
+var pageTracker = _gat._getTracker("UA-11587475-2");
+pageTracker._trackPageview();
+} catch(err) {}
+
+//twitter button
+!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0];if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src="//platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);}}(document,"script","twitter-wjs");
+
+//google +1 button
+  (function() {
+    var po = document.createElement('script'); po.type = 'text/javascript'; po.async = true;
+    po.src = 'https://apis.google.com/js/plusone.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(po, s);
+  })();
+
+function setupToggle(expanded, toggleId, toggleBodyId){
+
+	var updateArrows = function(){
+		updateArrowCss(expanded? 'arrowdown' : 'arrowright');
+	}
+
+	var updateArrowCss = function updateArrowCss(classifier){
+		$(toggleId).removeClass('arrowright');
+		$(toggleId).removeClass('arrowdiag');
+		$(toggleId).removeClass('arrowdown');
+		$(toggleId).addClass(classifier);
+	}
+
+	if(expanded){
+		$(toggleBodyId).show();
+	}
+	else{
+		$(toggleBodyId).hide();
+	}
+	updateArrows();
+
+	$(toggleId).mousedown(function() {
+		updateArrowCss('arrowdiag');
+	});
+
+	$(toggleId).mouseout(function() {
+		updateArrows();
+	});
+
+	$(toggleId).click(function() {
+		if(expanded){
+			$(toggleBodyId).slideUp();
+		}
+		else{
+			$(toggleBodyId).slideDown();
+		}
+		expanded = !expanded;
+		updateArrows();
+	});
+}
+
+setupToggle(false, '#documentationtoggle', '#documentation');
+setupToggle(true, '#poststoggle', '#posts');
+
+</script>
+</body>

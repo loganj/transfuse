@@ -1,0 +1,314 @@
+<!DOCTYPE html>
+<!--[if lt IE 7 ]><html class="ie ie6" lang="en"> <![endif]-->
+<!--[if IE 7 ]><html class="ie ie7" lang="en"> <![endif]-->
+<!--[if IE 8 ]><html class="ie ie8" lang="en"> <![endif]-->
+<!--[if (gte IE 9)|!(IE)]><!--><html lang="en"> <!--<![endif]-->
+<head>
+    <!-- Basic Page Needs
+  ================================================== -->
+	<meta charset="utf-8">
+	<title>Transfuse Getting Started</title>
+
+	<!-- Mobile Specific Metas
+  ================================================== -->
+	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+	<!-- CSS
+  ================================================== -->
+	<link href='http://fonts.googleapis.com/css?family=Source+Code+Pro' rel='stylesheet' type='text/css'>
+	<link rel="stylesheet" type="text/css" href="css/base.css">
+	<link rel="stylesheet" type="text/css" href="css/skeleton.css">
+	<link rel="stylesheet" type="text/css" href="css/layout.css">
+	<link rel="stylesheet" type="text/css" href="css/transfuse.css"/>
+	<link rel="stylesheet" type="text/css" href="css/coderay.css"/>
+	
+	<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.0/jquery.min.js" type="text/javascript"></script>
+	<script src="js/scroll.js"></script>
+
+</head>
+<body>
+
+<div class="container" itemscope itemtype="http://schema.org/CreativeWork">
+
+	<h2 class="remove-bottom" style="margin-top: 10px"><img itemprop="image" src="images/icon.png"/><a class="title" href="index.html" itemprop="url"><span itemprop="name">Transfuse</span></a></h2>
+	for Google Android
+	<br/>
+
+	<div id="socialwidget">
+		<a href="https://twitter.com/attransfuse" class="twitter-follow-button" data-show-count="false">Follow @attransfuse</a>
+        	<div class="g-plusone" data-size="medium" data-href="http://androidtransfuse.org/"></div>
+	</div>
+	<hr />
+
+	<div class="three columns">
+		<nav>
+			<ul>
+				<li><a href="index.html">About</a></li>
+				<li><a href="getting_started.html">Getting Started</a></li>
+				<li><span id="poststoggle" class="arrow arrowright"></span><a href="posts.html">Blog</a>
+					<ul id="posts" class="posts">
+					
+						<li><a href="/2013/01/29/parcels.html">Parcels</a></li>
+					
+						<li><a href="/2013/01/06/transactions.html">Transactions</a></li>
+					
+					</ul>
+				</li>
+				<li><span id="documentationtoggle" class="arrow arrowright"></span><a href="documentation.html">Documentation</a>
+					<ul id="documentation">
+						<li><a href="documentation.html#introduction">Introduction</a></li>
+						<li><a href="documentation.html#_activity">@Activity</a></li>
+						<li><a href="documentation.html#_fragment">@Fragment</a></li>
+						<li><a href="documentation.html#_service">@Service</a></li>
+						<li><a href="documentation.html#_broadcastreceiver">@BroadcastReceiver</a></li>
+						<li><a href="documentation.html#_application">@Application</a></li>
+						<li><a href="documentation.html#intent_factory">Intent Factory</a></li>
+						<li><a href="documentation.html#dependency_injection_di">Dependency Injection</a></li>
+						<li><a href="documentation.html#method_interceptors">Method Interceptors</a></li>
+						<li><a href="documentation.html#configuration">Configuration</a></li>
+						<li><a href="documentation.html#events">Events</a></li>
+						<li><a href="documentation.html#_parcel">@Parcel</a></li>
+						<li><a href="documentation.html#_factory">@Factory</a></li>
+						<li><a href="documentation.html#legacy_support">Legacy Support</a></li>
+						<li><a href="documentation.html#reference">Reference</a></li>
+					</ul>	
+				</li>
+				<li><a href="http://search.maven.org/#search%7Cga%7C1%7Cg%3A%22org.androidtransfuse%22">Download</a></li>
+			</ul>
+		</nav>
+	</div>
+	
+	<div class="thirteen columns content">
+
+		<div class="sect2">
+<h3 id="getting_started">Getting Started</h3>
+<div class="paragraph">
+<p>The code produced by this tutorial is located at <a href="https://github.com/johncarl81/transfuse/tree/master/examples/helloAndroid">https://github.com/johncarl81/transfuse/tree/master/examples/helloAndroid</a></p>
+</div>
+<div class="sect3">
+<h4 id="prerequisites">Prerequisites</h4>
+<div class="paragraph">
+<p>Transfuse requires a Java 6 (or greater) JDK and the <a href="http://developer.android.com/sdk/index.html">Android SDK</a>.</p>
+</div>
+
+</div>
+<div class="sect3">
+<h4 id="create_an_android_project">Create an Android Project</h4>
+<div class="paragraph">
+<p>Use the Maven archetype to run a new Android project, creating a basic Android application:</p>
+</div>
+<div class="listingblock">
+<div class="content monospaced">
+<pre class="CodeRay"><code class="bash language-bash">mvn archetype:generate \
+  -DarchetypeArtifactId=android-quickstart \
+  -DarchetypeGroupId=de.akquinet.android.archetypes \
+  -DarchetypeVersion=1.0.10 \
+  -DgroupId=org.androidtransfuse \
+  -DartifactId=hello-transfuse</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Remove the generated Activity class (HelloAndroidActivity.java) as well as the Application entry in the AndroidManifest.xml.</p>
+</div>
+<div class="paragraph">
+<p>The AndroidManifest.xml should look like this:</p>
+</div>
+<div class="listingblock">
+<div class="content monospaced">
+<pre class="CodeRay"><code class="xml language-xml"><span class="preprocessor">&lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-8&quot;?&gt;</span>
+<span class="tag">&lt;manifest</span> <span class="attribute-name">xmlns:android</span>=<span class="string"><span class="delimiter">&quot;</span><span class="content">http://schemas.android.com/apk/res/android</span><span class="delimiter">&quot;</span></span>
+<span class="attribute-name">package</span>=<span class="string"><span class="delimiter">&quot;</span><span class="content">org.androidtransfuse</span><span class="delimiter">&quot;</span></span> <span class="attribute-name">android:versionCode</span>=<span class="string"><span class="delimiter">&quot;</span><span class="content">1</span><span class="delimiter">&quot;</span></span> <span class="attribute-name">android:versionName</span>=<span class="string"><span class="delimiter">&quot;</span><span class="content">1.0-SNAPSHOT</span><span class="delimiter">&quot;</span></span><span class="tag">&gt;</span>
+<span class="tag">&lt;/manifest&gt;</span></code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Transfuse will add the Application xml back and manage it for the user. Transfuse is legacy friendly and gives the user the ability to migrate Activities and other Android components into Transfuse as needed. For applications with an existing codebase the step above is not required, but some manual merging may be needed.</p>
+</div>
+
+</div>
+<div class="sect3">
+<h4 id="download_transfuse">Download Transfuse</h4>
+<div class="paragraph">
+<p>Add the transfuse dependencies into the Maven pom:</p>
+</div>
+<div class="listingblock">
+<div class="content monospaced">
+<pre class="CodeRay"><code class="xml language-xml"><span class="tag">&lt;dependency&gt;</span>
+    <span class="tag">&lt;groupId&gt;</span>org.androidtransfuse<span class="tag">&lt;/groupId&gt;</span>
+    <span class="tag">&lt;artifactId&gt;</span>transfuse<span class="tag">&lt;/artifactId&gt;</span>
+    <span class="tag">&lt;version&gt;</span>0.2.1<span class="tag">&lt;/version&gt;</span>
+    <span class="tag">&lt;scope&gt;</span>provided<span class="tag">&lt;/scope&gt;</span>
+<span class="tag">&lt;/dependency&gt;</span>
+<span class="tag">&lt;dependency&gt;</span>
+    <span class="tag">&lt;groupId&gt;</span>org.androidtransfuse<span class="tag">&lt;/groupId&gt;</span>
+    <span class="tag">&lt;artifactId&gt;</span>transfuse-api<span class="tag">&lt;/artifactId&gt;</span>
+    <span class="tag">&lt;version&gt;</span>0.2.1<span class="tag">&lt;/version&gt;</span>
+<span class="tag">&lt;/dependency&gt;</span></code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Transfuse also can be downloaded directly from <a href="http://search.maven.org/#search%7Cga%7C1%7Cg%3A%22org.androidtransfuse%22">Maven Central</a>.</p>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<div class="title">Note</div>
+</td>
+<td class="content">
+The only runtime requirement for Transfuse is the API library.
+</td>
+</tr>
+</table>
+</div>
+
+</div>
+<div class="sect3">
+<h4 id="code">Code</h4>
+<div class="paragraph">
+<p>To build a Transfuse Activity, update the default layout (main.xml) in the res/layout folder:</p>
+</div>
+<div class="listingblock">
+<div class="content monospaced">
+<pre class="CodeRay"><code class="xml language-xml"><span class="preprocessor">&lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-8&quot;?&gt;</span>
+<span class="tag">&lt;LinearLayout</span> <span class="attribute-name">xmlns:android</span>=<span class="string"><span class="delimiter">&quot;</span><span class="content">http://schemas.android.com/apk/res/android</span><span class="delimiter">&quot;</span></span>
+              <span class="attribute-name">android:layout_width</span>=<span class="string"><span class="delimiter">&quot;</span><span class="content">fill_parent</span><span class="delimiter">&quot;</span></span>
+              <span class="attribute-name">android:layout_height</span>=<span class="string"><span class="delimiter">&quot;</span><span class="content">fill_parent</span><span class="delimiter">&quot;</span></span><span class="tag">&gt;</span>
+    <span class="tag">&lt;TextView</span> <span class="attribute-name">xmlns:android</span>=<span class="string"><span class="delimiter">&quot;</span><span class="content">http://schemas.android.com/apk/res/android</span><span class="delimiter">&quot;</span></span>
+              <span class="attribute-name">android:id</span>=<span class="string"><span class="delimiter">&quot;</span><span class="content">@+id/textview</span><span class="delimiter">&quot;</span></span>
+              <span class="attribute-name">android:layout_width</span>=<span class="string"><span class="delimiter">&quot;</span><span class="content">fill_parent</span><span class="delimiter">&quot;</span></span>
+              <span class="attribute-name">android:layout_height</span>=<span class="string"><span class="delimiter">&quot;</span><span class="content">fill_parent</span><span class="delimiter">&quot;</span></span><span class="tag">/&gt;</span>
+<span class="tag">&lt;/LinearLayout&gt;</span></code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>And the accompanying Transfuse Activity:</p>
+</div>
+<div class="listingblock">
+<div class="content monospaced">
+<pre class="CodeRay"><code class="java language-java"><span class="comment">// Example Transfuse Activity</span>
+<span class="annotation">@Activity</span>(label = <span class="string"><span class="delimiter">&quot;</span><span class="content">@string/app_name</span><span class="delimiter">&quot;</span></span>)
+<span class="annotation">@IntentFilter</span>({
+        <span class="annotation">@Intent</span>(type = IntentType.ACTION, name = android.content.Intent.ACTION_MAIN),
+        <span class="annotation">@Intent</span>(type = IntentType.CATEGORY, name = android.content.Intent.CATEGORY_LAUNCHER)
+})
+<span class="annotation">@Layout</span>(R.layout.main)
+<span class="directive">public</span> <span class="type">class</span> <span class="class">HelloAndroid</span> {
+
+    <span class="annotation">@Inject</span> <span class="annotation">@View</span>(R.id.textview)
+    <span class="directive">private</span> TextView textView;
+
+    <span class="annotation">@Inject</span> <span class="annotation">@Resource</span>(R.string.hello)
+    <span class="directive">private</span> <span class="predefined-type">String</span> helloText;
+
+    <span class="annotation">@OnCreate</span>
+    <span class="directive">public</span> <span class="type">void</span> hello() {
+        textView.setText(helloText);
+    }
+}</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Although syntactically different than the standard Android Activity, this should seem familiar to the seasoned Android developer.  With Transfuse, the properties previously defined in the AndroidManifest.xml file are now defined and associated directly with the Activity code.  This follows the Don&#8217;t Repeat Yourself (DRY) principle, keeping the Activity definition in one place instead of split between class files and xml resources.  There is no longer a requirement to extend Activity (or one of its extension classes) and define the typical boilerplate plumbing code.  Transfuse allows development of Android components in a POJO way, unrestricted by the extension-based API of Android.</p>
+</div>
+
+</div>
+<div class="sect3">
+<h4 id="build_and_deploy">Build and Deploy</h4>
+<div class="paragraph">
+<p>Transfuse requires a full build to generate the necessary class files and resources. Use Maven or Ant to cleanly build projects each time to deploy applications.</p>
+</div>
+<div class="listingblock">
+<div class="content monospaced">
+<pre class="CodeRay"><code class="bash language-bash">mvn clean package android:deploy</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>A fully functional Android application has now been built using Transfuse.</p>
+</div>
+
+</div>
+
+</div>
+
+
+
+
+		
+		 
+	
+	</div>
+
+</div>
+
+<a href="https://github.com/johncarl81/transfuse"><img style="position: absolute; top: 0; right: 0; border: 0;" src="https://s3.amazonaws.com/github/ribbons/forkme_right_green_007200.png" alt="Fork me on GitHub" /></a>
+
+<div id="footer">
+</div>
+
+<script type="text/javascript">
+var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
+document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));
+</script>
+<script type="text/javascript">
+try {
+var pageTracker = _gat._getTracker("UA-11587475-2");
+pageTracker._trackPageview();
+} catch(err) {}
+
+//twitter button
+!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0];if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src="//platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);}}(document,"script","twitter-wjs");
+
+//google +1 button
+  (function() {
+    var po = document.createElement('script'); po.type = 'text/javascript'; po.async = true;
+    po.src = 'https://apis.google.com/js/plusone.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(po, s);
+  })();
+
+function setupToggle(expanded, toggleId, toggleBodyId){
+
+	var updateArrows = function(){
+		updateArrowCss(expanded? 'arrowdown' : 'arrowright');
+	}
+
+	var updateArrowCss = function updateArrowCss(classifier){
+		$(toggleId).removeClass('arrowright');
+		$(toggleId).removeClass('arrowdiag');
+		$(toggleId).removeClass('arrowdown');
+		$(toggleId).addClass(classifier);
+	}
+
+	if(expanded){
+		$(toggleBodyId).show();
+	}
+	else{
+		$(toggleBodyId).hide();
+	}
+	updateArrows();
+
+	$(toggleId).mousedown(function() {
+		updateArrowCss('arrowdiag');
+	});
+
+	$(toggleId).mouseout(function() {
+		updateArrows();
+	});
+
+	$(toggleId).click(function() {
+		if(expanded){
+			$(toggleBodyId).slideUp();
+		}
+		else{
+			$(toggleBodyId).slideDown();
+		}
+		expanded = !expanded;
+		updateArrows();
+	});
+}
+
+setupToggle(false, '#documentationtoggle', '#documentation');
+setupToggle(false, '#poststoggle', '#posts');
+
+</script>
+</body>

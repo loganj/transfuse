@@ -1,0 +1,1344 @@
+<!DOCTYPE html>
+<!--[if lt IE 7 ]><html class="ie ie6" lang="en"> <![endif]-->
+<!--[if IE 7 ]><html class="ie ie7" lang="en"> <![endif]-->
+<!--[if IE 8 ]><html class="ie ie8" lang="en"> <![endif]-->
+<!--[if (gte IE 9)|!(IE)]><!--><html lang="en"> <!--<![endif]-->
+<head>
+    <!-- Basic Page Needs
+  ================================================== -->
+	<meta charset="utf-8">
+	<title>Transfuse Documentation</title>
+
+	<!-- Mobile Specific Metas
+  ================================================== -->
+	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+	<!-- CSS
+  ================================================== -->
+	<link href='http://fonts.googleapis.com/css?family=Source+Code+Pro' rel='stylesheet' type='text/css'>
+	<link rel="stylesheet" type="text/css" href="css/base.css">
+	<link rel="stylesheet" type="text/css" href="css/skeleton.css">
+	<link rel="stylesheet" type="text/css" href="css/layout.css">
+	<link rel="stylesheet" type="text/css" href="css/transfuse.css"/>
+	<link rel="stylesheet" type="text/css" href="css/coderay.css"/>
+	
+	<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.0/jquery.min.js" type="text/javascript"></script>
+	<script src="js/scroll.js"></script>
+
+</head>
+<body>
+
+<div class="container" itemscope itemtype="http://schema.org/CreativeWork">
+
+	<h2 class="remove-bottom" style="margin-top: 10px"><img itemprop="image" src="images/icon.png"/><a class="title" href="index.html" itemprop="url"><span itemprop="name">Transfuse</span></a></h2>
+	for Google Android
+	<br/>
+
+	<div id="socialwidget">
+		<a href="https://twitter.com/attransfuse" class="twitter-follow-button" data-show-count="false">Follow @attransfuse</a>
+        	<div class="g-plusone" data-size="medium" data-href="http://androidtransfuse.org/"></div>
+	</div>
+	<hr />
+
+	<div class="three columns">
+		<nav>
+			<ul>
+				<li><a href="index.html">About</a></li>
+				<li><a href="getting_started.html">Getting Started</a></li>
+				<li><span id="poststoggle" class="arrow arrowright"></span><a href="posts.html">Blog</a>
+					<ul id="posts" class="posts">
+					
+						<li><a href="/2013/01/29/parcels.html">Parcels</a></li>
+					
+						<li><a href="/2013/01/06/transactions.html">Transactions</a></li>
+					
+					</ul>
+				</li>
+				<li><span id="documentationtoggle" class="arrow arrowright"></span><a href="documentation.html">Documentation</a>
+					<ul id="documentation">
+						<li><a href="documentation.html#introduction">Introduction</a></li>
+						<li><a href="documentation.html#_activity">@Activity</a></li>
+						<li><a href="documentation.html#_fragment">@Fragment</a></li>
+						<li><a href="documentation.html#_service">@Service</a></li>
+						<li><a href="documentation.html#_broadcastreceiver">@BroadcastReceiver</a></li>
+						<li><a href="documentation.html#_application">@Application</a></li>
+						<li><a href="documentation.html#intent_factory">Intent Factory</a></li>
+						<li><a href="documentation.html#dependency_injection_di">Dependency Injection</a></li>
+						<li><a href="documentation.html#method_interceptors">Method Interceptors</a></li>
+						<li><a href="documentation.html#configuration">Configuration</a></li>
+						<li><a href="documentation.html#events">Events</a></li>
+						<li><a href="documentation.html#_parcel">@Parcel</a></li>
+						<li><a href="documentation.html#_factory">@Factory</a></li>
+						<li><a href="documentation.html#legacy_support">Legacy Support</a></li>
+						<li><a href="documentation.html#reference">Reference</a></li>
+					</ul>	
+				</li>
+				<li><a href="http://search.maven.org/#search%7Cga%7C1%7Cg%3A%22org.androidtransfuse%22">Download</a></li>
+			</ul>
+		</nav>
+	</div>
+	
+	<div class="thirteen columns content">
+
+		<div class="sect2">
+<h3 id="documentation">Documentation</h3>
+<div class="sect3">
+<h4 id="introduction">Introduction</h4>
+<div class="paragraph">
+<p>The Android API has a common theme throughout its components; each component must be implemented as an extension of a base component.  Although this approach works, it has subtle side effects. If the component implements many separate features, the component class quickly becomes a mismatch of behavior, resulting in hard-to-read and hard-to-test classes. Also, any third party library based on the component lifecycle or functionality provided by a Context must extend the given component class.  Because of Java&#8217;s single extension policy, this action makes these third party libraries that leverage Context components incompatible with each other.</p>
+</div>
+<div class="paragraph">
+<p>Additionally, each component must be registered individually in the AndroidManifest.xml file.  It is easy to overlook the need to register a new component, only to remember after it is already deployed to a emulator or device.  This duplication of registration and declaration violates the Don&#8217;t-Repeat-Yourself (DRY) principle.</p>
+</div>
+<div class="paragraph">
+<p>Transfuse resolves these issues in a number of different ways.  First, Transfuse changes the model of Android components into POJOs, allowing users to develop components the way they want.  There is no need to keep extending Activity, Service, etc. in order to implement the corresponding component.  Now, all that is necessary is to annotate the component classes to register them in the Android application.  This registration action tells Transfuse to add the component to the Android Manifest, essentially eliminating manual editing and management of the Manifest.</p>
+</div>
+<div class="paragraph">
+<p>Transfuse also offers a compile time Dependency Injection (DI) framework based on <a href="http://www.jcp.org/en/jsr/detail?id=330">JSR-330</a>.  This is the same standard implemented by the leading DI frameworks Guice, Spring, Seam, etc. DI allows the elimination of boilerplate plumbing code in the application, and also encourages well-formed application architecture.  However, Transfuse implements DI differently than the previously mentioned frameworks, in that it performs all analysis and code generation during compile time.  This reduces the critical startup time of an application, especially any lag based on runtime startup of Transfuse.</p>
+</div>
+<div class="paragraph">
+<p>It is Transfuse&#8217;s mission to make Android a better API using performance sensitive techniques.</p>
+</div>
+
+</div>
+<div class="sect3">
+<h4 id="high_level">High level</h4>
+<div class="paragraph">
+<p>A Transfuse application is built using a series of components analogous to the set of Android components.  These components are declared using the Transfuse API annotations on the class type level.</p>
+</div>
+<div class="paragraph">
+<p>Transfuse moves the declaration of Manifest metadata to the component class level.  This combines declaration of the Transfuse component with registration as an application Component.  Effectively, Transfuse will write and manage the AndroidManifest.xml file.  Additions can still be made to the AndroidManifest.xml file manually.  Transfuse will perform an intelligent merge of these manual changes with the managed elements.</p>
+</div>
+<div class="paragraph">
+<p>Each Transfuse component has a corresponding lifecycle built upon the standard lifecycle of the corresponding Android component.  This lifecycle is implemented by lifecycle events.  Any Transfuse event may be handled on the component, or at any instance, injected into it.</p>
+</div>
+<div class="paragraph">
+<p>Available to each component is Dependency Injection generated at compile time.  This feature is covered in depth in the <a href="#dependency_injection_di">Dependency Injection section</a>.</p>
+</div>
+
+</div>
+<div class="sect3">
+<h4 id="components">Components</h4>
+<div class="paragraph">
+<p>The Transfuse components are analogous to the standard set of Android components:  The Activity, Service, Application, and Broadcast Receiver.  Each of these components are defined by annotating a class as follows:</p>
+</div>
+<div class="listingblock">
+<div class="content monospaced">
+<pre class="CodeRay"><code class="java language-java"><span class="annotation">@Activity</span>
+<span class="directive">public</span> <span class="type">class</span> <span class="class">ExampleActivity</span> {}
+<span class="annotation">@Service</span>
+<span class="directive">public</span> <span class="type">class</span> <span class="class">ExampleService</span> {}
+<span class="annotation">@BroadcastReceiver</span>
+<span class="directive">public</span> <span class="type">class</span> <span class="class">ExampleBroadcastReceiver</span> {}</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>These annotations tell Transfuse to use the class as an Android component.  This turns on a number of features, such as DI and event mapping.</p>
+</div>
+<hr>
+</div>
+<div class="sect3">
+<h4 id="_activity">@Activity</h4>
+<div class="paragraph">
+<p>Annotating an Activity class begins the process of developing a Transfuse application.  A common next step is to associate the Activity with a layout.  In standard Android, this is done by defining the layout in the onCreate() method.  Transfuse allows the user to define the layout by annotating the @Activity class like so:</p>
+</div>
+<div class="listingblock">
+<div class="content monospaced">
+<pre class="CodeRay"><code class="java language-java"><span class="annotation">@Activity</span>
+<span class="annotation">@Layout</span>(R.id.example_layout)
+<span class="directive">public</span> <span class="type">class</span> <span class="class">Example</span> {}</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Transfuse follows the convention of declaring the layout directly after the super.onCreate() call in the root Activity.</p>
+</div>
+<div class="paragraph">
+<p>If the use cases require a more advanced layout declaration, like defining the layout programmatically, use the @LayoutHandler annotation and LayoutHandlerDelegate interface:</p>
+</div>
+<div class="listingblock">
+<div class="content monospaced">
+<pre class="CodeRay"><code class="java language-java"><span class="annotation">@Activity</span>
+<span class="annotation">@LayoutHandler</span>(LunchTimeLayoutDelegate.class)
+<span class="directive">public</span> <span class="type">class</span> <span class="class">Example</span>{}</code></pre>
+</div>
+</div>
+<div class="listingblock">
+<div class="content monospaced">
+<pre class="CodeRay"><code class="java language-java"><span class="directive">public</span> <span class="type">class</span> <span class="class">LunchTimeLayoutDelegate</span> <span class="directive">implements</span> LayoutHandlerDelegate{
+    <span class="annotation">@Inject</span> Activity activity;
+
+    <span class="directive">public</span> <span class="type">void</span> invokeLayout(){
+        <span class="keyword">if</span>(isLunchTime()){
+            activity.setContentView(R.id.lunchLayout);
+        }
+        <span class="keyword">else</span>{
+            activity.setContentView(R.ld.regularLayout);
+        }
+    }
+    ...
+}</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>A key feature of Transfuse is defining the AndroidManifest.xml metadata within the Java class declaration.  All manifest metadata is available either as parameters of the @Activity annotation or as additional annotations on the class level.  This follows the DRY principle, keeping the declaration and configuration of the Activity in one place.</p>
+</div>
+<div class="paragraph">
+<p>As an example, the label can be set to an Activity as follows:</p>
+</div>
+<div class="listingblock">
+<div class="content monospaced">
+<pre class="CodeRay"><code class="java language-java"><span class="annotation">@Activity</span>(label = <span class="string"><span class="delimiter">&quot;</span><span class="content">Transfuse Example</span><span class="delimiter">&quot;</span></span>)
+<span class="directive">public</span> <span class="type">class</span> <span class="class">Example</span> {}</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Transfuse adds this property to the AndroidManifest.xml, resulting in the following entry in the AndroidManifest.xml:</p>
+</div>
+<div class="listingblock">
+<div class="content monospaced">
+<pre class="CodeRay"><code class="xml language-xml"><span class="tag">&lt;activity</span> <span class="attribute-name">t:tag</span>=<span class="string"><span class="delimiter">&quot;</span><span class="content">+,l,n</span><span class="delimiter">&quot;</span></span> <span class="attribute-name">android:label</span>=<span class="string"><span class="delimiter">&quot;</span><span class="content">Transfuse Example</span><span class="delimiter">&quot;</span></span> <span class="attribute-name">android:name</span>=<span class="string"><span class="delimiter">&quot;</span><span class="content">.ExampleActivity</span><span class="delimiter">&quot;</span></span><span class="tag">&gt;</span>
+<span class="tag">&lt;/activity&gt;</span></code></pre>
+</div>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<div class="title">Note</div>
+</td>
+<td class="content">
+To track changes to the manifest, Transfuse adds to the managed xml tags the t:tag parameter.
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>In addition to the manifest activity properties, users are able to define IntentFilters on the class which will be added to the AndroidManifest.xml file:</p>
+</div>
+<div class="listingblock">
+<div class="content monospaced">
+<pre class="CodeRay"><code class="java language-java"><span class="annotation">@Activity</span>
+<span class="annotation">@IntentFilter</span>({
+    <span class="annotation">@Intent</span>(type = IntentType.ACTION, name = android.content.Intent.ACTION_MAIN),
+    <span class="annotation">@Intent</span>(type = IntentType.CATEGORY, name = android.content.Intent.CATEGORY_LAUNCHER)
+})
+<span class="directive">public</span> <span class="type">class</span> <span class="class">Example</span> {}</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>This sets up the Activity as the home screen and adds it to the list of applications on the phone.</p>
+</div>
+<div class="paragraph">
+<p>Now that the basic Activity has been set up and declared in the Manifest, let&#8217;s look at wiring the components up through the events raised by the Android system.</p>
+</div>
+<div class="sect4">
+<h5 id="lifecycle_events">Lifecycle Events</h5>
+<div class="paragraph">
+<p>Transfuse makes the entire Activity lifecycle available through a set of annotations.  Users may annotate zero, one, or many methods in the class.  In turn, these will be called during that lifecycle event.</p>
+</div>
+<div class="paragraph">
+<p>In the example class below, the log() method is executed during the onCreate phase of the Activity lifecycle:</p>
+</div>
+<div class="listingblock">
+<div class="content monospaced">
+<pre class="CodeRay"><code class="java language-java"><span class="annotation">@Activity</span>(label = <span class="string"><span class="delimiter">&quot;</span><span class="content">Transfuse Example</span><span class="delimiter">&quot;</span></span>)
+<span class="annotation">@Layout</span>(R.id.example_layout)
+<span class="annotation">@IntentFilter</span>({
+    <span class="annotation">@Intent</span>(type = IntentType.ACTION, name = android.content.Intent.ACTION_MAIN),
+    <span class="annotation">@Intent</span>(type = IntentType.CATEGORY, name = android.content.Intent.CATEGORY_LAUNCHER)
+})
+<span class="directive">public</span> <span class="type">class</span> <span class="class">Example</span> {
+    <span class="annotation">@OnCreate</span>
+    <span class="directive">public</span> <span class="type">void</span> log(){
+        Log.i(<span class="string"><span class="delimiter">&quot;</span><span class="content">Example Info</span><span class="delimiter">&quot;</span></span>, <span class="string"><span class="delimiter">&quot;</span><span class="content">OnCreate called</span><span class="delimiter">&quot;</span></span>);
+    }
+}</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>NOTE:Lifecycle events will not be called in any predefined order.</p>
+</div>
+<div class="paragraph">
+<p>During the onCreate lifecycle phase the log() method will be called.  Each method annotated by the given lifecycle event annotation is added to the generated component in that lifecycle method.</p>
+</div>
+<div class="paragraph">
+<p>The following are lifecycle events supported by @Activity components:</p>
+</div>
+<div class="listingblock">
+<div class="content monospaced">
+<pre class="CodeRay"><code class="java language-java"><span class="annotation">@OnCreate</span>
+<span class="annotation">@OnStart</span>
+<span class="annotation">@OnPause</span>
+<span class="annotation">@OnResume</span>
+<span class="annotation">@OnStop</span>
+<span class="annotation">@OnDestory</span>
+<span class="annotation">@OnBackPressed</span>
+<span class="annotation">@OnSaveInstanceState</span>
+<span class="annotation">@OnRestoreInstanceState</span></code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Optionally, parameters may be added to the annotated lifecycle event methods that match the mapped event method.  For instance, the onCreate() method has a Bundle parameter.  If this parameter is added to the annotated method, the bundle from the original onCreate() method will be passed in like the following:</p>
+</div>
+<div class="listingblock">
+<div class="content monospaced">
+<pre class="CodeRay"><code class="java language-java"><span class="annotation">@Activity</span>(label = <span class="string"><span class="delimiter">&quot;</span><span class="content">Transfuse Example</span><span class="delimiter">&quot;</span></span>)
+<span class="annotation">@Layout</span>(R.id.example_layout)
+<span class="annotation">@IntentFilter</span>({
+    <span class="annotation">@Intent</span>(type = IntentType.ACTION, name = android.content.Intent.ACTION_MAIN),
+    <span class="annotation">@Intent</span>(type = IntentType.CATEGORY, name = android.content.Intent.CATEGORY_LAUNCHER)
+})
+<span class="directive">public</span> <span class="type">class</span> <span class="class">Example</span> {
+    <span class="annotation">@OnCreate</span>
+    <span class="directive">public</span> <span class="type">void</span> log(Bundle bundle){
+        Log.i(<span class="string"><span class="delimiter">&quot;</span><span class="content">Example Info</span><span class="delimiter">&quot;</span></span>, <span class="string"><span class="delimiter">&quot;</span><span class="content">OnCreate called with value: </span><span class="delimiter">&quot;</span></span> + bundle.get(<span class="string"><span class="delimiter">&quot;</span><span class="content">value</span><span class="delimiter">&quot;</span></span>));
+    }
+}</code></pre>
+</div>
+</div>
+
+</div>
+<div class="sect4">
+<h5 id="listener_registration">Listener Registration</h5>
+<div class="paragraph">
+<p>Another common event to be raised by the Android system are by listeners on View components.  Users can easily define and register any of the listeners in the Android ecosystem with the corresponding View object.  The following example associates an anonymous inner OnClickListener with the R.id.button View object:</p>
+</div>
+<div class="listingblock">
+<div class="content monospaced">
+<pre class="CodeRay"><code class="java language-java"><span class="annotation">@Activity</span>
+<span class="annotation">@Layout</span>(R.id.example_layout)
+<span class="directive">public</span> <span class="type">class</span> <span class="class">Example</span>{
+    <span class="annotation">@RegisterListener</span>(R.id.button5)
+    <span class="predefined-type">View</span>.OnClickListener listener = <span class="keyword">new</span> <span class="predefined-type">View</span>.OnClickListener() {
+        <span class="directive">public</span> <span class="type">void</span> onClick(<span class="predefined-type">View</span> v) {
+            Log.i(<span class="string"><span class="delimiter">&quot;</span><span class="content">Example Info</span><span class="delimiter">&quot;</span></span>, <span class="string"><span class="delimiter">&quot;</span><span class="content">Button Clicked</span><span class="delimiter">&quot;</span></span>);
+        }
+    };
+}</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Transfuse contains a mapping of Listener type to registration method.  This allows Transfuse to register Listeners by type depending upon the view referenced.</p>
+</div>
+<div class="paragraph">
+<p>Optionally, the specific Listener type may be specified in the RegisterListner annotation.  This is useful for Listeners that implement multiple types.</p>
+</div>
+<div class="listingblock">
+<div class="content monospaced">
+<pre class="CodeRay"><code class="java language-java"><span class="annotation">@Activity</span>
+<span class="annotation">@Layout</span>(R.id.example_layout)
+<span class="directive">public</span> <span class="type">class</span> <span class="class">Example</span>{
+    <span class="annotation">@Inject</span>
+    <span class="annotation">@RegisterListener</span>(value = R.id.button5, interfaces = <span class="predefined-type">View</span>.OnLongClickListener.class)
+    MultipleListener listener;
+}</code></pre>
+</div>
+</div>
+
+</div>
+<div class="sect4">
+<h5 id="call_through_events">Call-Through Events</h5>
+<div class="paragraph">
+<p>Transfuse offers the concept of Call-Through events, for circumstances where either a return value is expected from an event or multiple event methods are closely associated.  Call-Through events are defined by an interface and mirrors the Activity event method.  For instance, to handle the onKeyDown event from an Activity an injected component (or the root annotated Activity) must implement the ActivityOnKeyDownListener interface and be annotated with the @RegisterListener annotation:</p>
+</div>
+<div class="listingblock">
+<div class="content monospaced">
+<pre class="CodeRay"><code class="java language-java"><span class="annotation">@Activity</span>
+<span class="annotation">@RegisterListener</span>
+<span class="directive">public</span> <span class="type">class</span> <span class="class">Example</span> <span class="directive">implements</span> ActivityOnKeyDownListener{
+    <span class="directive">public</span> <span class="type">boolean</span> onKeyDown(<span class="type">int</span> keyCode, android.view.KeyEvent event){
+        Log.i(<span class="string"><span class="delimiter">&quot;</span><span class="content">Key Pressed</span><span class="delimiter">&quot;</span></span>, keycode);
+    }
+}</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Call-Through event objects can also be injected an annotated at the field of method level.  This allows you to share Call-Through event objects:</p>
+</div>
+<div class="listingblock">
+<div class="content monospaced">
+<pre class="CodeRay"><code class="java language-java"><span class="annotation">@Activity</span>
+<span class="directive">public</span> <span class="type">class</span> <span class="class">One</span> {
+    <span class="annotation">@Inject</span> <span class="annotation">@RegisterListener</span> <span class="predefined-type">MenuListener</span> listener;
+}</code></pre>
+</div>
+</div>
+<div class="listingblock">
+<div class="content monospaced">
+<pre class="CodeRay"><code class="java language-java"><span class="annotation">@Activity</span>
+<span class="directive">public</span> <span class="type">class</span> <span class="class">Two</span> {
+    <span class="annotation">@Inject</span> <span class="annotation">@RegisterListener</span> <span class="predefined-type">MenuListener</span> listener;
+}</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>The MenuListener Call-Through object:</p>
+</div>
+<div class="listingblock">
+<div class="content monospaced">
+<pre class="CodeRay"><code class="java language-java"><span class="directive">public</span> <span class="type">class</span> <span class="class">MenuListener</span> <span class="directive">implements</span> ActivityMenuComponent{
+    <span class="comment">//...</span>
+}</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>The following interfaces are available to handle Call-Through Events:</p>
+</div>
+<div class="listingblock">
+<div class="content monospaced">
+<pre class="CodeRay"><code class="java language-java">ActivityMenuComponent
+ActivityOnKeyDownListener
+ActivityOnKeyLongPressListener
+ActivityOnKeyMultipleListener
+ActivityOnKeyUpListener
+ActivityOnTouchEventListener
+ActivityOnTrackballEventListener</code></pre>
+</div>
+</div>
+
+</div>
+<div class="sect4">
+<h5 id="injection_qualifiers">Injection Qualifiers</h5>
+<div class="paragraph">
+<p>There are a number of qualified injections available within the Activity injection graph.  Each qualifier designates a different source to draw the injection from.</p>
+</div>
+<div class="sect5">
+<h6 id="_extra">@Extra</h6>
+<div class="paragraph">
+<p>Android defines Extras as data points in a Bundle.  Extras are used to communicate from Context to Context across the Intent.  Transfuse allows users to define Extras as injection qualifiers and takes care of the deserialization from the Bundle in the onCreate() method.  Extras are defined by a String name, the Type, and may be declared optional.  Using the @Extra qualifier along with the IntentFactory helps enforce the contract specified by the Intent.</p>
+</div>
+<div class="paragraph">
+<p>The following Extra injection;</p>
+</div>
+<div class="listingblock">
+<div class="content monospaced">
+<pre class="CodeRay"><code class="java language-java"><span class="annotation">@Activity</span>
+<span class="directive">public</span> <span class="type">class</span> <span class="class">Example</span>{
+    <span class="annotation">@Inject</span> <span class="annotation">@Extra</span>(<span class="string"><span class="delimiter">&quot;</span><span class="content">one</span><span class="delimiter">&quot;</span></span>)
+    <span class="predefined-type">String</span> one;
+    <span class="annotation">@Inject</span> <span class="annotation">@Extra</span>(value = <span class="string"><span class="delimiter">&quot;</span><span class="content">two</span><span class="delimiter">&quot;</span></span>, optional = <span class="predefined-constant">true</span>)
+    <span class="predefined-type">String</span> two;
+}</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Firstly, requires a string value named "one" to be provided in the Bundle while starting the Example Activity, and secondly has the option to inject an extra String value named "two."  If the Extra "two" is not provided in the Intent starting the Example Activity, "two" will be null.</p>
+</div>
+
+</div>
+<div class="sect5">
+<h6 id="_resource">@Resource</h6>
+<div class="paragraph">
+<p>The Resource qualifier specifies the given injection draws from the Application&#8217;s Resources found on the Context.getResources() method call.  Each resource is looked up by name and by type.  For instance, the following injection</p>
+</div>
+<div class="listingblock">
+<div class="content monospaced">
+<pre class="CodeRay"><code class="java language-java"><span class="annotation">@Activity</span>
+<span class="directive">public</span> <span class="type">class</span> <span class="class">Example</span>{
+    <span class="annotation">@Inject</span> <span class="annotation">@Resource</span>(R.string.app_name)
+    <span class="predefined-type">String</span> appName;
+}</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>looks up the appName resource by String type</p>
+</div>
+<div class="listingblock">
+<div class="content monospaced">
+<pre class="CodeRay"><code class="java language-java">getApplication().getResources().getString(R.string.app_name);</code></pre>
+</div>
+</div>
+
+</div>
+<div class="sect5">
+<h6 id="_view">@View</h6>
+<div class="paragraph">
+<p>The View qualifier identifies the widget to inject from the view hierarchy set up during the onCreate phase.  As an example, look up a TextView by id with the following:</p>
+</div>
+<div class="listingblock">
+<div class="content monospaced">
+<pre class="CodeRay"><code class="java language-java"><span class="annotation">@Activity</span>
+<span class="directive">public</span> <span class="type">class</span> <span class="class">Example</span>{
+    <span class="annotation">@Inject</span> <span class="annotation">@View</span>(R.id.viewText)
+    ViewText viewText;
+}</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Optionally the view may be injected by tag value:</p>
+</div>
+<div class="listingblock">
+<div class="content monospaced">
+<pre class="CodeRay"><code class="java language-java"><span class="annotation">@Activity</span>
+<span class="directive">public</span> <span class="type">class</span> <span class="class">Example</span>{
+    <span class="annotation">@Inject</span> <span class="annotation">@View</span>(tag = <span class="string"><span class="delimiter">&quot;</span><span class="content">taggedView</span><span class="delimiter">&quot;</span></span>)
+    ViewText viewText;
+}</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>The View qualifier does perform the necessary casting from the getViewById() method, but makes the assumption that the type declared is correct.  This may cause issues when the type is incorrectly associated with the given View widget.</p>
+</div>
+
+</div>
+
+</div>
+<div class="sect4">
+<h5 id="_preference">@Preference</h5>
+<div class="paragraph">
+<p>The Preference qualifier draws a value by type and name from the application&#8217;s shared preferences.  The following example highlights injecting a preference named "favorite_color" and String type:</p>
+</div>
+<div class="listingblock">
+<div class="content monospaced">
+<pre class="CodeRay"><code class="java language-java"><span class="annotation">@Activity</span>
+<span class="directive">public</span> <span class="type">class</span> <span class="class">Example</span>{
+    <span class="annotation">@Inject</span> <span class="annotation">@Preference</span>(value = <span class="string"><span class="delimiter">&quot;</span><span class="content">favorite_color</span><span class="delimiter">&quot;</span></span>, <span class="keyword">default</span> = <span class="string"><span class="delimiter">&quot;</span><span class="content">green</span><span class="delimiter">&quot;</span></span>)
+    <span class="predefined-type">String</span> favColor;
+}</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>A default value must be provided with each preference injection.  These defaults will only be used if the preference is not specified.</p>
+</div>
+<div class="sect5">
+<h6 id="_systemservice">@SystemService</h6>
+<div class="paragraph">
+<p>All system services are mapped into the injection context by type:</p>
+</div>
+<div class="listingblock">
+<div class="content monospaced">
+<pre class="CodeRay"><code class="java language-java"><span class="annotation">@Activity</span>
+<span class="directive">public</span> <span class="type">class</span> <span class="class">Example</span>{
+    <span class="annotation">@Inject</span>
+    LocationManager locationManager;
+}</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Optionally users may inject into a base type of the given system service, but the system service type must be specified.  This may be helpful if the given system service is not mapped by Transfuse by type:</p>
+</div>
+<div class="listingblock">
+<div class="content monospaced">
+<pre class="CodeRay"><code class="java language-java"><span class="annotation">@Activity</span>
+<span class="directive">public</span> <span class="type">class</span> <span class="class">Example</span>{
+    <span class="annotation">@Inject</span> <span class="annotation">@SystemService</span>(<span class="predefined-type">Context</span>.LOCATION_SERVICE)
+    LocationManager locationManager;
+}</code></pre>
+</div>
+</div>
+
+</div>
+
+</div>
+<div class="sect4">
+<h5 id="_nonconfigurationinstance">@NonConfigurationInstance</h5>
+<div class="paragraph">
+<p>Annotating a field with NonConfigurationInstance will enable Activity persistence on the field value.  Specifically, this retains the given field instance by serializing it into a bundle in the onSaveInstanceState() method call and deserializes it from the Bundle in the onCreate() method call.  If the field is a <a href="#parcel">Parcel</a> Transfuse will wrap it with the appropriate generated parcelable object.</p>
+</div>
+<hr>
+</div>
+
+</div>
+<div class="sect3">
+<h4 id="_fragment">@Fragment</h4>
+<div class="paragraph">
+<p>Annotating a class with the Fragment annotation tells Transfuse to use the class as an Android Fragment.  Fragments are unique out of the Transfuse components because they almost always need to be referenced by class.  To use the generated Fragment one needs to know the class name of the generated Fragment.  If a name is not specified in the Fragment annotation, then Transfuse will default the generated class name to the name of the annotated class concatenated with "Fragment."  Otherwise, the class may be named anything that does not collide with any existing class name.</p>
+</div>
+<div class="paragraph">
+<p>Fragments map lifecycle events associated with the following annotations:</p>
+</div>
+<div class="listingblock">
+<div class="content monospaced">
+<pre class="CodeRay"><code class="java language-java"><span class="annotation">@OnCreateView</span>
+<span class="annotation">@OnActivityCreated</span>
+<span class="annotation">@OnStart</span>
+<span class="annotation">@OnResume</span>
+<span class="annotation">@OnPause</span>
+<span class="annotation">@OnStop</span>
+<span class="annotation">@OnDestroyView</span>
+<span class="annotation">@OnDestroy</span>
+<span class="annotation">@OnDetach</span>
+<span class="annotation">@OnLowMemory</span>
+<span class="annotation">@OnConfigurationChanged</span></code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>NOTE:Due to the fact that the View element of the Fragments are not created until the onCreateView lifecycle phase, Transfuse will not inject into the Fragment until that phase and does not map the onCreate lifecycle phase.</p>
+</div>
+<div class="paragraph">
+<p>All of the injections available on the Activity are available on the Fragment component.  In addition, the parent Activity may also be injected into the Fragment.</p>
+</div>
+<hr>
+</div>
+<div class="sect3">
+<h4 id="_service">@Service</h4>
+<div class="paragraph">
+<p>Annotating a class with the Service annotation tells Transfuse to use the class as an Android Service.  As with the Activity annotation, annotating a Service class will allow users to define all manifest metadata on the class level.  This includes IntentFilters and MetaData:</p>
+</div>
+<div class="listingblock">
+<div class="content monospaced">
+<pre class="CodeRay"><code class="java language-java"><span class="annotation">@Service</span>
+<span class="annotation">@IntentFilter</span>(<span class="annotation">@Intent</span>(type=IntentType.ACTION, name=<span class="string"><span class="delimiter">&quot;</span><span class="content">arbitraryIntent</span><span class="delimiter">&quot;</span></span>))
+<span class="directive">public</span> <span class="type">class</span> <span class="class">ExampleService</span> {}</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Transfuse Service classes have the following lifecycle events defined, analogous to the Android lifecycle events:</p>
+</div>
+<div class="listingblock">
+<div class="content monospaced">
+<pre class="CodeRay"><code class="java language-java"><span class="annotation">@OnCreate</span>
+<span class="annotation">@OnDestroy</span></code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Keep in mind that the onStartCommand lifecycle event is favored over the depreciated onStart event.  Transfuse support this by mapping the onStartCommand method through a call-through event on the following interface:</p>
+</div>
+<div class="listingblock">
+<div class="content monospaced">
+<pre class="CodeRay"><code class="java language-java">ServiceOnStartCommand</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Service may be injected as described in the <a href="#dependency_injection_di">Injection section</a>:</p>
+</div>
+<div class="listingblock">
+<div class="content monospaced">
+<pre class="CodeRay"><code class="java language-java"><span class="annotation">@Service</span>
+<span class="directive">public</span> <span class="type">class</span> <span class="class">ExampleService</span> {
+    <span class="annotation">@Inject</span>
+    <span class="directive">public</span> ExampleService(Dependency dependency) {
+        ...
+    }
+}</code></pre>
+</div>
+</div>
+<hr>
+</div>
+<div class="sect3">
+<h4 id="_broadcastreceiver">@BroadcastReceiver</h4>
+<div class="paragraph">
+<p>Annotating a class with the BroadcastReceiver annotation activates the class as an Android Broadcast Receiver component.</p>
+</div>
+<div class="paragraph">
+<p>The most important event handled by the Broadcast Receiver is OnReceieve.  Transfuse maps this event to the @OnReceive annotation.  As with the other components, users may define the Manifest metadata on the class level.  This means that the intents that the broadcast receiver responds to are defined at the class level.</p>
+</div>
+<div class="listingblock">
+<div class="content monospaced">
+<pre class="CodeRay"><code class="java language-java"><span class="annotation">@BroadcastReceiver</span>
+<span class="annotation">@Intent</span>(type = IntentType.ACTION, name = android.content.Intent.ACTION_BOOT_COMPLETED)
+<span class="directive">public</span> <span class="type">class</span> <span class="class">Startup</span>{
+    <span class="annotation">@OnReceive</span>
+    <span class="directive">public</span> <span class="type">void</span> bootup(){
+    }
+}</code></pre>
+</div>
+</div>
+<hr>
+</div>
+<div class="sect3">
+<h4 id="_application">@Application</h4>
+<div class="paragraph">
+<p>Annotating a class with the Activity annotation activates the class as an Android Application component.  There may be only one of these components through a Transfuse application.</p>
+</div>
+<div class="paragraph">
+<p>The annotated application class has the following lifecycle events available via the lifecycle event annotations:</p>
+</div>
+<div class="listingblock">
+<div class="content monospaced">
+<pre class="CodeRay"><code class="java language-java"><span class="annotation">@OnCreate</span>
+<span class="annotation">@OnLowMemory</span>
+<span class="annotation">@OnTerminate</span>
+<span class="annotation">@OnConfigurationChanged</span></code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>These annotations correspond to the similarly named lifecycle events available on the Application class.</p>
+</div>
+<hr>
+</div>
+<div class="sect3">
+<h4 id="intent_factory">Intent Factory</h4>
+<div class="paragraph">
+<p>Both Service and Activities may be started with a set of named Extras.  These Extras represent a contract on the intent used to start the given component.  To enforce this contract, Transfuse offers an Intent Factory to build intents based on a structured parameter; the Intent Strategy.  An Intent Strategy is generated for each component defined in Transfuse.</p>
+</div>
+<div class="paragraph">
+<p>The following Activity has two types of Extras, required and optional:</p>
+</div>
+<div class="listingblock">
+<div class="content monospaced">
+<pre class="CodeRay"><code class="java language-java"><span class="annotation">@Activity</span>
+<span class="directive">public</span> <span class="type">class</span> <span class="class">ExtraActivity</span>{
+    <span class="annotation">@Inject</span> <span class="annotation">@Extra</span>(<span class="string"><span class="delimiter">&quot;</span><span class="content">name</span><span class="delimiter">&quot;</span></span>)
+    <span class="predefined-type">String</span> name;
+    <span class="annotation">@Inject</span> <span class="annotation">@Extra</span>(value=<span class="string"><span class="delimiter">&quot;</span><span class="content">age</span><span class="delimiter">&quot;</span></span>, optional=<span class="predefined-constant">true</span>)
+    <span class="predefined-type">Integer</span> age;
+}</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Users may build and start the ExtraActivity with the IntentFactory:</p>
+</div>
+<div class="listingblock">
+<div class="content monospaced">
+<pre class="CodeRay"><code class="java language-java"><span class="annotation">@Activity</span>
+<span class="directive">public</span> <span class="type">class</span> <span class="class">CallingActivity</span>{
+    <span class="annotation">@Inject</span>
+    IntentFactory intentFactory;
+    <span class="directive">public</span> <span class="type">void</span> openExtraActivity() {
+        intentFactory.start(<span class="keyword">new</span> ExtraActivityIntentStrategy(<span class="string"><span class="delimiter">&quot;</span><span class="content">Andy</span><span class="delimiter">&quot;</span></span>).setAge(<span class="integer">42</span>));
+    }
+}</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Required injections are given using the IntentStrategy constructor as optional parameters are given using setters.</p>
+</div>
+<hr>
+</div>
+<div class="sect3">
+<h4 id="dependency_injection_di">Dependency Injection (DI)</h4>
+<div class="paragraph">
+<p>Transfuse implements [JSR-330][1], the same standard many of the leading DI frameworks implement.  The following annotations are available:</p>
+</div>
+<div class="sect4">
+<h5 id="_inject">@Inject</h5>
+<div class="paragraph">
+<p>Transfuse allows users to inject into the constructor, methods and fields of a class.  These injections may be public, protected, package private or private.  Users should prefer (in order) constructor injection, method, and then field injection.  Likewise, for performance reasons, users should prefer public, protected or package private injections over private.  Private injections requires Transfuse to use reflection at runtime and for large dependency graphs, it may significantly affect performance.</p>
+</div>
+<div class="paragraph">
+<p>NOTE:This documentation highlights using package private field injection because it is the most succinct.  Public constructor injection should be preferred.</p>
+</div>
+
+</div>
+<div class="sect4">
+<h5 id="provider">Provider</h5>
+<div class="paragraph">
+<p>Providers may be used to manually resolve the dependencies of a class. The Provider will be used to resolve both the injection of the Provider and the injection of the type the Provider returns:</p>
+</div>
+<div class="paragraph">
+<p>Provider:</p>
+</div>
+<div class="listingblock">
+<div class="content monospaced">
+<pre class="CodeRay"><code class="java language-java"><span class="directive">public</span> <span class="type">void</span> ExampleProvider <span class="directive">implements</span> <span class="predefined-type">Provider</span>&lt;Example&gt;
+    <span class="directive">public</span> Example get(){
+        <span class="keyword">return</span> <span class="keyword">new</span> Example();
+    }
+}</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Injections:</p>
+</div>
+<div class="listingblock">
+<div class="content monospaced">
+<pre class="CodeRay"><code class="java language-java"><span class="directive">public</span> <span class="type">void</span> TestInjections{
+    <span class="annotation">@Inject</span>
+    Example example; <span class="comment">//calls .get() to resolve example</span>
+    <span class="annotation">@Inject</span>
+    <span class="predefined-type">Provider</span>&lt;Example&gt; exampleProvider; <span class="comment">// determines the provider type by generics</span>
+    <span class="annotation">@Inject</span>
+    ExampleProvider concreteInjection;
+}</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>To map a Provider to a type, define the Provider binding in the TransfuseModule:</p>
+</div>
+<div class="listingblock">
+<div class="content monospaced">
+<pre class="CodeRay"><code class="java language-java"><span class="annotation">@TransfuseModule</span>
+<span class="annotation">@BindProviders</span>({
+    <span class="annotation">@BindProvider</span>(type = Example.class, provider = ExampleProvider.class)
+})
+<span class="directive">public</span> <span class="type">class</span> <span class="class">Module</span>{}</code></pre>
+</div>
+</div>
+
+</div>
+<div class="sect4">
+<h5 id="scopes">Scopes</h5>
+<div class="sect5">
+<h6 id="_singleton">@Singleton</h6>
+<div class="paragraph">
+<p>Any class annotated with @Singleton will, when injected, reference a single instance in the runtime.  This makes it easy to define singletons in the application, eliminating the boilerplate of defining the singleton behavior:</p>
+</div>
+<div class="listingblock">
+<div class="content monospaced">
+<pre class="CodeRay"><code class="java language-java"><span class="annotation">@Singleton</span>
+<span class="directive">public</span> <span class="type">class</span> <span class="class">SingletonExample</span>{ }</code></pre>
+</div>
+</div>
+
+</div>
+<div class="sect5">
+<h6 id="_contextscope">@ContextScope</h6>
+<div class="paragraph">
+<p>With the need to instantiate one, and only one, instance of a class per Context, Transfuse allows the declaration of a Context singleton via the<br>
+@ContextScope+ annotation.  Any object annotated with this will be scoped to the Context in which it was originally instantiated.</p>
+</div>
+
+</div>
+
+</div>
+<div class="sect4">
+<h5 id="custom_scopes">Custom Scopes</h5>
+<div class="paragraph">
+<p>Defining a custom scope is easy and especially useful when defining the lifecycle of objects in Transfuse.  A scope is an object implementing the <code>Scope</code> interface:</p>
+</div>
+<div class="listingblock">
+<div class="content monospaced">
+<pre class="CodeRay"><code class="java language-java"><span class="directive">public</span> <span class="type">class</span> <span class="class">MapScope</span> <span class="directive">implements</span> Scope {
+
+    <span class="directive">private</span> <span class="predefined-type">ConcurrentMap</span>&lt;ScopeKey&lt;?&gt;, <span class="predefined-type">Object</span>&gt; values = <span class="keyword">new</span> <span class="predefined-type">ConcurrentHashMap</span>&lt;ScopeKey&lt;?&gt;, <span class="predefined-type">Object</span>&gt;();
+
+    <span class="annotation">@Override</span>
+    <span class="directive">public</span> &lt;T&gt; T getScopedObject(<span class="directive">final</span> ScopeKey&lt;T&gt; key, <span class="directive">final</span> <span class="predefined-type">Provider</span>&lt;T&gt; provider) {
+        <span class="predefined-type">Object</span> current = values.get(key);
+        <span class="keyword">if</span> (current == <span class="predefined-constant">null</span>) {
+            <span class="predefined-type">Object</span> value = provider.get();
+            current = values.putIfAbsent(key, value);
+            <span class="keyword">if</span>(current == <span class="predefined-constant">null</span>){
+                current = value;
+            }
+        }
+        <span class="keyword">return</span> (T) current;
+    }
+}</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>It is important to consider concurrency when defining scopes as they can be used via multiple threads at once.  The example above demonstrates double checked locking with the ConcurrentMap.</p>
+</div>
+<div class="paragraph">
+<p>Scopes are defined in Transfuse via the <code>@TransfuseModule</code> and <code>@DefineScope</code> annotation.  A separate, unique identifying annotation must be declared for each scope:</p>
+</div>
+<div class="listingblock">
+<div class="content monospaced">
+<pre class="CodeRay"><code class="java language-java"><span class="annotation">@TransfuseModule</span>
+<span class="annotation">@DefineScope</span>(annotation = SimpleScope.class, scope = MapScope.class)
+<span class="directive">public</span> <span class="type">class</span> <span class="class">TransfuseAndroidModule</span> {}</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Scopes may be injected to be used directly:</p>
+</div>
+<div class="listingblock">
+<div class="content monospaced">
+<pre class="CodeRay"><code class="java language-java"><span class="annotation">@Activity</span>
+<span class="directive">public</span> <span class="type">class</span> <span class="class">Example</span> {
+    <span class="annotation">@Inject</span> <span class="annotation">@ScopeReference</span>(SimpleScope.class)
+    MapScope scope;
+}</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>An object in Transfuse may be identified as scoped by either annotating the class (as demonstrated in the <code>@Singleton</code> example above) or through the <code>@Provides</code> annotation:</p>
+</div>
+<div class="listingblock">
+<div class="content monospaced">
+<pre class="CodeRay"><code class="java language-java"><span class="annotation">@TransfuseModule</span>
+<span class="directive">public</span> <span class="type">class</span> <span class="class">TransfuseAndroidModule</span> {
+    <span class="annotation">@Provides</span> <span class="annotation">@SimpleScope</span>
+    <span class="directive">public</span> Example getScoped(){...}
+}</code></pre>
+</div>
+</div>
+
+</div>
+<div class="sect4">
+<h5 id="_implementedby">@ImplementedBy</h5>
+<div class="paragraph">
+<p>Annotating a class with @ImplementedBy configures Transfuse to inject the given annotation type whenever the annotated type is injected.  This is much like the @Bind module configuration, but @ImplemnetedBy is located on the type instead of within the @TransfuseModule class.</p>
+</div>
+<div class="paragraph">
+<p>An example of this is as follows:</p>
+</div>
+<div class="listingblock">
+<div class="content monospaced">
+<pre class="CodeRay"><code class="java language-java"><span class="annotation">@ImplementedBy</span>(Andy.class)
+<span class="directive">public</span> <span class="type">interface</span> <span class="class">Android</span> {}</code></pre>
+</div>
+</div>
+<div class="listingblock">
+<div class="content monospaced">
+<pre class="CodeRay"><code class="java language-java"><span class="directive">public</span> <span class="type">class</span> <span class="class">Andy</span> <span class="directive">implements</span> Android {}</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>The following injection would inject Andy in place of Android:</p>
+</div>
+<div class="listingblock">
+<div class="content monospaced">
+<pre class="CodeRay"><code class="java language-java"><span class="annotation">@Inject</span>
+Android andoid <span class="comment">// injected Andy</span></code></pre>
+</div>
+</div>
+
+</div>
+<div class="sect4">
+<h5 id="qualifiers">Qualifiers</h5>
+<div class="paragraph">
+<p>Qualifer annotation allow the developer to distingush between different instances of the same type within Transfuse.  For instance, it is common to define configuration paramters in Strings.  In this example, qualfier annotation allow the developer to determine which instance should be injected.  Qualifier annotations are configured along with the <code>@Provides</code> annotation in the <code>@TransfuseModule</code>:</p>
+</div>
+<div class="listingblock">
+<div class="content monospaced">
+<pre class="CodeRay"><code class="java language-java"><span class="annotation">@TransfuseModule</span>
+<span class="directive">public</span> <span class="type">class</span> <span class="class">TransfuseAndroidModule</span> {
+    <span class="annotation">@Provides</span> <span class="annotation">@Username</span>
+    <span class="directive">public</span> <span class="predefined-type">String</span> getUsername(){...}
+    <span class="annotation">@Provides</span> <span class="annotation">@Password</span>
+    <span class="directive">public</span> <span class="predefined-type">String</span> getPassword(){...}
+}</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>These objects can be injected by using the defined annotations:</p>
+</div>
+<div class="listingblock">
+<div class="content monospaced">
+<pre class="CodeRay"><code class="java language-java"><span class="annotation">@Activity</span>
+<span class="directive">public</span> <span class="type">class</span> <span class="class">Example</span> {
+    <span class="annotation">@Inject</span> <span class="annotation">@Username</span>
+    <span class="predefined-type">String</span> username;
+    <span class="annotation">@Inject</span> <span class="annotation">@Password</span>
+    <span class="predefined-type">String</span> password;
+}</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Built into JSR330 is the <code>@Named</code> annotation, which is fully supported by Transfuse.  This is an extreemly convienient, predefined qualifier annotation:</p>
+</div>
+<div class="listingblock">
+<div class="content monospaced">
+<pre class="CodeRay"><code class="java language-java"><span class="annotation">@TransfuseModule</span>
+<span class="directive">public</span> <span class="type">class</span> <span class="class">TransfuseAndroidModule</span> {
+    <span class="annotation">@Provides</span> <span class="annotation">@Named</span>(<span class="string"><span class="delimiter">&quot;</span><span class="content">username</span><span class="delimiter">&quot;</span></span>)
+    <span class="directive">public</span> <span class="predefined-type">String</span> getUsername(){...}
+}</code></pre>
+</div>
+</div>
+<div class="listingblock">
+<div class="content monospaced">
+<pre class="CodeRay"><code class="java language-java"><span class="annotation">@Activity</span>
+<span class="directive">public</span> <span class="type">class</span> <span class="class">Example</span> {
+    <span class="annotation">@Inject</span> <span class="annotation">@Named</span>(<span class="string"><span class="delimiter">&quot;</span><span class="content">username</span><span class="delimiter">&quot;</span></span>)
+    <span class="predefined-type">String</span> username;
+}</code></pre>
+</div>
+</div>
+
+</div>
+<div class="sect4">
+<h5 id="advanced">Advanced</h5>
+<div class="paragraph">
+<p>For completeness, Transfuse allows the declaration of dependency cycles.  For Transfuse to instantiate dependency cycles, at least one dependency in the loop must be injected via an interface.</p>
+</div>
+<hr>
+</div>
+
+</div>
+<div class="sect3">
+<h4 id="method_interceptors">Method Interceptors</h4>
+<div class="paragraph">
+<p>Transfuse offers a basic Aspect Oriented Programming (AOP) facility of method interception.  This feature is based on the AOPAlliance MethodInterceptor specification.  There are several useful method interceptors defined by Transfuse:</p>
+</div>
+<div class="sect4">
+<h5 id="_asynchronous">@Asynchronous</h5>
+<div class="paragraph">
+<p>Annotating a method with @Asynchronous tells Transfuse to proxy the execution of the method and to execute it within its own thread.  The method will execute and the calling thread will return immediately.</p>
+</div>
+
+</div>
+<div class="sect4">
+<h5 id="_uithread">@UIThread</h5>
+<div class="paragraph">
+<p>Annotating a method with @UIthread will execute the given method through an Android Handler.  This puts the execution of the method back on the UI thread.</p>
+</div>
+<div class="paragraph">
+<p>NOTE:If a return value is declared on the intercepted method, the Asynchronous and UIThread interceptors will return null.</p>
+</div>
+<div class="paragraph">
+<p>Custom method interceptors may be defined by associating a MethodInterceptor class with a custom annotation.</p>
+</div>
+<div class="paragraph">
+<p>Example:</p>
+</div>
+<div class="listingblock">
+<div class="content monospaced">
+<pre class="CodeRay"><code class="java language-java"><span class="annotation">@Target</span>(METHOD)
+<span class="directive">public</span> <span class="annotation">@interface</span> Log {}</code></pre>
+</div>
+</div>
+<div class="listingblock">
+<div class="content monospaced">
+<pre class="CodeRay"><code class="java language-java"><span class="directive">public</span> <span class="type">class</span> <span class="class">LogInterceptor</span> <span class="directive">implements</span> MethodInterceptor {
+    <span class="annotation">@Override</span>
+    <span class="directive">public</span> <span class="predefined-type">Object</span> invoke(MethodInvocation invocation) <span class="directive">throws</span> <span class="predefined-type">Throwable</span> {
+        Log.i(<span class="string"><span class="delimiter">&quot;</span><span class="content">Interception</span><span class="delimiter">&quot;</span></span>, <span class="string"><span class="delimiter">&quot;</span><span class="content">start</span><span class="delimiter">&quot;</span></span>);
+        <span class="predefined-type">Object</span> ret = invocation.proceed();
+        Log.i(<span class="string"><span class="delimiter">&quot;</span><span class="content">Interception</span><span class="delimiter">&quot;</span></span>, <span class="string"><span class="delimiter">&quot;</span><span class="content">finish</span><span class="delimiter">&quot;</span></span>);
+
+        <span class="keyword">return</span> ret;
+    }
+}</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>This example shows an interceptor that logs the starting and ending points of a method call.  All that is needed to use this method is to annotate a method like so:</p>
+</div>
+<div class="listingblock">
+<div class="content monospaced">
+<pre class="CodeRay"><code class="java language-java"><span class="directive">public</span> <span class="type">class</span> <span class="class">Example</span>{
+    <span class="annotation">@Log</span>
+    <span class="directive">public</span> <span class="type">void</span> methodCall() {
+    }
+}</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>These are associated in the TransfuseModule with the @BindInterceptor annotation.  See the <a href="#configuration">Configuration section</a> for more details.</p>
+</div>
+<div class="paragraph">
+<p>Annotating a class (as opposed to a method in a class) will configure Transfuse to apply the given aspect to all public methods defined on the class.</p>
+</div>
+<hr>
+</div>
+
+</div>
+<div class="sect3">
+<h4 id="configuration">Configuration</h4>
+<div class="paragraph">
+<p>Transfuse&#8217;s DI and Method Interception may be configured by defining a Transfuse Module.  This entails annotating a interface with @TransfuseModule and specifying one of the configuration options.</p>
+</div>
+<div class="paragraph">
+<p>To specify a specific binding from one injection type to a concrete type, use the @Bind annotation:</p>
+</div>
+<div class="listingblock">
+<div class="content monospaced">
+<pre class="CodeRay"><code class="java language-java"><span class="annotation">@TransfuseModule</span>
+<span class="annotation">@Bindings</span>({
+    <span class="annotation">@Bind</span>(type=Example.class, to=ExampleImpl.class)
+})
+<span class="directive">public</span> <span class="type">interface</span> <span class="class">Module</span>{}</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>This tells Transfuse to instantiate an instance of ExampleImpl and inject it every time a Example type is requested for injection.</p>
+</div>
+<div class="paragraph">
+<p>To specify a Provider to be used as a source for a binding, use the @BindProvider annotation:</p>
+</div>
+<div class="listingblock">
+<div class="content monospaced">
+<pre class="CodeRay"><code class="java language-java"><span class="annotation">@TransfuseModule</span>
+<span class="annotation">@BindProviders</span>({
+    <span class="annotation">@BindProvider</span>(type=Example.class, provider=ExampleProvider.class
+})
+<span class="directive">public</span> <span class="type">interface</span> <span class="class">Module</span>{}</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Transfuse will use ExampleProvider&#8217;s get() method to instantiate Example each time Example is requested for injection.</p>
+</div>
+<div class="paragraph">
+<p>To associate a method interceptor with an annotation use the @BindInterceptor annotation:</p>
+</div>
+<div class="listingblock">
+<div class="content monospaced">
+<pre class="CodeRay"><code class="java language-java"><span class="annotation">@TransfuseModule</span>
+<span class="annotation">@BindInterceptors</span>({
+    <span class="annotation">@BindInterceptor</span>(annotation = Log.class, interceptor = LogInterceptor.class)
+})
+<span class="directive">public</span> <span class="type">interface</span> <span class="class">Module</span>{}</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>This is requred to use the given method interceptor each time the corresponding annotation is used.</p>
+</div>
+<div class="paragraph">
+<p>Another flavor of configuration is available by the @Provides annotation.  @Provides configures a method in the Module to be called for the given return type:</p>
+</div>
+<div class="listingblock">
+<div class="content monospaced">
+<pre class="CodeRay"><code class="java language-java"><span class="annotation">@TransfuseModule</span>
+<span class="directive">public</span> <span class="type">interface</span> <span class="class">Module</span>{
+    <span class="annotation">@Provides</span>
+    <span class="directive">public</span> ExampleProvides buildExample(Depenendency dependency){
+        <span class="keyword">return</span> <span class="keyword">new</span> ExampleProvides(dependency);
+    }
+}</code></pre>
+</div>
+</div>
+<hr>
+</div>
+<div class="sect3">
+<h4 id="events">Events</h4>
+<div class="paragraph">
+<p>Transfuse offers a global event bus in addition to the mapping of the Android lifecycle and call-through events.</p>
+</div>
+<div class="paragraph">
+<p>Any type may be used as an event.  Event observer methods may be defined by either annotating the method or the parameter of a method in a component or injected class with the @Observes annotation:</p>
+</div>
+<div class="listingblock">
+<div class="content monospaced">
+<pre class="CodeRay"><code class="java language-java"><span class="directive">public</span> <span class="type">class</span> <span class="class">Event</span>{}
+
+<span class="directive">public</span> <span class="type">class</span> <span class="class">ListenerExample</span>{
+    <span class="annotation">@Observes</span>
+    <span class="directive">public</span> <span class="type">void</span> observeEvent(<span class="predefined-type">Event</span> event){}
+
+    <span class="directive">public</span> <span class="type">void</span> observeEvent2(<span class="annotation">@Observes</span> <span class="predefined-type">Event</span> event){}
+}</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Events are triggered by using the EventManager.trigger() method.  Simply call this method with the given event and all the available annotated methods will be triggered.</p>
+</div>
+<div class="listingblock">
+<div class="content monospaced">
+<pre class="CodeRay"><code class="java language-java"><span class="directive">public</span> <span class="type">class</span> <span class="class">Trigger</span>{
+    <span class="annotation">@Inject</span>
+    EventManager eventManager;
+
+    <span class="directive">public</span> <span class="type">void</span> trigger(){
+        eventManager.trigger(<span class="keyword">new</span> <span class="predefined-type">Event</span>());
+    }
+}</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Keep in mind that events may contain any relevant data and behavior.  It is completely definable by the user.  Also, the Observing methods are not called in any particular order, so make sure that the operations are not dependent on each other.</p>
+</div>
+<hr>
+</div>
+<div class="sect3">
+<h4 id="_parcel">@Parcel</h4>
+<div class="paragraph">
+<p>Transfuse offers a new way of defining Parcelable classes.  The typical implementation of a Parcelable class in Android is riddled with boilerplate.  Not only do users have to define the serialization manually, but also must define a public static final CREATOR class that implements the Parcelable.Creator interface.  Transfuse takes care of all of this.  Simply annotate the class with the @Parcel annotation.  Transfuse will detect all java bean format getter/setter pairs, map it to the designated Bundle serialization method, and produce a Parcelable class:</p>
+</div>
+<div class="listingblock">
+<div class="content monospaced">
+<pre class="CodeRay"><code class="java language-java"><span class="annotation">@Parcel</span>
+<span class="directive">public</span> <span class="type">void</span> CleanParcel{
+    <span class="directive">private</span> <span class="predefined-type">String</span> name;
+    <span class="directive">private</span> <span class="type">int</span> age;
+    <span class="directive">public</span> <span class="predefined-type">String</span> getName(){
+        <span class="keyword">return</span> name;
+    }
+    <span class="directive">public</span> <span class="type">void</span> setName(<span class="predefined-type">String</span> name){
+        <span class="local-variable">this</span>.name = name;
+    }
+    <span class="annotation">@Transient</span> <span class="comment">//don't serialize in parcelable</span>
+    <span class="directive">public</span> <span class="type">int</span> getAge(){
+        <span class="keyword">return</span> age;
+    }
+    <span class="directive">public</span> <span class="type">void</span> setAge(<span class="type">int</span> age){
+        <span class="local-variable">this</span>.age = age;
+    }
+}</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>If there is a parameter that the user does not want serialized, annotate the getter or setter with @Transient.</p>
+</div>
+<div class="paragraph">
+<p>Parcels are useful when passing data between Android components.  Therefore, when using the IntentFactory, Transfuse will automatically detect if a class is annotated with @Parcel and wrap it with the appropriate Parcelable implementation.</p>
+</div>
+<hr>
+</div>
+<div class="sect3">
+<h4 id="_factory">@Factory</h4>
+<div class="paragraph">
+<p>There may be a need to build a dependency graph of a given type outside of a Transfuse dependency graph.  To solve this, Transfuse offers the capability to define a Factory.  To define an Factory, simply define an interface, including methods that return the type of the values users require built and annotate it with @Factory.  Transfuse will read the interface and implement the appropriate injections.</p>
+</div>
+<div class="paragraph">
+<p>For instance, the following interface returns an Example type:</p>
+</div>
+<div class="listingblock">
+<div class="content monospaced">
+<pre class="CodeRay"><code class="java language-java"><span class="annotation">@Factory</span>
+<span class="directive">public</span> <span class="type">interface</span> <span class="class">TransfuseFactory</span>{
+    Example getExample();
+}</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>To use it, inject the Factory or reference the built Factory directly:</p>
+</div>
+<div class="listingblock">
+<div class="content monospaced">
+<pre class="CodeRay"><code class="java language-java"><span class="directive">public</span> <span class="type">class</span> <span class="class">ExampleUsage</span>{
+
+    <span class="annotation">@Inject</span> TransfuseFactory factory;
+
+    <span class="directive">public</span> <span class="type">void</span> use(){
+        Example example = factory.getExample();
+    }
+
+    <span class="directive">public</span> <span class="type">void</span> staticUsage(){
+        Example example = Factories.get(TransfuseFactory.class).getExample();
+    }
+}</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Factories may also be used as a factory with input parameters.  This is analagous to Guice&#8217;s Asssisted Injecton capability.  If multiple inputs of the same type exsit, binding annotations can be used to concretely map parameters.</p>
+</div>
+<div class="listingblock">
+<div class="content monospaced">
+<pre class="CodeRay"><code class="java language-java"><span class="annotation">@Factory</span>
+<span class="directive">public</span> <span class="type">interface</span> <span class="class">AssistedFactory</span> {
+    AssistedTarget buildTarget(AssistedDependency dependency);
+    AssistedDoubleTarget buildTarget(<span class="annotation">@Named</span>(<span class="string"><span class="delimiter">&quot;</span><span class="content">one</span><span class="delimiter">&quot;</span></span>) AssistedDependency dependencyOne,
+                                      <span class="annotation">@Named</span>(<span class="string"><span class="delimiter">&quot;</span><span class="content">two</span><span class="delimiter">&quot;</span></span>) AssistedDependency dependencyTwo);
+}</code></pre>
+</div>
+</div>
+<div class="listingblock">
+<div class="content monospaced">
+<pre class="CodeRay"><code class="java language-java"><span class="directive">public</span> <span class="type">class</span> <span class="class">AssistedTarget</span> {
+    <span class="annotation">@Inject</span>
+    AssistedDependency dependency;
+}</code></pre>
+</div>
+</div>
+<div class="listingblock">
+<div class="content monospaced">
+<pre class="CodeRay"><code class="java language-java"><span class="directive">public</span> <span class="type">class</span> <span class="class">AssistedDoubleTarget</span> {
+    <span class="annotation">@Inject</span> <span class="annotation">@Named</span>(<span class="string"><span class="delimiter">&quot;</span><span class="content">one</span><span class="delimiter">&quot;</span></span>)
+    AssistedDependency dependencyOne;
+    <span class="annotation">@Inject</span> <span class="annotation">@Named</span>(<span class="string"><span class="delimiter">&quot;</span><span class="content">two</span><span class="delimiter">&quot;</span></span>)
+    AssistedDependency dependencyTwo;
+}</code></pre>
+</div>
+</div>
+<hr>
+</div>
+<div class="sect3">
+<h4 id="legacy_support">Legacy Support</h4>
+<div class="paragraph">
+<p>In an ideal world, users are able to develop a new application.  Realistically however, users are often stuck with a legacy code base.  Transfuse anticipates this, and the AndroidManifest.xml management is flexible enough to mix Transfuse components with regular Android components.  The following options are available when dealing with legacy Android applications:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Define Android components as normal, and register them in the AndroidManifest.xml.  By using this option, users will not be able to use a majority of Transfuse&#8217;s features and Transfuse will not register the component in the AndroidManifest.xml file.  However, if a component is manually added to the AndroidManifest.xml file, Transfuse will detect the additions, preserve them and work around them.</p>
+</li>
+<li>
+<p>Define Android components as normal, and annotate it to be managed in the AndroidManifest.xml by Transfuse.  Transfuse detects if the annotated component extends an Android component, and if so, it will add it to the manifest.</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>NOTE:DI and the other code generation features are not available on legacy Android components.</p>
+</div>
+<div class="paragraph">
+<p>The second option looks like the following:</p>
+</div>
+<div class="listingblock">
+<div class="content monospaced">
+<pre class="CodeRay"><code class="java language-java"><span class="annotation">@Activity</span>(label = <span class="string"><span class="delimiter">&quot;</span><span class="content">Transfuse Example</span><span class="delimiter">&quot;</span></span>)
+<span class="annotation">@IntentFilter</span>({
+        <span class="annotation">@Intent</span>(type = IntentType.ACTION, name = android.content.Intent.ACTION_MAIN),
+        <span class="annotation">@Intent</span>(type = IntentType.CATEGORY, name = android.content.Intent.CATEGORY_LAUNCHER)
+})
+<span class="directive">public</span> <span class="type">class</span> <span class="class">Example</span> <span class="directive">extends</span> Activity {
+    ...
+}</code></pre>
+</div>
+</div>
+
+</div>
+<div class="sect3">
+<h4 id="reference">Reference</h4>
+<div class="paragraph">
+<p><a href="https://oss.sonatype.org/service/local/repositories/releases/archive/org/androidtransfuse/transfuse-api/0.2.1/transfuse-api-0.2.1-javadoc.jar/!/index.html">API Javadocs</a></p>
+</div>
+
+</div>
+
+</div>
+
+
+
+
+		
+		 
+	
+	</div>
+
+</div>
+
+<a href="https://github.com/johncarl81/transfuse"><img style="position: absolute; top: 0; right: 0; border: 0;" src="https://s3.amazonaws.com/github/ribbons/forkme_right_green_007200.png" alt="Fork me on GitHub" /></a>
+
+<div id="footer">
+</div>
+
+<script type="text/javascript">
+var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
+document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));
+</script>
+<script type="text/javascript">
+try {
+var pageTracker = _gat._getTracker("UA-11587475-2");
+pageTracker._trackPageview();
+} catch(err) {}
+
+//twitter button
+!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0];if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src="//platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);}}(document,"script","twitter-wjs");
+
+//google +1 button
+  (function() {
+    var po = document.createElement('script'); po.type = 'text/javascript'; po.async = true;
+    po.src = 'https://apis.google.com/js/plusone.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(po, s);
+  })();
+
+function setupToggle(expanded, toggleId, toggleBodyId){
+
+	var updateArrows = function(){
+		updateArrowCss(expanded? 'arrowdown' : 'arrowright');
+	}
+
+	var updateArrowCss = function updateArrowCss(classifier){
+		$(toggleId).removeClass('arrowright');
+		$(toggleId).removeClass('arrowdiag');
+		$(toggleId).removeClass('arrowdown');
+		$(toggleId).addClass(classifier);
+	}
+
+	if(expanded){
+		$(toggleBodyId).show();
+	}
+	else{
+		$(toggleBodyId).hide();
+	}
+	updateArrows();
+
+	$(toggleId).mousedown(function() {
+		updateArrowCss('arrowdiag');
+	});
+
+	$(toggleId).mouseout(function() {
+		updateArrows();
+	});
+
+	$(toggleId).click(function() {
+		if(expanded){
+			$(toggleBodyId).slideUp();
+		}
+		else{
+			$(toggleBodyId).slideDown();
+		}
+		expanded = !expanded;
+		updateArrows();
+	});
+}
+
+setupToggle(true, '#documentationtoggle', '#documentation');
+setupToggle(false, '#poststoggle', '#posts');
+
+</script>
+</body>
