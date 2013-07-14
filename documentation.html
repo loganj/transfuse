@@ -23,7 +23,6 @@
 	<link rel="stylesheet" type="text/css" href="css/coderay.css"/>
 	
 	<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.0/jquery.min.js" type="text/javascript"></script>
-	<script src="js/scroll.js"></script>
 
 </head>
 <body>
@@ -42,11 +41,11 @@
 
 	<div class="three columns">
 		<nav>
-			<ul>
+			<ul class="nav">
 				<li><a href="index.html">About</a></li>
 				<li><a href="getting_started.html">Getting Started</a></li>
 				<li><span id="poststoggle" class="arrow arrowright"></span><a href="posts.html">Blog</a>
-					<ul id="posts" class="posts">
+					<ul id="posts" class="posts nav">
 					
 						<li><a href="/2013/01/29/parcels.html">Parcels</a></li>
 					
@@ -55,7 +54,7 @@
 					</ul>
 				</li>
 				<li><span id="documentationtoggle" class="arrow arrowright"></span><a href="documentation.html">Documentation</a>
-					<ul id="documentation">
+					<ul id="documentation" class="nav">
 						<li><a href="documentation.html#introduction">Introduction</a></li>
 						<li><a href="documentation.html#_activity">@Activity</a></li>
 						<li><a href="documentation.html#_fragment">@Fragment</a></li>
@@ -255,8 +254,17 @@ To track changes to the manifest, Transfuse adds to the managed xml tags the t:t
 }</code></pre>
 </div>
 </div>
-<div class="paragraph">
-<p>NOTE:Lifecycle events will not be called in any predefined order.</p>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<div class="title">Note</div>
+</td>
+<td class="content">
+Lifecycle events will not be called in any predefined order.
+</td>
+</tr>
+</table>
 </div>
 <div class="paragraph">
 <p>During the onCreate lifecycle phase the log() method will be called.  Each method annotated by the given lifecycle event annotation is added to the generated component in that lifecycle method.</p>
@@ -562,8 +570,17 @@ ActivityOnTrackballEventListener</code></pre>
 <span class="annotation">@OnConfigurationChanged</span></code></pre>
 </div>
 </div>
-<div class="paragraph">
-<p>NOTE:Due to the fact that the View element of the Fragments are not created until the onCreateView lifecycle phase, Transfuse will not inject into the Fragment until that phase and does not map the onCreate lifecycle phase.</p>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<div class="title">Note</div>
+</td>
+<td class="content">
+Due to the fact that the View element of the Fragments are not created until the onCreateView lifecycle phase, Transfuse will not inject into the Fragment until that phase and does not map the onCreate lifecycle phase.
+</td>
+</tr>
+</table>
 </div>
 <div class="paragraph">
 <p>All of the injections available on the Activity are available on the Fragment component.  In addition, the parent Activity may also be injected into the Fragment.</p>
@@ -706,8 +723,17 @@ ActivityOnTrackballEventListener</code></pre>
 <div class="paragraph">
 <p>Transfuse allows users to inject into the constructor, methods and fields of a class.  These injections may be public, protected, package private or private.  Users should prefer (in order) constructor injection, method, and then field injection.  Likewise, for performance reasons, users should prefer public, protected or package private injections over private.  Private injections requires Transfuse to use reflection at runtime and for large dependency graphs, it may significantly affect performance.</p>
 </div>
-<div class="paragraph">
-<p>NOTE:This documentation highlights using package private field injection because it is the most succinct.  Public constructor injection should be preferred.</p>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<div class="title">Note</div>
+</td>
+<td class="content">
+This documentation highlights using package private field injection because it is the most succinct.  Public constructor injection should be preferred.
+</td>
+</tr>
+</table>
 </div>
 
 </div>
@@ -956,8 +982,17 @@ Android andoid <span class="comment">// injected Andy</span></code></pre>
 <div class="paragraph">
 <p>Annotating a method with @UIthread will execute the given method through an Android Handler.  This puts the execution of the method back on the UI thread.</p>
 </div>
-<div class="paragraph">
-<p>NOTE:If a return value is declared on the intercepted method, the Asynchronous and UIThread interceptors will return null.</p>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<div class="title">Note</div>
+</td>
+<td class="content">
+If a return value is declared on the intercepted method, the Asynchronous and UIThread interceptors will return null.
+</td>
+</tr>
+</table>
 </div>
 <div class="paragraph">
 <p>Custom method interceptors may be defined by associating a MethodInterceptor class with a custom annotation.</p>
@@ -1231,8 +1266,17 @@ Android andoid <span class="comment">// injected Andy</span></code></pre>
 </li>
 </ul>
 </div>
-<div class="paragraph">
-<p>NOTE:DI and the other code generation features are not available on legacy Android components.</p>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<div class="title">Note</div>
+</td>
+<td class="content">
+DI and the other code generation features are not available on legacy Android components.
+</td>
+</tr>
+</table>
 </div>
 <div class="paragraph">
 <p>The second option looks like the following:</p>
