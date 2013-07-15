@@ -120,10 +120,10 @@
 <span class="directive">public</span> <span class="type">class</span> <span class="class">HelloTransfuse</span> { <span class="comment">// &lt;1&gt;</span>
 
     <span class="annotation">@Inject</span> <span class="annotation">@View</span>(R.id.textview) <span class="comment">// &lt;3&gt;</span>
-    <span class="directive">private</span> TextView textView;
+    TextView textView;
 
     <span class="annotation">@Inject</span> <span class="annotation">@Resource</span>(R.string.hello)
-    <span class="directive">private</span> <span class="predefined-type">String</span> helloText;
+    <span class="predefined-type">String</span> helloText;
 
     <span class="annotation">@OnCreate</span> <span class="comment">// &lt;2&gt;</span>
     <span class="directive">public</span> <span class="type">void</span> hello() {
