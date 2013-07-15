@@ -111,9 +111,36 @@ ul.nav {
 }
 
 .conum:empty {
-    display: none
+    display: none;
+}
+pre .comment .conum {
+    left: -20px;
 }
 
-pre .comment .conum {
-    left: -20px
+.hdlist > table, .colist > table {
+    background: none repeat scroll 0 0 transparent;
+    border: 0 none;
+}
+.hdlist > table > tbody > tr, .colist > table > tbody > tr {
+    background: none repeat scroll 0 0 transparent;
+}
+td.hdlist1 {
+    font-weight: bold;
+    padding-right: 0.8em;
+    vertical-align: top;
+}
+.literalblock + .colist, .listingblock + .colist {
+    margin-top: -0.5em;
+}
+.colist > table tr > td:first-of-type {
+    line-height: 1;
+    padding: 0 0.8em;
+}
+.colist > table tr > td:last-of-type {
+    padding: 0.25em 0;
+}
+
+table thead tr th, table tfoot tr th, table tbody tr td, table tr td, table tfoot tr td {
+    display: table-cell;
+    line-height: 1.6;
 }

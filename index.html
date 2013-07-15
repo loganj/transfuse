@@ -133,20 +133,24 @@
 </div>
 </div>
 <div class="colist arabic">
-<ol>
-<li>
-<p>Now, Activities no longer extend the android.app.Activity class.</p>
-</li>
-<li>
-<p>The Android Activity lifecycle is handled via lightweight events.  Any component within the injection graph may define event methods to be called during those phases of the lifecycle.</p>
-</li>
-<li>
-<p>All specialty injections, such as injecting View elements, are designated with qualifier injections (@View, @Resource, etc.).</p>
-</li>
-<li>
-<p>Activity Manifest metadata, such as the label, are now defined on the class level instead of the AndroidManifest.xml file.  This puts all the relevant information regarding the Activity in one place.  Transfuse handles the job of registering the Activity and all the associated metadata in the AndroidManifest.xml file.</p>
-</li>
-</ol>
+<table>
+<tr>
+<td><i class="conum" data-value="1"></i><b>1</b></td>
+<td>Now, Activities no longer extend the android.app.Activity class.</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="2"></i><b>2</b></td>
+<td>The Android Activity lifecycle is handled via lightweight events.  Any component within the injection graph may define event methods to be called during those phases of the lifecycle.</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="3"></i><b>3</b></td>
+<td>All specialty injections, such as injecting View elements, are designated with qualifier injections (@View, @Resource, etc.).</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="4"></i><b>4</b></td>
+<td>Activity Manifest metadata, such as the label, are now defined on the class level instead of the AndroidManifest.xml file.  This puts all the relevant information regarding the Activity in one place.  Transfuse handles the job of registering the Activity and all the associated metadata in the AndroidManifest.xml file.</td>
+</tr>
+</table>
 </div>
 <div class="paragraph">
 <p>Read more about the features in the <a href="documentation.html">Documentation</a> section.</p>
