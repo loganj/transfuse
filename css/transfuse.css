@@ -1,5 +1,5 @@
 code {
-    font-family: 'Source Code Pro', monspace, courier new; !important
+    font-family: 'Source Code Pro', Consolas, 'Andale Mono WT', 'Andale Mono', 'Lucida Console', 'Lucida Sans Typewriter', 'DejaVu Sans Mono', 'Bitstream Vera Sans Mono', 'Liberation Mono', 'Nimbus Mono L', Monaco, 'Courier New', Courier, monospace; !important
 }
 
 nav ul li a, nav ul li a:visited, nav ul li a:active {
@@ -23,7 +23,7 @@ div.note  {
     border: 1px solid #D9D9BF; border-radius: 3px 3px 3px 3px; 
     margin: 0 0 9px; 
     padding: 20px 10px 20px 56px;
-    background: url("../images/note.png") no-repeat scroll 10px 10px #FFFFE0;
+    background: url('../images/note.png') no-repeat scroll 10px 10px #FFFFE0;
 }
 
 #socialwidget {
@@ -31,7 +31,7 @@ div.note  {
 }
 
 .arrow {
-    background: url("../images/arrows.png");
+    background: url('../images/arrows.png');
     height: 12px;
     width: 12px;
     position: absolute;
