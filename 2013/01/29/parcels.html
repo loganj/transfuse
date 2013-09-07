@@ -90,7 +90,7 @@
 <p>One of my favorite rough spots in Android to rag on is the Parcelable.  Parcelable classes are used by Android as a high-performance serialization option, especially useful when passing data between Activities/Contexts.  What is so rough about Parcelable classes are the API requirements.  Yes, Parcelable is an interface that defines the contract, but Android expects more!  Android requires that if your class is a Parcelable (and you&#8217;re using it as such) then you have to define a:</p>
 </div>
 <div class="listingblock">
-<div class="content monospaced">
+<div class="content">
 <pre class="CodeRay"><code class="java language-java"><span class="directive">public</span> <span class="directive">static</span> <span class="directive">final</span> Parcelable.Creator&lt;MyParcelable&gt; CREATOR</code></pre>
 </div>
 </div>
@@ -101,7 +101,7 @@
 <p>Transfuse gives you a way out of this mess.  Annotating a POJO with <code>@Parcel</code> will trigger, at compile time, the generation of a Parcelable class that serializes using the coordinated Java Bean getters and setters.  The result is your POJO is clear of any Parcelable cruft, while you get the performance of using the Parcelable.  Here&#8217;s an example:</p>
 </div>
 <div class="listingblock">
-<div class="content monospaced">
+<div class="content">
 <pre class="CodeRay"><code class="java language-java"><span class="annotation">@Parcel</span>
 <span class="directive">public</span> <span class="type">void</span> CleanParcel{
     <span class="directive">private</span> <span class="predefined-type">String</span> value;
@@ -121,7 +121,7 @@
 <p>To wrap your <code>@Parcel</code> manually, there is a <code>Parcels</code> utility class in the API:</p>
 </div>
 <div class="listingblock">
-<div class="content monospaced">
+<div class="content">
 <pre class="CodeRay"><code class="java language-java">Parcelable exampleWrapped = Parcel.wrap(example);</code></pre>
 </div>
 </div>
@@ -129,7 +129,7 @@
 <p>Of course, since it is generated code, you may use it directly as well:</p>
 </div>
 <div class="listingblock">
-<div class="content monospaced">
+<div class="content">
 <pre class="CodeRay"><code class="java language-java">Parcelable exampleWrapped = <span class="keyword">new</span> ParcelExample_Parcelable(example);</code></pre>
 </div>
 </div>
@@ -155,13 +155,8 @@
 </li>
 </ul>
 </div>
-
 </div>
-
 </div>
-
-
-
 
 		
 		 
@@ -251,11 +246,6 @@ function setupToggle(expanded, toggleId, toggleBodyId){
 
 setupToggle(false, '#documentationtoggle', '#documentation');
 setupToggle(true, '#poststoggle', '#posts');
-
-$('.CodeRay').each(function(){
-	$(this).html($(this).html().replace(/&lt;(\d)&gt;/g, '<i class="conum" data-value="$1"></i><b>$1</b>'));	
-});
-
 
 </script>
 </body>

@@ -98,7 +98,6 @@
 <div class="paragraph">
 <p>It is Transfuse&#8217;s mission to make Android a better API using performance sensitive techniques.</p>
 </div>
-
 </div>
 <div class="sect3">
 <h4 id="high_level">High level</h4>
@@ -114,7 +113,6 @@
 <div class="paragraph">
 <p>Available to each component is Dependency Injection generated at compile time.  This feature is covered in depth in the <a href="#dependency_injection_di">Dependency Injection section</a>.</p>
 </div>
-
 </div>
 <div class="sect3">
 <h4 id="components">Components</h4>
@@ -122,13 +120,14 @@
 <p>The Transfuse components are analogous to the standard set of Android components:  The Activity, Service, Application, and Broadcast Receiver.  Each of these components are defined by annotating a class as follows:</p>
 </div>
 <div class="listingblock">
-<div class="content monospaced">
+<div class="content">
 <pre class="CodeRay"><code class="java language-java"><span class="annotation">@Activity</span>
 <span class="directive">public</span> <span class="type">class</span> <span class="class">ExampleActivity</span> {}
 <span class="annotation">@Service</span>
 <span class="directive">public</span> <span class="type">class</span> <span class="class">ExampleService</span> {}
 <span class="annotation">@BroadcastReceiver</span>
-<span class="directive">public</span> <span class="type">class</span> <span class="class">ExampleBroadcastReceiver</span> {}</code></pre>
+<span class="directive">public</span> <span class="type">class</span> <span class="class">ExampleBroadcastReceiver</span> {}
+</code></pre>
 </div>
 </div>
 <div class="paragraph">
@@ -137,12 +136,12 @@
 <hr>
 </div>
 <div class="sect3">
-<h4 id="_activity">@Activity</h4>
+<h4 id="activity">@Activity</h4>
 <div class="paragraph">
 <p>Annotating an Activity class begins the process of developing a Transfuse application.  A common next step is to associate the Activity with a layout.  In standard Android, this is done by defining the layout in the onCreate() method.  Transfuse allows the user to define the layout by annotating the @Activity class like so:</p>
 </div>
 <div class="listingblock">
-<div class="content monospaced">
+<div class="content">
 <pre class="CodeRay"><code class="java language-java"><span class="annotation">@Activity</span>
 <span class="annotation">@Layout</span>(R.id.example_layout)
 <span class="directive">public</span> <span class="type">class</span> <span class="class">Example</span> {}</code></pre>
@@ -155,14 +154,14 @@
 <p>If the use cases require a more advanced layout declaration, like defining the layout programmatically, use the @LayoutHandler annotation and LayoutHandlerDelegate interface:</p>
 </div>
 <div class="listingblock">
-<div class="content monospaced">
+<div class="content">
 <pre class="CodeRay"><code class="java language-java"><span class="annotation">@Activity</span>
 <span class="annotation">@LayoutHandler</span>(LunchTimeLayoutDelegate.class)
 <span class="directive">public</span> <span class="type">class</span> <span class="class">Example</span>{}</code></pre>
 </div>
 </div>
 <div class="listingblock">
-<div class="content monospaced">
+<div class="content">
 <pre class="CodeRay"><code class="java language-java"><span class="directive">public</span> <span class="type">class</span> <span class="class">LunchTimeLayoutDelegate</span> <span class="directive">implements</span> LayoutHandlerDelegate{
     <span class="annotation">@Inject</span> Activity activity;
 
@@ -185,7 +184,7 @@
 <p>As an example, the label can be set to an Activity as follows:</p>
 </div>
 <div class="listingblock">
-<div class="content monospaced">
+<div class="content">
 <pre class="CodeRay"><code class="java language-java"><span class="annotation">@Activity</span>(label = <span class="string"><span class="delimiter">&quot;</span><span class="content">Transfuse Example</span><span class="delimiter">&quot;</span></span>)
 <span class="directive">public</span> <span class="type">class</span> <span class="class">Example</span> {}</code></pre>
 </div>
@@ -194,7 +193,7 @@
 <p>Transfuse adds this property to the AndroidManifest.xml, resulting in the following entry in the AndroidManifest.xml:</p>
 </div>
 <div class="listingblock">
-<div class="content monospaced">
+<div class="content">
 <pre class="CodeRay"><code class="xml language-xml"><span class="tag">&lt;activity</span> <span class="attribute-name">t:tag</span>=<span class="string"><span class="delimiter">&quot;</span><span class="content">+,l,n</span><span class="delimiter">&quot;</span></span> <span class="attribute-name">android:label</span>=<span class="string"><span class="delimiter">&quot;</span><span class="content">Transfuse Example</span><span class="delimiter">&quot;</span></span> <span class="attribute-name">android:name</span>=<span class="string"><span class="delimiter">&quot;</span><span class="content">.ExampleActivity</span><span class="delimiter">&quot;</span></span><span class="tag">&gt;</span>
 <span class="tag">&lt;/activity&gt;</span></code></pre>
 </div>
@@ -215,7 +214,7 @@ To track changes to the manifest, Transfuse adds to the managed xml tags the t:t
 <p>In addition to the manifest activity properties, users are able to define IntentFilters on the class which will be added to the AndroidManifest.xml file:</p>
 </div>
 <div class="listingblock">
-<div class="content monospaced">
+<div class="content">
 <pre class="CodeRay"><code class="java language-java"><span class="annotation">@Activity</span>
 <span class="annotation">@IntentFilter</span>({
     <span class="annotation">@Intent</span>(type = IntentType.ACTION, name = android.content.Intent.ACTION_MAIN),
@@ -239,7 +238,7 @@ To track changes to the manifest, Transfuse adds to the managed xml tags the t:t
 <p>In the example class below, the log() method is executed during the onCreate phase of the Activity lifecycle:</p>
 </div>
 <div class="listingblock">
-<div class="content monospaced">
+<div class="content">
 <pre class="CodeRay"><code class="java language-java"><span class="annotation">@Activity</span>(label = <span class="string"><span class="delimiter">&quot;</span><span class="content">Transfuse Example</span><span class="delimiter">&quot;</span></span>)
 <span class="annotation">@Layout</span>(R.id.example_layout)
 <span class="annotation">@IntentFilter</span>({
@@ -273,7 +272,7 @@ Lifecycle events will not be called in any predefined order.
 <p>The following are lifecycle events supported by @Activity components:</p>
 </div>
 <div class="listingblock">
-<div class="content monospaced">
+<div class="content">
 <pre class="CodeRay"><code class="java language-java"><span class="annotation">@OnCreate</span>
 <span class="annotation">@OnStart</span>
 <span class="annotation">@OnPause</span>
@@ -289,7 +288,7 @@ Lifecycle events will not be called in any predefined order.
 <p>Optionally, parameters may be added to the annotated lifecycle event methods that match the mapped event method.  For instance, the onCreate() method has a Bundle parameter.  If this parameter is added to the annotated method, the bundle from the original onCreate() method will be passed in like the following:</p>
 </div>
 <div class="listingblock">
-<div class="content monospaced">
+<div class="content">
 <pre class="CodeRay"><code class="java language-java"><span class="annotation">@Activity</span>(label = <span class="string"><span class="delimiter">&quot;</span><span class="content">Transfuse Example</span><span class="delimiter">&quot;</span></span>)
 <span class="annotation">@Layout</span>(R.id.example_layout)
 <span class="annotation">@IntentFilter</span>({
@@ -304,7 +303,6 @@ Lifecycle events will not be called in any predefined order.
 }</code></pre>
 </div>
 </div>
-
 </div>
 <div class="sect4">
 <h5 id="listener_registration">Listener Registration</h5>
@@ -312,7 +310,7 @@ Lifecycle events will not be called in any predefined order.
 <p>Another common event to be raised by the Android system are by listeners on View components.  Users can easily define and register any of the listeners in the Android ecosystem with the corresponding View object.  The following example associates an anonymous inner OnClickListener with the R.id.button View object:</p>
 </div>
 <div class="listingblock">
-<div class="content monospaced">
+<div class="content">
 <pre class="CodeRay"><code class="java language-java"><span class="annotation">@Activity</span>
 <span class="annotation">@Layout</span>(R.id.example_layout)
 <span class="directive">public</span> <span class="type">class</span> <span class="class">Example</span>{
@@ -332,7 +330,7 @@ Lifecycle events will not be called in any predefined order.
 <p>Optionally, the specific Listener type may be specified in the RegisterListner annotation.  This is useful for Listeners that implement multiple types.</p>
 </div>
 <div class="listingblock">
-<div class="content monospaced">
+<div class="content">
 <pre class="CodeRay"><code class="java language-java"><span class="annotation">@Activity</span>
 <span class="annotation">@Layout</span>(R.id.example_layout)
 <span class="directive">public</span> <span class="type">class</span> <span class="class">Example</span>{
@@ -342,7 +340,6 @@ Lifecycle events will not be called in any predefined order.
 }</code></pre>
 </div>
 </div>
-
 </div>
 <div class="sect4">
 <h5 id="call_through_events">Call-Through Events</h5>
@@ -350,7 +347,7 @@ Lifecycle events will not be called in any predefined order.
 <p>Transfuse offers the concept of Call-Through events, for circumstances where either a return value is expected from an event or multiple event methods are closely associated.  Call-Through events are defined by an interface and mirrors the Activity event method.  For instance, to handle the onKeyDown event from an Activity an injected component (or the root annotated Activity) must implement the ActivityOnKeyDownListener interface and be annotated with the @RegisterListener annotation:</p>
 </div>
 <div class="listingblock">
-<div class="content monospaced">
+<div class="content">
 <pre class="CodeRay"><code class="java language-java"><span class="annotation">@Activity</span>
 <span class="annotation">@RegisterListener</span>
 <span class="directive">public</span> <span class="type">class</span> <span class="class">Example</span> <span class="directive">implements</span> ActivityOnKeyDownListener{
@@ -364,7 +361,7 @@ Lifecycle events will not be called in any predefined order.
 <p>Call-Through event objects can also be injected an annotated at the field of method level.  This allows you to share Call-Through event objects:</p>
 </div>
 <div class="listingblock">
-<div class="content monospaced">
+<div class="content">
 <pre class="CodeRay"><code class="java language-java"><span class="annotation">@Activity</span>
 <span class="directive">public</span> <span class="type">class</span> <span class="class">One</span> {
     <span class="annotation">@Inject</span> <span class="annotation">@RegisterListener</span> <span class="predefined-type">MenuListener</span> listener;
@@ -372,7 +369,7 @@ Lifecycle events will not be called in any predefined order.
 </div>
 </div>
 <div class="listingblock">
-<div class="content monospaced">
+<div class="content">
 <pre class="CodeRay"><code class="java language-java"><span class="annotation">@Activity</span>
 <span class="directive">public</span> <span class="type">class</span> <span class="class">Two</span> {
     <span class="annotation">@Inject</span> <span class="annotation">@RegisterListener</span> <span class="predefined-type">MenuListener</span> listener;
@@ -383,7 +380,7 @@ Lifecycle events will not be called in any predefined order.
 <p>The MenuListener Call-Through object:</p>
 </div>
 <div class="listingblock">
-<div class="content monospaced">
+<div class="content">
 <pre class="CodeRay"><code class="java language-java"><span class="directive">public</span> <span class="type">class</span> <span class="class">MenuListener</span> <span class="directive">implements</span> ActivityMenuComponent{
     <span class="comment">//...</span>
 }</code></pre>
@@ -393,7 +390,7 @@ Lifecycle events will not be called in any predefined order.
 <p>The following interfaces are available to handle Call-Through Events:</p>
 </div>
 <div class="listingblock">
-<div class="content monospaced">
+<div class="content">
 <pre class="CodeRay"><code class="java language-java">ActivityMenuComponent
 ActivityOnKeyDownListener
 ActivityOnKeyLongPressListener
@@ -403,7 +400,6 @@ ActivityOnTouchEventListener
 ActivityOnTrackballEventListener</code></pre>
 </div>
 </div>
-
 </div>
 <div class="sect4">
 <h5 id="injection_qualifiers">Injection Qualifiers</h5>
@@ -411,7 +407,7 @@ ActivityOnTrackballEventListener</code></pre>
 <p>There are a number of qualified injections available within the Activity injection graph.  Each qualifier designates a different source to draw the injection from.</p>
 </div>
 <div class="sect5">
-<h6 id="_extra">@Extra</h6>
+<h6 id="extra">@Extra</h6>
 <div class="paragraph">
 <p>Android defines Extras as data points in a Bundle.  Extras are used to communicate from Context to Context across the Intent.  Transfuse allows users to define Extras as injection qualifiers and takes care of the deserialization from the Bundle in the onCreate() method.  Extras are defined by a String name, the Type, and may be declared optional.  Using the @Extra qualifier along with the IntentFactory helps enforce the contract specified by the Intent.</p>
 </div>
@@ -419,7 +415,7 @@ ActivityOnTrackballEventListener</code></pre>
 <p>The following Extra injection;</p>
 </div>
 <div class="listingblock">
-<div class="content monospaced">
+<div class="content">
 <pre class="CodeRay"><code class="java language-java"><span class="annotation">@Activity</span>
 <span class="directive">public</span> <span class="type">class</span> <span class="class">Example</span>{
     <span class="annotation">@Inject</span> <span class="annotation">@Extra</span>(<span class="string"><span class="delimiter">&quot;</span><span class="content">one</span><span class="delimiter">&quot;</span></span>)
@@ -432,15 +428,14 @@ ActivityOnTrackballEventListener</code></pre>
 <div class="paragraph">
 <p>Firstly, requires a string value named "one" to be provided in the Bundle while starting the Example Activity, and secondly has the option to inject an extra String value named "two."  If the Extra "two" is not provided in the Intent starting the Example Activity, "two" will be null.</p>
 </div>
-
 </div>
 <div class="sect5">
-<h6 id="_resource">@Resource</h6>
+<h6 id="resource">@Resource</h6>
 <div class="paragraph">
 <p>The Resource qualifier specifies the given injection draws from the Application&#8217;s Resources found on the Context.getResources() method call.  Each resource is looked up by name and by type.  For instance, the following injection</p>
 </div>
 <div class="listingblock">
-<div class="content monospaced">
+<div class="content">
 <pre class="CodeRay"><code class="java language-java"><span class="annotation">@Activity</span>
 <span class="directive">public</span> <span class="type">class</span> <span class="class">Example</span>{
     <span class="annotation">@Inject</span> <span class="annotation">@Resource</span>(R.string.app_name)
@@ -452,19 +447,18 @@ ActivityOnTrackballEventListener</code></pre>
 <p>looks up the appName resource by String type</p>
 </div>
 <div class="listingblock">
-<div class="content monospaced">
+<div class="content">
 <pre class="CodeRay"><code class="java language-java">getApplication().getResources().getString(R.string.app_name);</code></pre>
 </div>
 </div>
-
 </div>
 <div class="sect5">
-<h6 id="_view">@View</h6>
+<h6 id="view">@View</h6>
 <div class="paragraph">
 <p>The View qualifier identifies the widget to inject from the view hierarchy set up during the onCreate phase.  As an example, look up a TextView by id with the following:</p>
 </div>
 <div class="listingblock">
-<div class="content monospaced">
+<div class="content">
 <pre class="CodeRay"><code class="java language-java"><span class="annotation">@Activity</span>
 <span class="directive">public</span> <span class="type">class</span> <span class="class">Example</span>{
     <span class="annotation">@Inject</span> <span class="annotation">@View</span>(R.id.viewText)
@@ -476,7 +470,7 @@ ActivityOnTrackballEventListener</code></pre>
 <p>Optionally the view may be injected by tag value:</p>
 </div>
 <div class="listingblock">
-<div class="content monospaced">
+<div class="content">
 <pre class="CodeRay"><code class="java language-java"><span class="annotation">@Activity</span>
 <span class="directive">public</span> <span class="type">class</span> <span class="class">Example</span>{
     <span class="annotation">@Inject</span> <span class="annotation">@View</span>(tag = <span class="string"><span class="delimiter">&quot;</span><span class="content">taggedView</span><span class="delimiter">&quot;</span></span>)
@@ -487,17 +481,15 @@ ActivityOnTrackballEventListener</code></pre>
 <div class="paragraph">
 <p>The View qualifier does perform the necessary casting from the getViewById() method, but makes the assumption that the type declared is correct.  This may cause issues when the type is incorrectly associated with the given View widget.</p>
 </div>
-
 </div>
-
 </div>
 <div class="sect4">
-<h5 id="_preference">@Preference</h5>
+<h5 id="preference">@Preference</h5>
 <div class="paragraph">
 <p>The Preference qualifier draws a value by type and name from the application&#8217;s shared preferences.  The following example highlights injecting a preference named "favorite_color" and String type:</p>
 </div>
 <div class="listingblock">
-<div class="content monospaced">
+<div class="content">
 <pre class="CodeRay"><code class="java language-java"><span class="annotation">@Activity</span>
 <span class="directive">public</span> <span class="type">class</span> <span class="class">Example</span>{
     <span class="annotation">@Inject</span> <span class="annotation">@Preference</span>(value = <span class="string"><span class="delimiter">&quot;</span><span class="content">favorite_color</span><span class="delimiter">&quot;</span></span>, <span class="keyword">default</span> = <span class="string"><span class="delimiter">&quot;</span><span class="content">green</span><span class="delimiter">&quot;</span></span>)
@@ -509,12 +501,12 @@ ActivityOnTrackballEventListener</code></pre>
 <p>A default value must be provided with each preference injection.  These defaults will only be used if the preference is not specified.</p>
 </div>
 <div class="sect5">
-<h6 id="_systemservice">@SystemService</h6>
+<h6 id="systemservice">@SystemService</h6>
 <div class="paragraph">
 <p>All system services are mapped into the injection context by type:</p>
 </div>
 <div class="listingblock">
-<div class="content monospaced">
+<div class="content">
 <pre class="CodeRay"><code class="java language-java"><span class="annotation">@Activity</span>
 <span class="directive">public</span> <span class="type">class</span> <span class="class">Example</span>{
     <span class="annotation">@Inject</span>
@@ -526,7 +518,7 @@ ActivityOnTrackballEventListener</code></pre>
 <p>Optionally users may inject into a base type of the given system service, but the system service type must be specified.  This may be helpful if the given system service is not mapped by Transfuse by type:</p>
 </div>
 <div class="listingblock">
-<div class="content monospaced">
+<div class="content">
 <pre class="CodeRay"><code class="java language-java"><span class="annotation">@Activity</span>
 <span class="directive">public</span> <span class="type">class</span> <span class="class">Example</span>{
     <span class="annotation">@Inject</span> <span class="annotation">@SystemService</span>(<span class="predefined-type">Context</span>.LOCATION_SERVICE)
@@ -534,21 +526,18 @@ ActivityOnTrackballEventListener</code></pre>
 }</code></pre>
 </div>
 </div>
-
 </div>
-
 </div>
 <div class="sect4">
-<h5 id="_nonconfigurationinstance">@NonConfigurationInstance</h5>
+<h5 id="nonconfigurationinstance">@NonConfigurationInstance</h5>
 <div class="paragraph">
 <p>Annotating a field with NonConfigurationInstance will enable Activity persistence on the field value.  Specifically, this retains the given field instance by serializing it into a bundle in the onSaveInstanceState() method call and deserializes it from the Bundle in the onCreate() method call.  If the field is a <a href="#parcel">Parcel</a> Transfuse will wrap it with the appropriate generated parcelable object.</p>
 </div>
 <hr>
 </div>
-
 </div>
 <div class="sect3">
-<h4 id="_fragment">@Fragment</h4>
+<h4 id="fragment">@Fragment</h4>
 <div class="paragraph">
 <p>Annotating a class with the Fragment annotation tells Transfuse to use the class as an Android Fragment.  Fragments are unique out of the Transfuse components because they almost always need to be referenced by class.  To use the generated Fragment one needs to know the class name of the generated Fragment.  If a name is not specified in the Fragment annotation, then Transfuse will default the generated class name to the name of the annotated class concatenated with "Fragment."  Otherwise, the class may be named anything that does not collide with any existing class name.</p>
 </div>
@@ -556,7 +545,7 @@ ActivityOnTrackballEventListener</code></pre>
 <p>Fragments map lifecycle events associated with the following annotations:</p>
 </div>
 <div class="listingblock">
-<div class="content monospaced">
+<div class="content">
 <pre class="CodeRay"><code class="java language-java"><span class="annotation">@OnCreateView</span>
 <span class="annotation">@OnActivityCreated</span>
 <span class="annotation">@OnStart</span>
@@ -588,12 +577,12 @@ Due to the fact that the View element of the Fragments are not created until the
 <hr>
 </div>
 <div class="sect3">
-<h4 id="_service">@Service</h4>
+<h4 id="service">@Service</h4>
 <div class="paragraph">
 <p>Annotating a class with the Service annotation tells Transfuse to use the class as an Android Service.  As with the Activity annotation, annotating a Service class will allow users to define all manifest metadata on the class level.  This includes IntentFilters and MetaData:</p>
 </div>
 <div class="listingblock">
-<div class="content monospaced">
+<div class="content">
 <pre class="CodeRay"><code class="java language-java"><span class="annotation">@Service</span>
 <span class="annotation">@IntentFilter</span>(<span class="annotation">@Intent</span>(type=IntentType.ACTION, name=<span class="string"><span class="delimiter">&quot;</span><span class="content">arbitraryIntent</span><span class="delimiter">&quot;</span></span>))
 <span class="directive">public</span> <span class="type">class</span> <span class="class">ExampleService</span> {}</code></pre>
@@ -603,7 +592,7 @@ Due to the fact that the View element of the Fragments are not created until the
 <p>Transfuse Service classes have the following lifecycle events defined, analogous to the Android lifecycle events:</p>
 </div>
 <div class="listingblock">
-<div class="content monospaced">
+<div class="content">
 <pre class="CodeRay"><code class="java language-java"><span class="annotation">@OnCreate</span>
 <span class="annotation">@OnDestroy</span></code></pre>
 </div>
@@ -612,7 +601,7 @@ Due to the fact that the View element of the Fragments are not created until the
 <p>Keep in mind that the onStartCommand lifecycle event is favored over the depreciated onStart event.  Transfuse support this by mapping the onStartCommand method through a call-through event on the following interface:</p>
 </div>
 <div class="listingblock">
-<div class="content monospaced">
+<div class="content">
 <pre class="CodeRay"><code class="java language-java">ServiceOnStartCommand</code></pre>
 </div>
 </div>
@@ -620,7 +609,7 @@ Due to the fact that the View element of the Fragments are not created until the
 <p>Service may be injected as described in the <a href="#dependency_injection_di">Injection section</a>:</p>
 </div>
 <div class="listingblock">
-<div class="content monospaced">
+<div class="content">
 <pre class="CodeRay"><code class="java language-java"><span class="annotation">@Service</span>
 <span class="directive">public</span> <span class="type">class</span> <span class="class">ExampleService</span> {
     <span class="annotation">@Inject</span>
@@ -633,7 +622,7 @@ Due to the fact that the View element of the Fragments are not created until the
 <hr>
 </div>
 <div class="sect3">
-<h4 id="_broadcastreceiver">@BroadcastReceiver</h4>
+<h4 id="broadcastreceiver">@BroadcastReceiver</h4>
 <div class="paragraph">
 <p>Annotating a class with the BroadcastReceiver annotation activates the class as an Android Broadcast Receiver component.</p>
 </div>
@@ -641,7 +630,7 @@ Due to the fact that the View element of the Fragments are not created until the
 <p>The most important event handled by the Broadcast Receiver is OnReceieve.  Transfuse maps this event to the @OnReceive annotation.  As with the other components, users may define the Manifest metadata on the class level.  This means that the intents that the broadcast receiver responds to are defined at the class level.</p>
 </div>
 <div class="listingblock">
-<div class="content monospaced">
+<div class="content">
 <pre class="CodeRay"><code class="java language-java"><span class="annotation">@BroadcastReceiver</span>
 <span class="annotation">@Intent</span>(type = IntentType.ACTION, name = android.content.Intent.ACTION_BOOT_COMPLETED)
 <span class="directive">public</span> <span class="type">class</span> <span class="class">Startup</span>{
@@ -654,7 +643,7 @@ Due to the fact that the View element of the Fragments are not created until the
 <hr>
 </div>
 <div class="sect3">
-<h4 id="_application">@Application</h4>
+<h4 id="application">@Application</h4>
 <div class="paragraph">
 <p>Annotating a class with the Activity annotation activates the class as an Android Application component.  There may be only one of these components through a Transfuse application.</p>
 </div>
@@ -662,7 +651,7 @@ Due to the fact that the View element of the Fragments are not created until the
 <p>The annotated application class has the following lifecycle events available via the lifecycle event annotations:</p>
 </div>
 <div class="listingblock">
-<div class="content monospaced">
+<div class="content">
 <pre class="CodeRay"><code class="java language-java"><span class="annotation">@OnCreate</span>
 <span class="annotation">@OnLowMemory</span>
 <span class="annotation">@OnTerminate</span>
@@ -683,7 +672,7 @@ Due to the fact that the View element of the Fragments are not created until the
 <p>The following Activity has two types of Extras, required and optional:</p>
 </div>
 <div class="listingblock">
-<div class="content monospaced">
+<div class="content">
 <pre class="CodeRay"><code class="java language-java"><span class="annotation">@Activity</span>
 <span class="directive">public</span> <span class="type">class</span> <span class="class">ExtraActivity</span>{
     <span class="annotation">@Inject</span> <span class="annotation">@Extra</span>(<span class="string"><span class="delimiter">&quot;</span><span class="content">name</span><span class="delimiter">&quot;</span></span>)
@@ -697,7 +686,7 @@ Due to the fact that the View element of the Fragments are not created until the
 <p>Users may build and start the ExtraActivity with the IntentFactory:</p>
 </div>
 <div class="listingblock">
-<div class="content monospaced">
+<div class="content">
 <pre class="CodeRay"><code class="java language-java"><span class="annotation">@Activity</span>
 <span class="directive">public</span> <span class="type">class</span> <span class="class">CallingActivity</span>{
     <span class="annotation">@Inject</span>
@@ -719,7 +708,7 @@ Due to the fact that the View element of the Fragments are not created until the
 <p>Transfuse implements [JSR-330][1], the same standard many of the leading DI frameworks implement.  The following annotations are available:</p>
 </div>
 <div class="sect4">
-<h5 id="_inject">@Inject</h5>
+<h5 id="inject">@Inject</h5>
 <div class="paragraph">
 <p>Transfuse allows users to inject into the constructor, methods and fields of a class.  These injections may be public, protected, package private or private.  Users should prefer (in order) constructor injection, method, and then field injection.  Likewise, for performance reasons, users should prefer public, protected or package private injections over private.  Private injections requires Transfuse to use reflection at runtime and for large dependency graphs, it may significantly affect performance.</p>
 </div>
@@ -735,7 +724,6 @@ This documentation highlights using package private field injection because it i
 </tr>
 </table>
 </div>
-
 </div>
 <div class="sect4">
 <h5 id="provider">Provider</h5>
@@ -746,7 +734,7 @@ This documentation highlights using package private field injection because it i
 <p>Provider:</p>
 </div>
 <div class="listingblock">
-<div class="content monospaced">
+<div class="content">
 <pre class="CodeRay"><code class="java language-java"><span class="directive">public</span> <span class="type">void</span> ExampleProvider <span class="directive">implements</span> <span class="predefined-type">Provider</span>&lt;Example&gt;
     <span class="directive">public</span> Example get(){
         <span class="keyword">return</span> <span class="keyword">new</span> Example();
@@ -758,7 +746,7 @@ This documentation highlights using package private field injection because it i
 <p>Injections:</p>
 </div>
 <div class="listingblock">
-<div class="content monospaced">
+<div class="content">
 <pre class="CodeRay"><code class="java language-java"><span class="directive">public</span> <span class="type">void</span> TestInjections{
     <span class="annotation">@Inject</span>
     Example example; <span class="comment">//calls .get() to resolve example</span>
@@ -773,7 +761,7 @@ This documentation highlights using package private field injection because it i
 <p>To map a Provider to a type, define the Provider binding in the TransfuseModule:</p>
 </div>
 <div class="listingblock">
-<div class="content monospaced">
+<div class="content">
 <pre class="CodeRay"><code class="java language-java"><span class="annotation">@TransfuseModule</span>
 <span class="annotation">@BindProviders</span>({
     <span class="annotation">@BindProvider</span>(type = Example.class, provider = ExampleProvider.class)
@@ -781,32 +769,28 @@ This documentation highlights using package private field injection because it i
 <span class="directive">public</span> <span class="type">class</span> <span class="class">Module</span>{}</code></pre>
 </div>
 </div>
-
 </div>
 <div class="sect4">
 <h5 id="scopes">Scopes</h5>
 <div class="sect5">
-<h6 id="_singleton">@Singleton</h6>
+<h6 id="singleton">@Singleton</h6>
 <div class="paragraph">
 <p>Any class annotated with @Singleton will, when injected, reference a single instance in the runtime.  This makes it easy to define singletons in the application, eliminating the boilerplate of defining the singleton behavior:</p>
 </div>
 <div class="listingblock">
-<div class="content monospaced">
+<div class="content">
 <pre class="CodeRay"><code class="java language-java"><span class="annotation">@Singleton</span>
 <span class="directive">public</span> <span class="type">class</span> <span class="class">SingletonExample</span>{ }</code></pre>
 </div>
 </div>
-
 </div>
 <div class="sect5">
-<h6 id="_contextscope">@ContextScope</h6>
+<h6 id="contextscope">@ContextScope</h6>
 <div class="paragraph">
 <p>With the need to instantiate one, and only one, instance of a class per Context, Transfuse allows the declaration of a Context singleton via the<br>
 @ContextScope+ annotation.  Any object annotated with this will be scoped to the Context in which it was originally instantiated.</p>
 </div>
-
 </div>
-
 </div>
 <div class="sect4">
 <h5 id="custom_scopes">Custom Scopes</h5>
@@ -814,7 +798,7 @@ This documentation highlights using package private field injection because it i
 <p>Defining a custom scope is easy and especially useful when defining the lifecycle of objects in Transfuse.  A scope is an object implementing the <code>Scope</code> interface:</p>
 </div>
 <div class="listingblock">
-<div class="content monospaced">
+<div class="content">
 <pre class="CodeRay"><code class="java language-java"><span class="directive">public</span> <span class="type">class</span> <span class="class">MapScope</span> <span class="directive">implements</span> Scope {
 
     <span class="directive">private</span> <span class="predefined-type">ConcurrentMap</span>&lt;ScopeKey&lt;?&gt;, <span class="predefined-type">Object</span>&gt; values = <span class="keyword">new</span> <span class="predefined-type">ConcurrentHashMap</span>&lt;ScopeKey&lt;?&gt;, <span class="predefined-type">Object</span>&gt;();
@@ -841,7 +825,7 @@ This documentation highlights using package private field injection because it i
 <p>Scopes are defined in Transfuse via the <code>@TransfuseModule</code> and <code>@DefineScope</code> annotation.  A separate, unique identifying annotation must be declared for each scope:</p>
 </div>
 <div class="listingblock">
-<div class="content monospaced">
+<div class="content">
 <pre class="CodeRay"><code class="java language-java"><span class="annotation">@TransfuseModule</span>
 <span class="annotation">@DefineScope</span>(annotation = SimpleScope.class, scope = MapScope.class)
 <span class="directive">public</span> <span class="type">class</span> <span class="class">TransfuseAndroidModule</span> {}</code></pre>
@@ -851,7 +835,7 @@ This documentation highlights using package private field injection because it i
 <p>Scopes may be injected to be used directly:</p>
 </div>
 <div class="listingblock">
-<div class="content monospaced">
+<div class="content">
 <pre class="CodeRay"><code class="java language-java"><span class="annotation">@Activity</span>
 <span class="directive">public</span> <span class="type">class</span> <span class="class">Example</span> {
     <span class="annotation">@Inject</span> <span class="annotation">@ScopeReference</span>(SimpleScope.class)
@@ -863,7 +847,7 @@ This documentation highlights using package private field injection because it i
 <p>An object in Transfuse may be identified as scoped by either annotating the class (as demonstrated in the <code>@Singleton</code> example above) or through the <code>@Provides</code> annotation:</p>
 </div>
 <div class="listingblock">
-<div class="content monospaced">
+<div class="content">
 <pre class="CodeRay"><code class="java language-java"><span class="annotation">@TransfuseModule</span>
 <span class="directive">public</span> <span class="type">class</span> <span class="class">TransfuseAndroidModule</span> {
     <span class="annotation">@Provides</span> <span class="annotation">@SimpleScope</span>
@@ -871,10 +855,9 @@ This documentation highlights using package private field injection because it i
 }</code></pre>
 </div>
 </div>
-
 </div>
 <div class="sect4">
-<h5 id="_implementedby">@ImplementedBy</h5>
+<h5 id="implementedby">@ImplementedBy</h5>
 <div class="paragraph">
 <p>Annotating a class with @ImplementedBy configures Transfuse to inject the given annotation type whenever the annotated type is injected.  This is much like the @Bind module configuration, but @ImplemnetedBy is located on the type instead of within the @TransfuseModule class.</p>
 </div>
@@ -882,13 +865,13 @@ This documentation highlights using package private field injection because it i
 <p>An example of this is as follows:</p>
 </div>
 <div class="listingblock">
-<div class="content monospaced">
+<div class="content">
 <pre class="CodeRay"><code class="java language-java"><span class="annotation">@ImplementedBy</span>(Andy.class)
 <span class="directive">public</span> <span class="type">interface</span> <span class="class">Android</span> {}</code></pre>
 </div>
 </div>
 <div class="listingblock">
-<div class="content monospaced">
+<div class="content">
 <pre class="CodeRay"><code class="java language-java"><span class="directive">public</span> <span class="type">class</span> <span class="class">Andy</span> <span class="directive">implements</span> Android {}</code></pre>
 </div>
 </div>
@@ -896,12 +879,11 @@ This documentation highlights using package private field injection because it i
 <p>The following injection would inject Andy in place of Android:</p>
 </div>
 <div class="listingblock">
-<div class="content monospaced">
+<div class="content">
 <pre class="CodeRay"><code class="java language-java"><span class="annotation">@Inject</span>
 Android andoid <span class="comment">// injected Andy</span></code></pre>
 </div>
 </div>
-
 </div>
 <div class="sect4">
 <h5 id="qualifiers">Qualifiers</h5>
@@ -909,7 +891,7 @@ Android andoid <span class="comment">// injected Andy</span></code></pre>
 <p>Qualifer annotation allow the developer to distingush between different instances of the same type within Transfuse.  For instance, it is common to define configuration paramters in Strings.  In this example, qualfier annotation allow the developer to determine which instance should be injected.  Qualifier annotations are configured along with the <code>@Provides</code> annotation in the <code>@TransfuseModule</code>:</p>
 </div>
 <div class="listingblock">
-<div class="content monospaced">
+<div class="content">
 <pre class="CodeRay"><code class="java language-java"><span class="annotation">@TransfuseModule</span>
 <span class="directive">public</span> <span class="type">class</span> <span class="class">TransfuseAndroidModule</span> {
     <span class="annotation">@Provides</span> <span class="annotation">@Username</span>
@@ -923,7 +905,7 @@ Android andoid <span class="comment">// injected Andy</span></code></pre>
 <p>These objects can be injected by using the defined annotations:</p>
 </div>
 <div class="listingblock">
-<div class="content monospaced">
+<div class="content">
 <pre class="CodeRay"><code class="java language-java"><span class="annotation">@Activity</span>
 <span class="directive">public</span> <span class="type">class</span> <span class="class">Example</span> {
     <span class="annotation">@Inject</span> <span class="annotation">@Username</span>
@@ -937,7 +919,7 @@ Android andoid <span class="comment">// injected Andy</span></code></pre>
 <p>Built into JSR330 is the <code>@Named</code> annotation, which is fully supported by Transfuse.  This is an extreemly convienient, predefined qualifier annotation:</p>
 </div>
 <div class="listingblock">
-<div class="content monospaced">
+<div class="content">
 <pre class="CodeRay"><code class="java language-java"><span class="annotation">@TransfuseModule</span>
 <span class="directive">public</span> <span class="type">class</span> <span class="class">TransfuseAndroidModule</span> {
     <span class="annotation">@Provides</span> <span class="annotation">@Named</span>(<span class="string"><span class="delimiter">&quot;</span><span class="content">username</span><span class="delimiter">&quot;</span></span>)
@@ -946,7 +928,7 @@ Android andoid <span class="comment">// injected Andy</span></code></pre>
 </div>
 </div>
 <div class="listingblock">
-<div class="content monospaced">
+<div class="content">
 <pre class="CodeRay"><code class="java language-java"><span class="annotation">@Activity</span>
 <span class="directive">public</span> <span class="type">class</span> <span class="class">Example</span> {
     <span class="annotation">@Inject</span> <span class="annotation">@Named</span>(<span class="string"><span class="delimiter">&quot;</span><span class="content">username</span><span class="delimiter">&quot;</span></span>)
@@ -954,7 +936,6 @@ Android andoid <span class="comment">// injected Andy</span></code></pre>
 }</code></pre>
 </div>
 </div>
-
 </div>
 <div class="sect4">
 <h5 id="advanced">Advanced</h5>
@@ -963,7 +944,6 @@ Android andoid <span class="comment">// injected Andy</span></code></pre>
 </div>
 <hr>
 </div>
-
 </div>
 <div class="sect3">
 <h4 id="method_interceptors">Method Interceptors</h4>
@@ -971,14 +951,13 @@ Android andoid <span class="comment">// injected Andy</span></code></pre>
 <p>Transfuse offers a basic Aspect Oriented Programming (AOP) facility of method interception.  This feature is based on the AOPAlliance MethodInterceptor specification.  There are several useful method interceptors defined by Transfuse:</p>
 </div>
 <div class="sect4">
-<h5 id="_asynchronous">@Asynchronous</h5>
+<h5 id="asynchronous">@Asynchronous</h5>
 <div class="paragraph">
 <p>Annotating a method with @Asynchronous tells Transfuse to proxy the execution of the method and to execute it within its own thread.  The method will execute and the calling thread will return immediately.</p>
 </div>
-
 </div>
 <div class="sect4">
-<h5 id="_uithread">@UIThread</h5>
+<h5 id="uithread">@UIThread</h5>
 <div class="paragraph">
 <p>Annotating a method with @UIthread will execute the given method through an Android Handler.  This puts the execution of the method back on the UI thread.</p>
 </div>
@@ -1001,13 +980,13 @@ If a return value is declared on the intercepted method, the Asynchronous and UI
 <p>Example:</p>
 </div>
 <div class="listingblock">
-<div class="content monospaced">
+<div class="content">
 <pre class="CodeRay"><code class="java language-java"><span class="annotation">@Target</span>(METHOD)
 <span class="directive">public</span> <span class="annotation">@interface</span> Log {}</code></pre>
 </div>
 </div>
 <div class="listingblock">
-<div class="content monospaced">
+<div class="content">
 <pre class="CodeRay"><code class="java language-java"><span class="directive">public</span> <span class="type">class</span> <span class="class">LogInterceptor</span> <span class="directive">implements</span> MethodInterceptor {
     <span class="annotation">@Override</span>
     <span class="directive">public</span> <span class="predefined-type">Object</span> invoke(MethodInvocation invocation) <span class="directive">throws</span> <span class="predefined-type">Throwable</span> {
@@ -1024,7 +1003,7 @@ If a return value is declared on the intercepted method, the Asynchronous and UI
 <p>This example shows an interceptor that logs the starting and ending points of a method call.  All that is needed to use this method is to annotate a method like so:</p>
 </div>
 <div class="listingblock">
-<div class="content monospaced">
+<div class="content">
 <pre class="CodeRay"><code class="java language-java"><span class="directive">public</span> <span class="type">class</span> <span class="class">Example</span>{
     <span class="annotation">@Log</span>
     <span class="directive">public</span> <span class="type">void</span> methodCall() {
@@ -1040,7 +1019,6 @@ If a return value is declared on the intercepted method, the Asynchronous and UI
 </div>
 <hr>
 </div>
-
 </div>
 <div class="sect3">
 <h4 id="configuration">Configuration</h4>
@@ -1051,7 +1029,7 @@ If a return value is declared on the intercepted method, the Asynchronous and UI
 <p>To specify a specific binding from one injection type to a concrete type, use the @Bind annotation:</p>
 </div>
 <div class="listingblock">
-<div class="content monospaced">
+<div class="content">
 <pre class="CodeRay"><code class="java language-java"><span class="annotation">@TransfuseModule</span>
 <span class="annotation">@Bindings</span>({
     <span class="annotation">@Bind</span>(type=Example.class, to=ExampleImpl.class)
@@ -1066,7 +1044,7 @@ If a return value is declared on the intercepted method, the Asynchronous and UI
 <p>To specify a Provider to be used as a source for a binding, use the @BindProvider annotation:</p>
 </div>
 <div class="listingblock">
-<div class="content monospaced">
+<div class="content">
 <pre class="CodeRay"><code class="java language-java"><span class="annotation">@TransfuseModule</span>
 <span class="annotation">@BindProviders</span>({
     <span class="annotation">@BindProvider</span>(type=Example.class, provider=ExampleProvider.class
@@ -1081,7 +1059,7 @@ If a return value is declared on the intercepted method, the Asynchronous and UI
 <p>To associate a method interceptor with an annotation use the @BindInterceptor annotation:</p>
 </div>
 <div class="listingblock">
-<div class="content monospaced">
+<div class="content">
 <pre class="CodeRay"><code class="java language-java"><span class="annotation">@TransfuseModule</span>
 <span class="annotation">@BindInterceptors</span>({
     <span class="annotation">@BindInterceptor</span>(annotation = Log.class, interceptor = LogInterceptor.class)
@@ -1096,7 +1074,7 @@ If a return value is declared on the intercepted method, the Asynchronous and UI
 <p>Another flavor of configuration is available by the @Provides annotation.  @Provides configures a method in the Module to be called for the given return type:</p>
 </div>
 <div class="listingblock">
-<div class="content monospaced">
+<div class="content">
 <pre class="CodeRay"><code class="java language-java"><span class="annotation">@TransfuseModule</span>
 <span class="directive">public</span> <span class="type">interface</span> <span class="class">Module</span>{
     <span class="annotation">@Provides</span>
@@ -1117,7 +1095,7 @@ If a return value is declared on the intercepted method, the Asynchronous and UI
 <p>Any type may be used as an event.  Event observer methods may be defined by either annotating the method or the parameter of a method in a component or injected class with the @Observes annotation:</p>
 </div>
 <div class="listingblock">
-<div class="content monospaced">
+<div class="content">
 <pre class="CodeRay"><code class="java language-java"><span class="directive">public</span> <span class="type">class</span> <span class="class">Event</span>{}
 
 <span class="directive">public</span> <span class="type">class</span> <span class="class">ListenerExample</span>{
@@ -1132,7 +1110,7 @@ If a return value is declared on the intercepted method, the Asynchronous and UI
 <p>Events are triggered by using the EventManager.trigger() method.  Simply call this method with the given event and all the available annotated methods will be triggered.</p>
 </div>
 <div class="listingblock">
-<div class="content monospaced">
+<div class="content">
 <pre class="CodeRay"><code class="java language-java"><span class="directive">public</span> <span class="type">class</span> <span class="class">Trigger</span>{
     <span class="annotation">@Inject</span>
     EventManager eventManager;
@@ -1149,12 +1127,12 @@ If a return value is declared on the intercepted method, the Asynchronous and UI
 <hr>
 </div>
 <div class="sect3">
-<h4 id="_parcel">@Parcel</h4>
+<h4 id="parcel">@Parcel</h4>
 <div class="paragraph">
 <p>Transfuse offers a new way of defining Parcelable classes.  The typical implementation of a Parcelable class in Android is riddled with boilerplate.  Not only do users have to define the serialization manually, but also must define a public static final CREATOR class that implements the Parcelable.Creator interface.  Transfuse takes care of all of this.  Simply annotate the class with the @Parcel annotation.  Transfuse will detect all java bean format getter/setter pairs, map it to the designated Bundle serialization method, and produce a Parcelable class:</p>
 </div>
 <div class="listingblock">
-<div class="content monospaced">
+<div class="content">
 <pre class="CodeRay"><code class="java language-java"><span class="annotation">@Parcel</span>
 <span class="directive">public</span> <span class="type">void</span> CleanParcel{
     <span class="directive">private</span> <span class="predefined-type">String</span> name;
@@ -1184,7 +1162,7 @@ If a return value is declared on the intercepted method, the Asynchronous and UI
 <hr>
 </div>
 <div class="sect3">
-<h4 id="_factory">@Factory</h4>
+<h4 id="factory">@Factory</h4>
 <div class="paragraph">
 <p>There may be a need to build a dependency graph of a given type outside of a Transfuse dependency graph.  To solve this, Transfuse offers the capability to define a Factory.  To define an Factory, simply define an interface, including methods that return the type of the values users require built and annotate it with @Factory.  Transfuse will read the interface and implement the appropriate injections.</p>
 </div>
@@ -1192,7 +1170,7 @@ If a return value is declared on the intercepted method, the Asynchronous and UI
 <p>For instance, the following interface returns an Example type:</p>
 </div>
 <div class="listingblock">
-<div class="content monospaced">
+<div class="content">
 <pre class="CodeRay"><code class="java language-java"><span class="annotation">@Factory</span>
 <span class="directive">public</span> <span class="type">interface</span> <span class="class">TransfuseFactory</span>{
     Example getExample();
@@ -1203,7 +1181,7 @@ If a return value is declared on the intercepted method, the Asynchronous and UI
 <p>To use it, inject the Factory or reference the built Factory directly:</p>
 </div>
 <div class="listingblock">
-<div class="content monospaced">
+<div class="content">
 <pre class="CodeRay"><code class="java language-java"><span class="directive">public</span> <span class="type">class</span> <span class="class">ExampleUsage</span>{
 
     <span class="annotation">@Inject</span> TransfuseFactory factory;
@@ -1222,7 +1200,7 @@ If a return value is declared on the intercepted method, the Asynchronous and UI
 <p>Factories may also be used as a factory with input parameters.  This is analagous to Guice&#8217;s Asssisted Injecton capability.  If multiple inputs of the same type exsit, binding annotations can be used to concretely map parameters.</p>
 </div>
 <div class="listingblock">
-<div class="content monospaced">
+<div class="content">
 <pre class="CodeRay"><code class="java language-java"><span class="annotation">@Factory</span>
 <span class="directive">public</span> <span class="type">interface</span> <span class="class">AssistedFactory</span> {
     AssistedTarget buildTarget(AssistedDependency dependency);
@@ -1232,7 +1210,7 @@ If a return value is declared on the intercepted method, the Asynchronous and UI
 </div>
 </div>
 <div class="listingblock">
-<div class="content monospaced">
+<div class="content">
 <pre class="CodeRay"><code class="java language-java"><span class="directive">public</span> <span class="type">class</span> <span class="class">AssistedTarget</span> {
     <span class="annotation">@Inject</span>
     AssistedDependency dependency;
@@ -1240,7 +1218,7 @@ If a return value is declared on the intercepted method, the Asynchronous and UI
 </div>
 </div>
 <div class="listingblock">
-<div class="content monospaced">
+<div class="content">
 <pre class="CodeRay"><code class="java language-java"><span class="directive">public</span> <span class="type">class</span> <span class="class">AssistedDoubleTarget</span> {
     <span class="annotation">@Inject</span> <span class="annotation">@Named</span>(<span class="string"><span class="delimiter">&quot;</span><span class="content">one</span><span class="delimiter">&quot;</span></span>)
     AssistedDependency dependencyOne;
@@ -1282,7 +1260,7 @@ DI and the other code generation features are not available on legacy Android co
 <p>The second option looks like the following:</p>
 </div>
 <div class="listingblock">
-<div class="content monospaced">
+<div class="content">
 <pre class="CodeRay"><code class="java language-java"><span class="annotation">@Activity</span>(label = <span class="string"><span class="delimiter">&quot;</span><span class="content">Transfuse Example</span><span class="delimiter">&quot;</span></span>)
 <span class="annotation">@IntentFilter</span>({
         <span class="annotation">@Intent</span>(type = IntentType.ACTION, name = android.content.Intent.ACTION_MAIN),
@@ -1293,20 +1271,14 @@ DI and the other code generation features are not available on legacy Android co
 }</code></pre>
 </div>
 </div>
-
 </div>
 <div class="sect3">
 <h4 id="reference">Reference</h4>
 <div class="paragraph">
 <p><a href="https://oss.sonatype.org/service/local/repositories/releases/archive/org/androidtransfuse/transfuse-api/0.2.2/transfuse-api-0.2.2-javadoc.jar/!/index.html">API Javadocs</a></p>
 </div>
-
 </div>
-
 </div>
-
-
-
 
 		
 		 
@@ -1383,11 +1355,6 @@ function setupToggle(expanded, toggleId, toggleBodyId){
 
 setupToggle(true, '#documentationtoggle', '#documentation');
 setupToggle(false, '#poststoggle', '#posts');
-
-$('.CodeRay').each(function(){
-	$(this).html($(this).html().replace(/&lt;(\d)&gt;/g, '<i class="conum" data-value="$1"></i><b>$1</b>'));	
-});
-
 
 </script>
 </body>

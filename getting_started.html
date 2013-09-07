@@ -89,7 +89,6 @@
 <div class="paragraph">
 <p>Transfuse requires a Java 6 (or greater) JDK and the <a href="http://developer.android.com/sdk/index.html">Android SDK</a>.</p>
 </div>
-
 </div>
 <div class="sect3">
 <h4 id="create_an_android_project">Create an Android Project</h4>
@@ -97,7 +96,7 @@
 <p>Use the Maven archetype to run a new Android project, creating a basic Android application:</p>
 </div>
 <div class="listingblock">
-<div class="content monospaced">
+<div class="content">
 <pre class="CodeRay"><code>mvn archetype:generate \
   -DarchetypeArtifactId=android-quickstart \
   -DarchetypeGroupId=de.akquinet.android.archetypes \
@@ -113,7 +112,7 @@
 <p>The AndroidManifest.xml should look like this:</p>
 </div>
 <div class="listingblock">
-<div class="content monospaced">
+<div class="content">
 <pre class="CodeRay"><code class="xml language-xml"><span class="preprocessor">&lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-8&quot;?&gt;</span>
 <span class="tag">&lt;manifest</span> <span class="attribute-name">xmlns:android</span>=<span class="string"><span class="delimiter">&quot;</span><span class="content">http://schemas.android.com/apk/res/android</span><span class="delimiter">&quot;</span></span>
 <span class="attribute-name">package</span>=<span class="string"><span class="delimiter">&quot;</span><span class="content">org.androidtransfuse</span><span class="delimiter">&quot;</span></span> <span class="attribute-name">android:versionCode</span>=<span class="string"><span class="delimiter">&quot;</span><span class="content">1</span><span class="delimiter">&quot;</span></span> <span class="attribute-name">android:versionName</span>=<span class="string"><span class="delimiter">&quot;</span><span class="content">1.0-SNAPSHOT</span><span class="delimiter">&quot;</span></span><span class="tag">&gt;</span>
@@ -123,7 +122,6 @@
 <div class="paragraph">
 <p>Transfuse will add the Application xml back and manage it for the user. Transfuse is legacy friendly and gives the user the ability to migrate Activities and other Android components into Transfuse as needed. For applications with an existing codebase the step above is not required, but some manual merging may be needed.</p>
 </div>
-
 </div>
 <div class="sect3">
 <h4 id="download_transfuse">Download Transfuse</h4>
@@ -131,7 +129,7 @@
 <p>Add the transfuse dependencies into the Maven pom:</p>
 </div>
 <div class="listingblock">
-<div class="content monospaced">
+<div class="content">
 <pre class="CodeRay"><code class="xml language-xml"><span class="tag">&lt;dependency&gt;</span>
     <span class="tag">&lt;groupId&gt;</span>org.androidtransfuse<span class="tag">&lt;/groupId&gt;</span>
     <span class="tag">&lt;artifactId&gt;</span>transfuse<span class="tag">&lt;/artifactId&gt;</span>
@@ -160,7 +158,6 @@ The only runtime requirement for Transfuse is the API library.
 </tr>
 </table>
 </div>
-
 </div>
 <div class="sect3">
 <h4 id="code">Code</h4>
@@ -168,7 +165,7 @@ The only runtime requirement for Transfuse is the API library.
 <p>To build a Transfuse Activity, update the default layout (main.xml) in the res/layout folder:</p>
 </div>
 <div class="listingblock">
-<div class="content monospaced">
+<div class="content">
 <pre class="CodeRay"><code class="xml language-xml"><span class="preprocessor">&lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-8&quot;?&gt;</span>
 <span class="tag">&lt;LinearLayout</span> <span class="attribute-name">xmlns:android</span>=<span class="string"><span class="delimiter">&quot;</span><span class="content">http://schemas.android.com/apk/res/android</span><span class="delimiter">&quot;</span></span>
               <span class="attribute-name">android:layout_width</span>=<span class="string"><span class="delimiter">&quot;</span><span class="content">fill_parent</span><span class="delimiter">&quot;</span></span>
@@ -184,7 +181,7 @@ The only runtime requirement for Transfuse is the API library.
 <p>And the accompanying Transfuse Activity:</p>
 </div>
 <div class="listingblock">
-<div class="content monospaced">
+<div class="content">
 <pre class="CodeRay"><code class="java language-java"><span class="comment">// Example Transfuse Activity</span>
 <span class="annotation">@Activity</span>(label = <span class="string"><span class="delimiter">&quot;</span><span class="content">@string/app_name</span><span class="delimiter">&quot;</span></span>)
 <span class="annotation">@IntentFilter</span>({
@@ -210,7 +207,6 @@ The only runtime requirement for Transfuse is the API library.
 <div class="paragraph">
 <p>Although syntactically different than the standard Android Activity, this should seem familiar to the seasoned Android developer.  With Transfuse, the properties previously defined in the AndroidManifest.xml file are now defined and associated directly with the Activity code.  This follows the Don&#8217;t Repeat Yourself (DRY) principle, keeping the Activity definition in one place instead of split between class files and xml resources.  There is no longer a requirement to extend Activity (or one of its extension classes) and define the typical boilerplate plumbing code.  Transfuse allows development of Android components in a POJO way, unrestricted by the extension-based API of Android.</p>
 </div>
-
 </div>
 <div class="sect3">
 <h4 id="build_and_deploy">Build and Deploy</h4>
@@ -218,20 +214,15 @@ The only runtime requirement for Transfuse is the API library.
 <p>Transfuse requires a full build to generate the necessary class files and resources. Use Maven or Ant to cleanly build projects each time to deploy applications.</p>
 </div>
 <div class="listingblock">
-<div class="content monospaced">
+<div class="content">
 <pre class="CodeRay"><code>mvn clean package android:deploy</code></pre>
 </div>
 </div>
 <div class="paragraph">
 <p>A fully functional Android application has now been built using Transfuse.</p>
 </div>
-
 </div>
-
 </div>
-
-
-
 
 		
 		 
@@ -308,11 +299,6 @@ function setupToggle(expanded, toggleId, toggleBodyId){
 
 setupToggle(false, '#documentationtoggle', '#documentation');
 setupToggle(false, '#poststoggle', '#posts');
-
-$('.CodeRay').each(function(){
-	$(this).html($(this).html().replace(/&lt;(\d)&gt;/g, '<i class="conum" data-value="$1"></i><b>$1</b>'));	
-});
-
 
 </script>
 </body>

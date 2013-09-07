@@ -106,7 +106,6 @@
 <div class="paragraph">
 <p>All of these features help eliminate boilerplate plumbing code and make Android applications much easier to write.</p>
 </div>
-
 </div>
 <div class="sect2">
 <h3 id="example">Example</h3>
@@ -114,18 +113,18 @@
 <p>Using Transfuse, an Android Activity looks like the following:</p>
 </div>
 <div class="listingblock">
-<div class="content monospaced">
+<div class="content">
 <pre class="CodeRay"><code class="java language-java"><span class="annotation">@Activity</span>(label = <span class="string"><span class="delimiter">&quot;</span><span class="content">@string/app_name</span><span class="delimiter">&quot;</span></span>)
-<span class="annotation">@Layout</span>(R.layout.main) <span class="comment">// &lt;4&gt;</span>
-<span class="directive">public</span> <span class="type">class</span> <span class="class">HelloTransfuse</span> { <span class="comment">// &lt;1&gt;</span>
+<span class="annotation">@Layout</span>(R.layout.main) <i class="conum" data-value="4"></i><b>(4)</b>
+<span class="directive">public</span> <span class="type">class</span> <span class="class">HelloTransfuse</span> { <i class="conum" data-value="1"></i><b>(1)</b>
 
-    <span class="annotation">@Inject</span> <span class="annotation">@View</span>(R.id.textview) <span class="comment">// &lt;3&gt;</span>
+    <span class="annotation">@Inject</span> <span class="annotation">@View</span>(R.id.textview) <i class="conum" data-value="3"></i><b>(3)</b>
     TextView textView;
 
     <span class="annotation">@Inject</span> <span class="annotation">@Resource</span>(R.string.hello)
     <span class="predefined-type">String</span> helloText;
 
-    <span class="annotation">@OnCreate</span> <span class="comment">// &lt;2&gt;</span>
+    <span class="annotation">@OnCreate</span> <i class="conum" data-value="2"></i><b>(2)</b>
     <span class="directive">public</span> <span class="type">void</span> hello() {
         textView.setText(helloText);
     }
@@ -158,7 +157,6 @@
 <div class="paragraph">
 <p>New to the library or Android? Visit the <a href="getting_started.html">Getting Started</a> section.</p>
 </div>
-
 </div>
 <div class="sect2">
 <h3 id="download">Download</h3>
@@ -169,7 +167,7 @@
 <p>via git:</p>
 </div>
 <div class="listingblock">
-<div class="content monospaced">
+<div class="content">
 <pre class="CodeRay"><code>git clone git@github.com:johncarl81/transfuse.git</code></pre>
 </div>
 </div>
@@ -177,7 +175,7 @@
 <p>or via Maven:</p>
 </div>
 <div class="listingblock">
-<div class="content monospaced">
+<div class="content">
 <pre class="CodeRay"><code class="xml language-xml"><span class="tag">&lt;dependency&gt;</span>
     <span class="tag">&lt;groupId&gt;</span>org.androidtransfuse<span class="tag">&lt;/groupId&gt;</span>
     <span class="tag">&lt;artifactId&gt;</span>transfuse<span class="tag">&lt;/artifactId&gt;</span>
@@ -191,11 +189,7 @@
 <span class="tag">&lt;/dependency&gt;</span></code></pre>
 </div>
 </div>
-
 </div>
-
-
-
 
 		
 		 
@@ -272,11 +266,6 @@ function setupToggle(expanded, toggleId, toggleBodyId){
 
 setupToggle(false, '#documentationtoggle', '#documentation');
 setupToggle(false, '#poststoggle', '#posts');
-
-$('.CodeRay').each(function(){
-	$(this).html($(this).html().replace(/&lt;(\d)&gt;/g, '<i class="conum" data-value="$1"></i><b>$1</b>'));	
-});
-
 
 </script>
 </body>

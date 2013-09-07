@@ -97,7 +97,6 @@
 <div class="paragraph">
 <p>Each Annotation Processor performs its work in rounds.  Work can be defined as analysis of classes under compilation, code generation, validation, etc.  A round is a single call to <code>Processor.process()</code> with a set of Elements earmarked for the given Processor.  During compilation, Java calls the <code>Processor.process()</code> on a registered Processor until there exists a round with both no input Elements, and no code or resources were written.  A final round is called with <code>RoundEnvironment.processingOver() == true</code> for any error handling or cleanup that may be required.  This round is known as the <em>last round.</em></p>
 </div>
-
 </div>
 <div class="sect4">
 <h5 id="the_errortype">The ErrorType</h5>
@@ -108,14 +107,13 @@
 <p>To retry, the given <code>ErrorType</code> Element must be reloaded using the <a href="http://docs.oracle.com/javase/6/docs/api/javax/lang/model/util/Elements.html">Elements</a> utility class:</p>
 </div>
 <div class="listingblock">
-<div class="content monospaced">
+<div class="content">
 <pre class="CodeRay"><code class="java language-java">TypeElement reloaded = elements.getTypeElement(element.asType().toString());</code></pre>
 </div>
 </div>
 <div class="paragraph">
 <p>Also, between rounds the input elements must be stored as they will not be provided again via <code>Processor.process()</code> input.</p>
 </div>
-
 </div>
 <div class="sect4">
 <h5 id="the_transaction_pattern">The Transaction Pattern</h5>
@@ -123,7 +121,7 @@
 <p>Transfuse implements this rollback / retry technique using the Transaction pattern.  Transactions wrap a unit of code analysis and generation with a try catch block, catching a <code>TransactionRuntimeException</code>.  If an <code>ErrorType</code> is encountered a <code>TransactionRuntimeException</code> is thrown so the unit may be canceled before any code is written:</p>
 </div>
 <div class="listingblock">
-<div class="content monospaced">
+<div class="content">
 <pre class="CodeRay"><code class="java language-java"><span class="directive">public</span> <span class="type">class</span> <span class="class">TransactionWorker</span> {
     <span class="comment">//...</span>
     <span class="directive">public</span> R run(V value) {
@@ -144,7 +142,7 @@
 <p>Conveniently, in Transfuse each Element is converted to an AST Adapter class using the <code>ASTTypeBuilderVisitor</code>.  Therefore, each Element <code>ErrorType</code> is identified early and handled in one place.  Visiting the <code>ErrorType</code> simply throws the <code>TransactionRuntimeException</code>:</p>
 </div>
 <div class="listingblock">
-<div class="content monospaced">
+<div class="content">
 <pre class="CodeRay"><code class="java language-java"><span class="directive">public</span> <span class="type">class</span> <span class="class">ASTTypeBuilderVisitor</span> <span class="directive">extends</span> SimpleTypeVisitor6&lt;ASTType, <span class="predefined-type">Void</span>&gt; {
     <span class="comment">//...</span>
     <span class="directive">public</span> ASTType visitError(ErrorType errorType, <span class="predefined-type">Void</span> v) {
@@ -157,7 +155,7 @@
 <p>A second place where the <code>ErrorType</code> creeps up, is in annotation class parameters:</p>
 </div>
 <div class="listingblock">
-<div class="content monospaced">
+<div class="content">
 <pre class="CodeRay"><code class="java language-java"><span class="annotation">@Bind</span>(type = BaseType.class, to = ToBeGeneratedImpl.class)</code></pre>
 </div>
 </div>
@@ -165,7 +163,7 @@
 <p>Again, Transfuse uses a Visitor to resolve this type, so for the annotation <code>ErrorType</code> a <code>TransactionRuntimeException</code> is thrown early and in one place.  Surprisingly, the <code>ErrorType</code> for annotations is represented as the String value <code>"&lt;error&gt;"</code>:</p>
 </div>
 <div class="listingblock">
-<div class="content monospaced">
+<div class="content">
 <pre class="CodeRay"><code class="java language-java"><span class="directive">public</span> <span class="type">class</span> <span class="class">AnnotationValueConverterVisitor</span>&lt;T&gt; <span class="directive">extends</span> SimpleAnnotationValueVisitor6&lt;T, <span class="predefined-type">Void</span>&gt; {
     <span class="directive">private</span> <span class="directive">static</span> <span class="directive">final</span> <span class="predefined-type">String</span> ERROR_TYPE = <span class="string"><span class="delimiter">&quot;</span><span class="content">&lt;error&gt;</span><span class="delimiter">&quot;</span></span>;
     <span class="comment">//...</span>
@@ -185,7 +183,6 @@
 <div class="paragraph">
 <p>During each round, Transfuse wraps input Elements in a Transaction execution class and stores them in a collection.  Transfuse executes the collection of Transactions and the completion status related to a Transaction is stored.  If a Transaction did not complete, it will simply be retried as a member of the collection in the next round.  If there exists incomplete Transactions during the last round, Transfuse will throw the exceptions associated with the failed Transactions.</p>
 </div>
-
 </div>
 <div class="sect4">
 <h5 id="deeper_down_the_rabbit_hole">Deeper Down the Rabbit Hole</h5>
@@ -203,7 +200,6 @@
 <div class="paragraph">
 <p>The beauty of this approach is in the API.  Transfuse has to merely add the Elements to the appropriate processor (<code>@TransfuseModule</code> into the Module Processor, <code>@Activity</code> into the Components Processor, etc) and hit <code>execute()</code>.  The Processor chain contains the logic necessary to ensure the order of processing is respected.</p>
 </div>
-
 </div>
 <div class="sect4">
 <h5 id="serendipity">Serendipity</h5>
@@ -213,22 +209,15 @@
 <div class="paragraph">
 <p>Second, partitioning the code into separate Processors decoupled the code generation facilities.  The result of this was the <code>@Parcel</code> Processor is implemented in its own Annotation Processor and a candidate for its own library (<code>org.androidtransfuse.ParcelAnnotationProcessor</code>).</p>
 </div>
-
 </div>
 <div class="sect4">
 <h5 id="conclusion">Conclusion</h5>
 <div class="paragraph">
 <p>Developing Annotation Processors is a challenge due to a number of factors.  This technique is becoming popular due to the performance aspects, especially in the Android space.  The Transfuse library found some positive gains in implementing fault tolerance by a Transactional model, which resulted in resilient code and a great execution model.  The hope is that this post sheds some light on one of the more interesting concepts behind the Transfuse Annotation Processor so that other Annotation Processor implementations may take advantage of this technique.</p>
 </div>
-
 </div>
-
 </div>
-
 </div>
-
-
-
 
 		
 		 
@@ -318,11 +307,6 @@ function setupToggle(expanded, toggleId, toggleBodyId){
 
 setupToggle(false, '#documentationtoggle', '#documentation');
 setupToggle(true, '#poststoggle', '#posts');
-
-$('.CodeRay').each(function(){
-	$(this).html($(this).html().replace(/&lt;(\d)&gt;/g, '<i class="conum" data-value="$1"></i><b>$1</b>'));	
-});
-
 
 </script>
 </body>
