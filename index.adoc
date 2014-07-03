@@ -54,16 +54,7 @@ New to the library or Android? Visit the link:getting_started.html[Getting Start
 
 === Download
 
-Try Transfuse by downloading from http://search.maven.org/#search%7Cga%7C1%7Cg%3A%22org.androidtransfuse%22[Maven Central],
-
-via git:
-
-[source]
---
-git clone git@github.com:johncarl81/transfuse.git
---
-
-or via Maven:
+You may download Transfuse as a Maven dependency:
 
 [source,xml]
 --
@@ -79,3 +70,12 @@ or via Maven:
     <version>{{site.currentVersion}}</version>
 </dependency>
 --
+
+or Gradle:
+[source,groovy]
+--
+apt 'org.androidtransfuse:transfuse:{{site.currentVersion}}'
+compile 'org.androidtransfuse:transfuse-api:{{site.currentVersion}}'
+--
+
+Or from http://search.maven.org/#search%7Cga%7C1%7Cg%3A%22org.androidtransfuse%22[Maven Central].
