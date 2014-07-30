@@ -72,6 +72,7 @@
 						<li><a href="../../../documentation.html#reference">Reference</a></li>
 					</ul>	
 				</li>
+				<li><a href="https://oss.sonatype.org/service/local/repositories/releases/archive/org/androidtransfuse/transfuse-api/0.2.10/transfuse-api-0.2.10-javadoc.jar/!/index.html">API Javadocs</a></li>
 				<li><a href="http://search.maven.org/#search%7Cga%7C1%7Cg%3A%22org.androidtransfuse%22">Download</a></li>
 			</ul>
 		</nav>
@@ -95,10 +96,10 @@
 </div>
 </div>
 <div class="paragraph">
-<p>within your class.  The consequences of not doing so is an Exception at run time.  Yes, it must be a Parcelable.Creator, and yes it must be named C-R-E-A-T-O-R.  In addition to this implementing Parcelable is error prone.  You must implement mirrored <code>createFromParcel()</code> and <code>writeToParcel()</code> methods.  Because of this, bugs will often crop up around ordering or missing a field in the implemented Parcelable.</p>
+<p>within your class.  The consequences of not doing so is an Exception at run time.  Yes, it must be a Parcelable.Creator, and yes it must be named C-R-E-A-T-O-R.  In addition to this implementing Parcelable is error prone.  You must implement mirrored createFromParcel() and writeToParcel() methods.  Because of this, bugs will often crop up around ordering or missing a field in the implemented Parcelable.</p>
 </div>
 <div class="paragraph">
-<p>Transfuse gives you a way out of this mess.  Annotating a POJO with <code>@Parcel</code> will trigger, at compile time, the generation of a Parcelable class that serializes using the coordinated Java Bean getters and setters.  The result is your POJO is clear of any Parcelable cruft, while you get the performance of using the Parcelable.  Here&#8217;s an example:</p>
+<p>Transfuse gives you a way out of this mess.  Annotating a POJO with @Parcel will trigger, at compile time, the generation of a Parcelable class that serializes using the coordinated Java Bean getters and setters.  The result is your POJO is clear of any Parcelable cruft, while you get the performance of using the Parcelable.  Here&#8217;s an example:</p>
 </div>
 <div class="listingblock">
 <div class="content">

@@ -72,6 +72,7 @@
 						<li><a href="documentation.html#reference">Reference</a></li>
 					</ul>	
 				</li>
+				<li><a href="https://oss.sonatype.org/service/local/repositories/releases/archive/org/androidtransfuse/transfuse-api/0.2.10/transfuse-api-0.2.10-javadoc.jar/!/index.html">API Javadocs</a></li>
 				<li><a href="http://search.maven.org/#search%7Cga%7C1%7Cg%3A%22org.androidtransfuse%22">Download</a></li>
 			</ul>
 		</nav>
@@ -201,7 +202,7 @@
 <table>
 <tr>
 <td class="icon">
-<i class="icon-note" title="Note"></i>
+<i class="fa icon-note" title="Note"></i>
 </td>
 <td class="content">
 To track changes to the manifest, Transfuse adds to the managed xml tags the t:tag parameter.
@@ -256,7 +257,7 @@ To track changes to the manifest, Transfuse adds to the managed xml tags the t:t
 <table>
 <tr>
 <td class="icon">
-<i class="icon-note" title="Note"></i>
+<i class="fa icon-note" title="Note"></i>
 </td>
 <td class="content">
 Lifecycle events will not be called in any predefined order.
@@ -562,7 +563,7 @@ ActivityOnTrackballEventListener</code></pre>
 <table>
 <tr>
 <td class="icon">
-<i class="icon-note" title="Note"></i>
+<i class="fa icon-note" title="Note"></i>
 </td>
 <td class="content">
 * Due to the fact that the View element of the Fragments are not created until the onCreateView lifecycle phase, Transfuse will not inject into the Fragment until that phase and does not map the onCreate lifecycle phase.  For consistency, Transfuse triggers the @OnCreate event in the onCreateView Fragment method.
@@ -715,7 +716,7 @@ ActivityOnTrackballEventListener</code></pre>
 <table>
 <tr>
 <td class="icon">
-<i class="icon-note" title="Note"></i>
+<i class="fa icon-note" title="Note"></i>
 </td>
 <td class="content">
 This documentation highlights using package private field injection because it is the most succinct.  Public constructor injection should be preferred.
@@ -794,7 +795,7 @@ This documentation highlights using package private field injection because it i
 <div class="sect4">
 <h5 id="custom_scopes">Custom Scopes</h5>
 <div class="paragraph">
-<p>Defining a custom scope is easy and especially useful when defining the lifecycle of objects in Transfuse.  A scope is an object implementing the <code>Scope</code> interface:</p>
+<p>Defining a custom scope is easy and especially useful when defining the lifecycle of objects in Transfuse.  A scope is an object implementing the Scope interface:</p>
 </div>
 <div class="listingblock">
 <div class="content">
@@ -821,7 +822,7 @@ This documentation highlights using package private field injection because it i
 <p>It is important to consider concurrency when defining scopes as they can be used via multiple threads at once.  The example above demonstrates double checked locking with the ConcurrentMap.</p>
 </div>
 <div class="paragraph">
-<p>Scopes are defined in Transfuse via the <code>@TransfuseModule</code> and <code>@DefineScope</code> annotation.  A separate, unique identifying annotation must be declared for each scope:</p>
+<p>Scopes are defined in Transfuse via the @TransfuseModule and @DefineScope annotation.  A separate, unique identifying annotation must be declared for each scope:</p>
 </div>
 <div class="listingblock">
 <div class="content">
@@ -843,7 +844,7 @@ This documentation highlights using package private field injection because it i
 </div>
 </div>
 <div class="paragraph">
-<p>An object in Transfuse may be identified as scoped by either annotating the class (as demonstrated in the <code>@Singleton</code> example above) or through the <code>@Provides</code> annotation:</p>
+<p>An object in Transfuse may be identified as scoped by either annotating the class (as demonstrated in the @Singleton example above) or through the @Provides annotation:</p>
 </div>
 <div class="listingblock">
 <div class="content">
@@ -887,7 +888,7 @@ Android andoid <span class="comment">// injected Andy</span></code></pre>
 <div class="sect4">
 <h5 id="qualifiers">Qualifiers</h5>
 <div class="paragraph">
-<p>Qualifer annotation allow the developer to distingush between different instances of the same type within Transfuse.  For instance, it is common to define configuration paramters in Strings.  In this example, qualfier annotation allow the developer to determine which instance should be injected.  Qualifier annotations are configured along with the <code>@Provides</code> annotation in the <code>@TransfuseModule</code>:</p>
+<p>Qualifer annotation allow the developer to distingush between different instances of the same type within Transfuse.  For instance, it is common to define configuration paramters in Strings.  In this example, qualfier annotation allow the developer to determine which instance should be injected.  Qualifier annotations are configured along with the @Provides annotation in the +@TransfuseModule+:</p>
 </div>
 <div class="listingblock">
 <div class="content">
@@ -915,7 +916,7 @@ Android andoid <span class="comment">// injected Andy</span></code></pre>
 </div>
 </div>
 <div class="paragraph">
-<p>Built into JSR330 is the <code>@Named</code> annotation, which is fully supported by Transfuse.  This is an extreemly convienient, predefined qualifier annotation:</p>
+<p>Built into JSR330 is the @Named annotation, which is fully supported by Transfuse.  This is an extreemly convienient, predefined qualifier annotation:</p>
 </div>
 <div class="listingblock">
 <div class="content">
@@ -964,7 +965,7 @@ Android andoid <span class="comment">// injected Andy</span></code></pre>
 <table>
 <tr>
 <td class="icon">
-<i class="icon-note" title="Note"></i>
+<i class="fa icon-note" title="Note"></i>
 </td>
 <td class="content">
 If a return value is declared on the intercepted method, the Asynchronous and UIThread interceptors will return null.
@@ -1247,7 +1248,7 @@ If a return value is declared on the intercepted method, the Asynchronous and UI
 <table>
 <tr>
 <td class="icon">
-<i class="icon-note" title="Note"></i>
+<i class="fa icon-note" title="Note"></i>
 </td>
 <td class="content">
 DI and the other code generation features are not available on legacy Android components.
