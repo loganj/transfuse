@@ -72,7 +72,7 @@
 						<li><a href="../../../documentation.html#reference">Reference</a></li>
 					</ul>	
 				</li>
-				<li><a href="https://oss.sonatype.org/service/local/repositories/releases/archive/org/androidtransfuse/transfuse-api/0.2.10/transfuse-api-0.2.10-javadoc.jar/!/index.html">API Javadocs</a></li>
+				<li><a href="https://oss.sonatype.org/service/local/repositories/releases/archive/org/androidtransfuse/transfuse-api/0.3.0-beta-2/transfuse-api-0.3.0-beta-2-javadoc.jar/!/index.html">API Javadocs</a></li>
 				<li><a href="http://search.maven.org/#search%7Cga%7C1%7Cg%3A%22org.androidtransfuse%22">Download</a></li>
 			</ul>
 		</nav>
@@ -92,7 +92,7 @@
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="CodeRay"><code class="java language-java"><span class="directive">public</span> <span class="directive">static</span> <span class="directive">final</span> Parcelable.Creator&lt;MyParcelable&gt; CREATOR</code></pre>
+<pre class="CodeRay highlight"><code data-lang="java"><span class="directive">public</span> <span class="directive">static</span> <span class="directive">final</span> Parcelable.Creator&lt;MyParcelable&gt; CREATOR</code></pre>
 </div>
 </div>
 <div class="paragraph">
@@ -103,7 +103,7 @@
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="CodeRay"><code class="java language-java"><span class="annotation">@Parcel</span>
+<pre class="CodeRay highlight"><code data-lang="java"><span class="annotation">@Parcel</span>
 <span class="directive">public</span> <span class="type">void</span> CleanParcel{
     <span class="directive">private</span> <span class="predefined-type">String</span> value;
     <span class="directive">public</span> <span class="predefined-type">String</span> getValue(){
@@ -123,7 +123,7 @@
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="CodeRay"><code class="java language-java">Parcelable exampleWrapped = Parcel.wrap(example);</code></pre>
+<pre class="CodeRay highlight"><code data-lang="java">Parcelable exampleWrapped = Parcel.wrap(example);</code></pre>
 </div>
 </div>
 <div class="paragraph">
@@ -131,7 +131,7 @@
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="CodeRay"><code class="java language-java">Parcelable exampleWrapped = <span class="keyword">new</span> ParcelExample_Parcelable(example);</code></pre>
+<pre class="CodeRay highlight"><code data-lang="java">Parcelable exampleWrapped = <span class="keyword">new</span> ParcelExample_Parcelable(example);</code></pre>
 </div>
 </div>
 <div class="paragraph">
@@ -146,13 +146,13 @@
 <div class="ulist">
 <ul>
 <li>
-<p><a href="http://dallasgutauckis.com/2012/01/20/parcelabler-for-implementing-androids-parcelable-interface/">http://dallasgutauckis.com/2012/01/20/parcelabler-for-implementing-androids-parcelable-interface/</a></p>
+<p><a href="http://dallasgutauckis.com/2012/01/20/parcelabler-for-implementing-androids-parcelable-interface/" class="bare">http://dallasgutauckis.com/2012/01/20/parcelabler-for-implementing-androids-parcelable-interface/</a></p>
 </li>
 <li>
-<p><a href="https://github.com/excilys/androidannotations/issues/301">https://github.com/excilys/androidannotations/issues/301</a></p>
+<p><a href="https://github.com/excilys/androidannotations/issues/301" class="bare">https://github.com/excilys/androidannotations/issues/301</a></p>
 </li>
 <li>
-<p><a href="https://github.com/foxykeep/parcelablecodegenerator">https://github.com/foxykeep/parcelablecodegenerator</a></p>
+<p><a href="https://github.com/foxykeep/parcelablecodegenerator" class="bare">https://github.com/foxykeep/parcelablecodegenerator</a></p>
 </li>
 </ul>
 </div>

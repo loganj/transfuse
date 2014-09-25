@@ -72,7 +72,7 @@
 						<li><a href="../../../documentation.html#reference">Reference</a></li>
 					</ul>	
 				</li>
-				<li><a href="https://oss.sonatype.org/service/local/repositories/releases/archive/org/androidtransfuse/transfuse-api/0.2.10/transfuse-api-0.2.10-javadoc.jar/!/index.html">API Javadocs</a></li>
+				<li><a href="https://oss.sonatype.org/service/local/repositories/releases/archive/org/androidtransfuse/transfuse-api/0.3.0-beta-2/transfuse-api-0.3.0-beta-2-javadoc.jar/!/index.html">API Javadocs</a></li>
 				<li><a href="http://search.maven.org/#search%7Cga%7C1%7Cg%3A%22org.androidtransfuse%22">Download</a></li>
 			</ul>
 		</nav>
@@ -109,7 +109,7 @@
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="CodeRay"><code class="java language-java">TypeElement reloaded = elements.getTypeElement(element.asType().toString());</code></pre>
+<pre class="CodeRay highlight"><code data-lang="java">TypeElement reloaded = elements.getTypeElement(element.asType().toString());</code></pre>
 </div>
 </div>
 <div class="paragraph">
@@ -123,7 +123,7 @@
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="CodeRay"><code class="java language-java"><span class="directive">public</span> <span class="type">class</span> <span class="class">TransactionWorker</span> {
+<pre class="CodeRay highlight"><code data-lang="java"><span class="directive">public</span> <span class="type">class</span> <span class="class">TransactionWorker</span> {
     <span class="comment">//...</span>
     <span class="directive">public</span> R run(V value) {
         <span class="keyword">try</span> {
@@ -140,11 +140,11 @@
 </div>
 </div>
 <div class="paragraph">
-<p>Conveniently, in Transfuse each Element is converted to an AST Adapter class using the ASTTypeBuilderVisitor.  Therefore, each Element ErrorType is identified early and handled in one place.  Visiting the ErrorType simply throws the +TransactionRuntimeException+:</p>
+<p>Conveniently, in Transfuse each Element is converted to an AST Adapter class using the ASTTypeBuilderVisitor.  Therefore, each Element ErrorType is identified early and handled in one place.  Visiting the ErrorType simply throws the TransactionRuntimeException:</p>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="CodeRay"><code class="java language-java"><span class="directive">public</span> <span class="type">class</span> <span class="class">ASTTypeBuilderVisitor</span> <span class="directive">extends</span> SimpleTypeVisitor6&lt;ASTType, <span class="predefined-type">Void</span>&gt; {
+<pre class="CodeRay highlight"><code data-lang="java"><span class="directive">public</span> <span class="type">class</span> <span class="class">ASTTypeBuilderVisitor</span> <span class="directive">extends</span> SimpleTypeVisitor6&lt;ASTType, <span class="predefined-type">Void</span>&gt; {
     <span class="comment">//...</span>
     <span class="directive">public</span> ASTType visitError(ErrorType errorType, <span class="predefined-type">Void</span> v) {
         <span class="keyword">throw</span> <span class="keyword">new</span> TransactionRuntimeException(...);
@@ -157,15 +157,15 @@
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="CodeRay"><code class="java language-java"><span class="annotation">@Bind</span>(type = BaseType.class, to = ToBeGeneratedImpl.class)</code></pre>
+<pre class="CodeRay highlight"><code data-lang="java"><span class="annotation">@Bind</span>(type = BaseType.class, to = ToBeGeneratedImpl.class)</code></pre>
 </div>
 </div>
 <div class="paragraph">
-<p>Again, Transfuse uses a Visitor to resolve this type, so for the annotation ErrorType a TransactionRuntimeException is thrown early and in one place.  Surprisingly, the ErrorType for annotations is represented as the String value +"&lt;error&gt;"+:</p>
+<p>Again, Transfuse uses a Visitor to resolve this type, so for the annotation ErrorType a TransactionRuntimeException is thrown early and in one place.  Surprisingly, the ErrorType for annotations is represented as the String value "&lt;error&gt;":</p>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="CodeRay"><code class="java language-java"><span class="directive">public</span> <span class="type">class</span> <span class="class">AnnotationValueConverterVisitor</span>&lt;T&gt; <span class="directive">extends</span> SimpleAnnotationValueVisitor6&lt;T, <span class="predefined-type">Void</span>&gt; {
+<pre class="CodeRay highlight"><code data-lang="java"><span class="directive">public</span> <span class="type">class</span> <span class="class">AnnotationValueConverterVisitor</span>&lt;T&gt; <span class="directive">extends</span> SimpleAnnotationValueVisitor6&lt;T, <span class="predefined-type">Void</span>&gt; {
     <span class="directive">private</span> <span class="directive">static</span> <span class="directive">final</span> <span class="predefined-type">String</span> ERROR_TYPE = <span class="string"><span class="delimiter">&quot;</span><span class="content">&lt;error&gt;</span><span class="delimiter">&quot;</span></span>;
     <span class="comment">//...</span>
     <span class="directive">public</span> T visitString(<span class="predefined-type">String</span> value, <span class="predefined-type">Void</span> aVoid) {

@@ -72,7 +72,7 @@
 						<li><a href="documentation.html#reference">Reference</a></li>
 					</ul>	
 				</li>
-				<li><a href="https://oss.sonatype.org/service/local/repositories/releases/archive/org/androidtransfuse/transfuse-api/0.2.10/transfuse-api-0.2.10-javadoc.jar/!/index.html">API Javadocs</a></li>
+				<li><a href="https://oss.sonatype.org/service/local/repositories/releases/archive/org/androidtransfuse/transfuse-api/0.3.0-beta-2/transfuse-api-0.3.0-beta-2-javadoc.jar/!/index.html">API Javadocs</a></li>
 				<li><a href="http://search.maven.org/#search%7Cga%7C1%7Cg%3A%22org.androidtransfuse%22">Download</a></li>
 			</ul>
 		</nav>
@@ -83,7 +83,7 @@
 		<div class="sect2">
 <h3 id="getting_started">Getting Started</h3>
 <div class="paragraph">
-<p>The code produced by this tutorial is located at <a href="https://github.com/johncarl81/transfuse/tree/master/examples/helloAndroid">https://github.com/johncarl81/transfuse/tree/master/examples/helloAndroid</a></p>
+<p>The code produced by this tutorial is located at <a href="https://github.com/johncarl81/transfuse/tree/master/examples/helloAndroid" class="bare">https://github.com/johncarl81/transfuse/tree/master/examples/helloAndroid</a></p>
 </div>
 <div class="sect3">
 <h4 id="prerequisites">Prerequisites</h4>
@@ -98,7 +98,7 @@
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="CodeRay"><code>mvn archetype:generate \
+<pre class="CodeRay highlight"><code>mvn archetype:generate \
   -DarchetypeArtifactId=android-quickstart \
   -DarchetypeGroupId=de.akquinet.android.archetypes \
   -DarchetypeVersion=1.0.10 \
@@ -114,7 +114,7 @@
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="CodeRay"><code class="xml language-xml"><span class="preprocessor">&lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-8&quot;?&gt;</span>
+<pre class="CodeRay highlight"><code data-lang="xml"><span class="preprocessor">&lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-8&quot;?&gt;</span>
 <span class="tag">&lt;manifest</span> <span class="attribute-name">xmlns:android</span>=<span class="string"><span class="delimiter">&quot;</span><span class="content">http://schemas.android.com/apk/res/android</span><span class="delimiter">&quot;</span></span>
 <span class="attribute-name">package</span>=<span class="string"><span class="delimiter">&quot;</span><span class="content">org.androidtransfuse</span><span class="delimiter">&quot;</span></span> <span class="attribute-name">android:versionCode</span>=<span class="string"><span class="delimiter">&quot;</span><span class="content">1</span><span class="delimiter">&quot;</span></span> <span class="attribute-name">android:versionName</span>=<span class="string"><span class="delimiter">&quot;</span><span class="content">1.0-SNAPSHOT</span><span class="delimiter">&quot;</span></span><span class="tag">&gt;</span>
 <span class="tag">&lt;/manifest&gt;</span></code></pre>
@@ -131,16 +131,16 @@
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="CodeRay"><code class="xml language-xml"><span class="tag">&lt;dependency&gt;</span>
+<pre class="CodeRay highlight"><code data-lang="xml"><span class="tag">&lt;dependency&gt;</span>
     <span class="tag">&lt;groupId&gt;</span>org.androidtransfuse<span class="tag">&lt;/groupId&gt;</span>
     <span class="tag">&lt;artifactId&gt;</span>transfuse<span class="tag">&lt;/artifactId&gt;</span>
-    <span class="tag">&lt;version&gt;</span>0.2.10<span class="tag">&lt;/version&gt;</span>
+    <span class="tag">&lt;version&gt;</span>0.3.0-beta-2<span class="tag">&lt;/version&gt;</span>
     <span class="tag">&lt;scope&gt;</span>provided<span class="tag">&lt;/scope&gt;</span>
 <span class="tag">&lt;/dependency&gt;</span>
 <span class="tag">&lt;dependency&gt;</span>
     <span class="tag">&lt;groupId&gt;</span>org.androidtransfuse<span class="tag">&lt;/groupId&gt;</span>
     <span class="tag">&lt;artifactId&gt;</span>transfuse-api<span class="tag">&lt;/artifactId&gt;</span>
-    <span class="tag">&lt;version&gt;</span>0.2.10<span class="tag">&lt;/version&gt;</span>
+    <span class="tag">&lt;version&gt;</span>0.3.0-beta-2<span class="tag">&lt;/version&gt;</span>
 <span class="tag">&lt;/dependency&gt;</span></code></pre>
 </div>
 </div>
@@ -167,7 +167,7 @@ The only runtime requirement for Transfuse is the API library.
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="CodeRay"><code class="xml language-xml"><span class="preprocessor">&lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-8&quot;?&gt;</span>
+<pre class="CodeRay highlight"><code data-lang="xml"><span class="preprocessor">&lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-8&quot;?&gt;</span>
 <span class="tag">&lt;LinearLayout</span> <span class="attribute-name">xmlns:android</span>=<span class="string"><span class="delimiter">&quot;</span><span class="content">http://schemas.android.com/apk/res/android</span><span class="delimiter">&quot;</span></span>
               <span class="attribute-name">android:layout_width</span>=<span class="string"><span class="delimiter">&quot;</span><span class="content">fill_parent</span><span class="delimiter">&quot;</span></span>
               <span class="attribute-name">android:layout_height</span>=<span class="string"><span class="delimiter">&quot;</span><span class="content">fill_parent</span><span class="delimiter">&quot;</span></span><span class="tag">&gt;</span>
@@ -183,7 +183,7 @@ The only runtime requirement for Transfuse is the API library.
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="CodeRay"><code class="java language-java"><span class="comment">// Example Transfuse Activity</span>
+<pre class="CodeRay highlight"><code data-lang="java"><span class="comment">// Example Transfuse Activity</span>
 <span class="annotation">@Activity</span>(label = <span class="string"><span class="delimiter">&quot;</span><span class="content">@string/app_name</span><span class="delimiter">&quot;</span></span>)
 <span class="annotation">@IntentFilter</span>({
         <span class="annotation">@Intent</span>(type = IntentType.ACTION, name = android.content.Intent.ACTION_MAIN),
@@ -216,7 +216,7 @@ The only runtime requirement for Transfuse is the API library.
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="CodeRay"><code>mvn clean package android:deploy</code></pre>
+<pre class="CodeRay highlight"><code>mvn clean package android:deploy</code></pre>
 </div>
 </div>
 <div class="paragraph">

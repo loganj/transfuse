@@ -72,7 +72,7 @@
 						<li><a href="documentation.html#reference">Reference</a></li>
 					</ul>	
 				</li>
-				<li><a href="https://oss.sonatype.org/service/local/repositories/releases/archive/org/androidtransfuse/transfuse-api/0.2.10/transfuse-api-0.2.10-javadoc.jar/!/index.html">API Javadocs</a></li>
+				<li><a href="https://oss.sonatype.org/service/local/repositories/releases/archive/org/androidtransfuse/transfuse-api/0.3.0-beta-2/transfuse-api-0.3.0-beta-2-javadoc.jar/!/index.html">API Javadocs</a></li>
 				<li><a href="http://search.maven.org/#search%7Cga%7C1%7Cg%3A%22org.androidtransfuse%22">Download</a></li>
 			</ul>
 		</nav>
@@ -122,7 +122,7 @@
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="CodeRay"><code class="java language-java"><span class="annotation">@Activity</span>
+<pre class="CodeRay highlight"><code data-lang="java"><span class="annotation">@Activity</span>
 <span class="directive">public</span> <span class="type">class</span> <span class="class">ExampleActivity</span> {}
 <span class="annotation">@Service</span>
 <span class="directive">public</span> <span class="type">class</span> <span class="class">ExampleService</span> {}
@@ -142,7 +142,7 @@
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="CodeRay"><code class="java language-java"><span class="annotation">@Activity</span>
+<pre class="CodeRay highlight"><code data-lang="java"><span class="annotation">@Activity</span>
 <span class="annotation">@Layout</span>(R.id.example_layout)
 <span class="directive">public</span> <span class="type">class</span> <span class="class">Example</span> {}</code></pre>
 </div>
@@ -155,14 +155,14 @@
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="CodeRay"><code class="java language-java"><span class="annotation">@Activity</span>
+<pre class="CodeRay highlight"><code data-lang="java"><span class="annotation">@Activity</span>
 <span class="annotation">@LayoutHandler</span>(LunchTimeLayoutDelegate.class)
 <span class="directive">public</span> <span class="type">class</span> <span class="class">Example</span>{}</code></pre>
 </div>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="CodeRay"><code class="java language-java"><span class="directive">public</span> <span class="type">class</span> <span class="class">LunchTimeLayoutDelegate</span> <span class="directive">implements</span> LayoutHandlerDelegate{
+<pre class="CodeRay highlight"><code data-lang="java"><span class="directive">public</span> <span class="type">class</span> <span class="class">LunchTimeLayoutDelegate</span> <span class="directive">implements</span> LayoutHandlerDelegate{
     <span class="annotation">@Inject</span> Activity activity;
 
     <span class="directive">public</span> <span class="type">void</span> invokeLayout(){
@@ -185,7 +185,7 @@
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="CodeRay"><code class="java language-java"><span class="annotation">@Activity</span>(label = <span class="string"><span class="delimiter">&quot;</span><span class="content">Transfuse Example</span><span class="delimiter">&quot;</span></span>)
+<pre class="CodeRay highlight"><code data-lang="java"><span class="annotation">@Activity</span>(label = <span class="string"><span class="delimiter">&quot;</span><span class="content">Transfuse Example</span><span class="delimiter">&quot;</span></span>)
 <span class="directive">public</span> <span class="type">class</span> <span class="class">Example</span> {}</code></pre>
 </div>
 </div>
@@ -194,7 +194,7 @@
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="CodeRay"><code class="xml language-xml"><span class="tag">&lt;activity</span> <span class="attribute-name">t:tag</span>=<span class="string"><span class="delimiter">&quot;</span><span class="content">+,l,n</span><span class="delimiter">&quot;</span></span> <span class="attribute-name">android:label</span>=<span class="string"><span class="delimiter">&quot;</span><span class="content">Transfuse Example</span><span class="delimiter">&quot;</span></span> <span class="attribute-name">android:name</span>=<span class="string"><span class="delimiter">&quot;</span><span class="content">.ExampleActivity</span><span class="delimiter">&quot;</span></span><span class="tag">&gt;</span>
+<pre class="CodeRay highlight"><code data-lang="xml"><span class="tag">&lt;activity</span> <span class="attribute-name">t:tag</span>=<span class="string"><span class="delimiter">&quot;</span><span class="content">+,l,n</span><span class="delimiter">&quot;</span></span> <span class="attribute-name">android:label</span>=<span class="string"><span class="delimiter">&quot;</span><span class="content">Transfuse Example</span><span class="delimiter">&quot;</span></span> <span class="attribute-name">android:name</span>=<span class="string"><span class="delimiter">&quot;</span><span class="content">.ExampleActivity</span><span class="delimiter">&quot;</span></span><span class="tag">&gt;</span>
 <span class="tag">&lt;/activity&gt;</span></code></pre>
 </div>
 </div>
@@ -215,7 +215,7 @@ To track changes to the manifest, Transfuse adds to the managed xml tags the t:t
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="CodeRay"><code class="java language-java"><span class="annotation">@Activity</span>
+<pre class="CodeRay highlight"><code data-lang="java"><span class="annotation">@Activity</span>
 <span class="annotation">@IntentFilter</span>({
     <span class="annotation">@Intent</span>(type = IntentType.ACTION, name = android.content.Intent.ACTION_MAIN),
     <span class="annotation">@Intent</span>(type = IntentType.CATEGORY, name = android.content.Intent.CATEGORY_LAUNCHER)
@@ -239,7 +239,7 @@ To track changes to the manifest, Transfuse adds to the managed xml tags the t:t
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="CodeRay"><code class="java language-java"><span class="annotation">@Activity</span>(label = <span class="string"><span class="delimiter">&quot;</span><span class="content">Transfuse Example</span><span class="delimiter">&quot;</span></span>)
+<pre class="CodeRay highlight"><code data-lang="java"><span class="annotation">@Activity</span>(label = <span class="string"><span class="delimiter">&quot;</span><span class="content">Transfuse Example</span><span class="delimiter">&quot;</span></span>)
 <span class="annotation">@Layout</span>(R.id.example_layout)
 <span class="annotation">@IntentFilter</span>({
     <span class="annotation">@Intent</span>(type = IntentType.ACTION, name = android.content.Intent.ACTION_MAIN),
@@ -273,7 +273,7 @@ Lifecycle events will not be called in any predefined order.
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="CodeRay"><code class="java language-java"><span class="annotation">@OnCreate</span>
+<pre class="CodeRay highlight"><code data-lang="java"><span class="annotation">@OnCreate</span>
 <span class="annotation">@OnStart</span>
 <span class="annotation">@OnPause</span>
 <span class="annotation">@OnResume</span>
@@ -289,7 +289,7 @@ Lifecycle events will not be called in any predefined order.
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="CodeRay"><code class="java language-java"><span class="annotation">@Activity</span>(label = <span class="string"><span class="delimiter">&quot;</span><span class="content">Transfuse Example</span><span class="delimiter">&quot;</span></span>)
+<pre class="CodeRay highlight"><code data-lang="java"><span class="annotation">@Activity</span>(label = <span class="string"><span class="delimiter">&quot;</span><span class="content">Transfuse Example</span><span class="delimiter">&quot;</span></span>)
 <span class="annotation">@Layout</span>(R.id.example_layout)
 <span class="annotation">@IntentFilter</span>({
     <span class="annotation">@Intent</span>(type = IntentType.ACTION, name = android.content.Intent.ACTION_MAIN),
@@ -311,7 +311,7 @@ Lifecycle events will not be called in any predefined order.
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="CodeRay"><code class="java language-java"><span class="annotation">@Activity</span>
+<pre class="CodeRay highlight"><code data-lang="java"><span class="annotation">@Activity</span>
 <span class="annotation">@Layout</span>(R.id.example_layout)
 <span class="directive">public</span> <span class="type">class</span> <span class="class">Example</span>{
     <span class="annotation">@RegisterListener</span>(R.id.button5)
@@ -331,7 +331,7 @@ Lifecycle events will not be called in any predefined order.
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="CodeRay"><code class="java language-java"><span class="annotation">@Activity</span>
+<pre class="CodeRay highlight"><code data-lang="java"><span class="annotation">@Activity</span>
 <span class="annotation">@Layout</span>(R.id.example_layout)
 <span class="directive">public</span> <span class="type">class</span> <span class="class">Example</span>{
     <span class="annotation">@Inject</span>
@@ -348,7 +348,7 @@ Lifecycle events will not be called in any predefined order.
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="CodeRay"><code class="java language-java"><span class="annotation">@Activity</span>
+<pre class="CodeRay highlight"><code data-lang="java"><span class="annotation">@Activity</span>
 <span class="annotation">@RegisterListener</span>
 <span class="directive">public</span> <span class="type">class</span> <span class="class">Example</span> <span class="directive">implements</span> ActivityOnKeyDownListener{
     <span class="directive">public</span> <span class="type">boolean</span> onKeyDown(<span class="type">int</span> keyCode, android.view.KeyEvent event){
@@ -362,7 +362,7 @@ Lifecycle events will not be called in any predefined order.
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="CodeRay"><code class="java language-java"><span class="annotation">@Activity</span>
+<pre class="CodeRay highlight"><code data-lang="java"><span class="annotation">@Activity</span>
 <span class="directive">public</span> <span class="type">class</span> <span class="class">One</span> {
     <span class="annotation">@Inject</span> <span class="annotation">@RegisterListener</span> <span class="predefined-type">MenuListener</span> listener;
 }</code></pre>
@@ -370,7 +370,7 @@ Lifecycle events will not be called in any predefined order.
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="CodeRay"><code class="java language-java"><span class="annotation">@Activity</span>
+<pre class="CodeRay highlight"><code data-lang="java"><span class="annotation">@Activity</span>
 <span class="directive">public</span> <span class="type">class</span> <span class="class">Two</span> {
     <span class="annotation">@Inject</span> <span class="annotation">@RegisterListener</span> <span class="predefined-type">MenuListener</span> listener;
 }</code></pre>
@@ -381,7 +381,7 @@ Lifecycle events will not be called in any predefined order.
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="CodeRay"><code class="java language-java"><span class="directive">public</span> <span class="type">class</span> <span class="class">MenuListener</span> <span class="directive">implements</span> ActivityMenuComponent{
+<pre class="CodeRay highlight"><code data-lang="java"><span class="directive">public</span> <span class="type">class</span> <span class="class">MenuListener</span> <span class="directive">implements</span> ActivityMenuComponent{
     <span class="comment">//...</span>
 }</code></pre>
 </div>
@@ -391,7 +391,7 @@ Lifecycle events will not be called in any predefined order.
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="CodeRay"><code class="java language-java">ActivityMenuComponent
+<pre class="CodeRay highlight"><code data-lang="java">ActivityMenuComponent
 ActivityOnKeyDownListener
 ActivityOnKeyLongPressListener
 ActivityOnKeyMultipleListener
@@ -416,7 +416,7 @@ ActivityOnTrackballEventListener</code></pre>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="CodeRay"><code class="java language-java"><span class="annotation">@Activity</span>
+<pre class="CodeRay highlight"><code data-lang="java"><span class="annotation">@Activity</span>
 <span class="directive">public</span> <span class="type">class</span> <span class="class">Example</span>{
     <span class="annotation">@Inject</span> <span class="annotation">@Extra</span>(<span class="string"><span class="delimiter">&quot;</span><span class="content">one</span><span class="delimiter">&quot;</span></span>)
     <span class="predefined-type">String</span> one;
@@ -436,7 +436,7 @@ ActivityOnTrackballEventListener</code></pre>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="CodeRay"><code class="java language-java"><span class="annotation">@Activity</span>
+<pre class="CodeRay highlight"><code data-lang="java"><span class="annotation">@Activity</span>
 <span class="directive">public</span> <span class="type">class</span> <span class="class">Example</span>{
     <span class="annotation">@Inject</span> <span class="annotation">@Resource</span>(R.string.app_name)
     <span class="predefined-type">String</span> appName;
@@ -448,7 +448,7 @@ ActivityOnTrackballEventListener</code></pre>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="CodeRay"><code class="java language-java">getApplication().getResources().getString(R.string.app_name);</code></pre>
+<pre class="CodeRay highlight"><code data-lang="java">getApplication().getResources().getString(R.string.app_name);</code></pre>
 </div>
 </div>
 </div>
@@ -459,7 +459,7 @@ ActivityOnTrackballEventListener</code></pre>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="CodeRay"><code class="java language-java"><span class="annotation">@Activity</span>
+<pre class="CodeRay highlight"><code data-lang="java"><span class="annotation">@Activity</span>
 <span class="directive">public</span> <span class="type">class</span> <span class="class">Example</span>{
     <span class="annotation">@Inject</span> <span class="annotation">@View</span>(R.id.viewText)
     ViewText viewText;
@@ -471,7 +471,7 @@ ActivityOnTrackballEventListener</code></pre>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="CodeRay"><code class="java language-java"><span class="annotation">@Activity</span>
+<pre class="CodeRay highlight"><code data-lang="java"><span class="annotation">@Activity</span>
 <span class="directive">public</span> <span class="type">class</span> <span class="class">Example</span>{
     <span class="annotation">@Inject</span> <span class="annotation">@View</span>(tag = <span class="string"><span class="delimiter">&quot;</span><span class="content">taggedView</span><span class="delimiter">&quot;</span></span>)
     ViewText viewText;
@@ -490,7 +490,7 @@ ActivityOnTrackballEventListener</code></pre>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="CodeRay"><code class="java language-java"><span class="annotation">@Activity</span>
+<pre class="CodeRay highlight"><code data-lang="java"><span class="annotation">@Activity</span>
 <span class="directive">public</span> <span class="type">class</span> <span class="class">Example</span>{
     <span class="annotation">@Inject</span> <span class="annotation">@Preference</span>(value = <span class="string"><span class="delimiter">&quot;</span><span class="content">favorite_color</span><span class="delimiter">&quot;</span></span>, <span class="keyword">default</span> = <span class="string"><span class="delimiter">&quot;</span><span class="content">green</span><span class="delimiter">&quot;</span></span>)
     <span class="predefined-type">String</span> favColor;
@@ -507,7 +507,7 @@ ActivityOnTrackballEventListener</code></pre>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="CodeRay"><code class="java language-java"><span class="annotation">@Activity</span>
+<pre class="CodeRay highlight"><code data-lang="java"><span class="annotation">@Activity</span>
 <span class="directive">public</span> <span class="type">class</span> <span class="class">Example</span>{
     <span class="annotation">@Inject</span>
     LocationManager locationManager;
@@ -519,7 +519,7 @@ ActivityOnTrackballEventListener</code></pre>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="CodeRay"><code class="java language-java"><span class="annotation">@Activity</span>
+<pre class="CodeRay highlight"><code data-lang="java"><span class="annotation">@Activity</span>
 <span class="directive">public</span> <span class="type">class</span> <span class="class">Example</span>{
     <span class="annotation">@Inject</span> <span class="annotation">@SystemService</span>(<span class="predefined-type">Context</span>.LOCATION_SERVICE)
     LocationManager locationManager;
@@ -546,7 +546,7 @@ ActivityOnTrackballEventListener</code></pre>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="CodeRay"><code class="java language-java"><span class="annotation">@OnCreate</span>*
+<pre class="CodeRay highlight"><code data-lang="java"><span class="annotation">@OnCreate</span>*
 <span class="annotation">@OnActivityCreated</span>
 <span class="annotation">@OnStart</span>
 <span class="annotation">@OnResume</span>
@@ -583,7 +583,7 @@ ActivityOnTrackballEventListener</code></pre>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="CodeRay"><code class="java language-java"><span class="annotation">@Service</span>
+<pre class="CodeRay highlight"><code data-lang="java"><span class="annotation">@Service</span>
 <span class="annotation">@IntentFilter</span>(<span class="annotation">@Intent</span>(type=IntentType.ACTION, name=<span class="string"><span class="delimiter">&quot;</span><span class="content">arbitraryIntent</span><span class="delimiter">&quot;</span></span>))
 <span class="directive">public</span> <span class="type">class</span> <span class="class">ExampleService</span> {}</code></pre>
 </div>
@@ -593,7 +593,7 @@ ActivityOnTrackballEventListener</code></pre>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="CodeRay"><code class="java language-java"><span class="annotation">@OnCreate</span>
+<pre class="CodeRay highlight"><code data-lang="java"><span class="annotation">@OnCreate</span>
 <span class="annotation">@OnDestroy</span></code></pre>
 </div>
 </div>
@@ -602,7 +602,7 @@ ActivityOnTrackballEventListener</code></pre>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="CodeRay"><code class="java language-java">ServiceOnStartCommand</code></pre>
+<pre class="CodeRay highlight"><code data-lang="java">ServiceOnStartCommand</code></pre>
 </div>
 </div>
 <div class="paragraph">
@@ -610,7 +610,7 @@ ActivityOnTrackballEventListener</code></pre>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="CodeRay"><code class="java language-java"><span class="annotation">@Service</span>
+<pre class="CodeRay highlight"><code data-lang="java"><span class="annotation">@Service</span>
 <span class="directive">public</span> <span class="type">class</span> <span class="class">ExampleService</span> {
     <span class="annotation">@Inject</span>
     <span class="directive">public</span> ExampleService(Dependency dependency) {
@@ -631,7 +631,7 @@ ActivityOnTrackballEventListener</code></pre>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="CodeRay"><code class="java language-java"><span class="annotation">@BroadcastReceiver</span>
+<pre class="CodeRay highlight"><code data-lang="java"><span class="annotation">@BroadcastReceiver</span>
 <span class="annotation">@Intent</span>(type = IntentType.ACTION, name = android.content.Intent.ACTION_BOOT_COMPLETED)
 <span class="directive">public</span> <span class="type">class</span> <span class="class">Startup</span>{
     <span class="annotation">@OnReceive</span>
@@ -652,7 +652,7 @@ ActivityOnTrackballEventListener</code></pre>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="CodeRay"><code class="java language-java"><span class="annotation">@OnCreate</span>
+<pre class="CodeRay highlight"><code data-lang="java"><span class="annotation">@OnCreate</span>
 <span class="annotation">@OnLowMemory</span>
 <span class="annotation">@OnTerminate</span>
 <span class="annotation">@OnConfigurationChanged</span></code></pre>
@@ -673,7 +673,7 @@ ActivityOnTrackballEventListener</code></pre>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="CodeRay"><code class="java language-java"><span class="annotation">@Activity</span>
+<pre class="CodeRay highlight"><code data-lang="java"><span class="annotation">@Activity</span>
 <span class="directive">public</span> <span class="type">class</span> <span class="class">ExtraActivity</span>{
     <span class="annotation">@Inject</span> <span class="annotation">@Extra</span>(<span class="string"><span class="delimiter">&quot;</span><span class="content">name</span><span class="delimiter">&quot;</span></span>)
     <span class="predefined-type">String</span> name;
@@ -687,7 +687,7 @@ ActivityOnTrackballEventListener</code></pre>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="CodeRay"><code class="java language-java"><span class="annotation">@Activity</span>
+<pre class="CodeRay highlight"><code data-lang="java"><span class="annotation">@Activity</span>
 <span class="directive">public</span> <span class="type">class</span> <span class="class">CallingActivity</span>{
     <span class="annotation">@Inject</span>
     IntentFactory intentFactory;
@@ -735,7 +735,7 @@ This documentation highlights using package private field injection because it i
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="CodeRay"><code class="java language-java"><span class="directive">public</span> <span class="type">void</span> ExampleProvider <span class="directive">implements</span> <span class="predefined-type">Provider</span>&lt;Example&gt;
+<pre class="CodeRay highlight"><code data-lang="java"><span class="directive">public</span> <span class="type">void</span> ExampleProvider <span class="directive">implements</span> <span class="predefined-type">Provider</span>&lt;Example&gt;
     <span class="directive">public</span> Example get(){
         <span class="keyword">return</span> <span class="keyword">new</span> Example();
     }
@@ -747,7 +747,7 @@ This documentation highlights using package private field injection because it i
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="CodeRay"><code class="java language-java"><span class="directive">public</span> <span class="type">void</span> TestInjections{
+<pre class="CodeRay highlight"><code data-lang="java"><span class="directive">public</span> <span class="type">void</span> TestInjections{
     <span class="annotation">@Inject</span>
     Example example; <span class="comment">//calls .get() to resolve example</span>
     <span class="annotation">@Inject</span>
@@ -762,7 +762,7 @@ This documentation highlights using package private field injection because it i
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="CodeRay"><code class="java language-java"><span class="annotation">@TransfuseModule</span>
+<pre class="CodeRay highlight"><code data-lang="java"><span class="annotation">@TransfuseModule</span>
 <span class="annotation">@BindProviders</span>({
     <span class="annotation">@BindProvider</span>(type = Example.class, provider = ExampleProvider.class)
 })
@@ -779,7 +779,7 @@ This documentation highlights using package private field injection because it i
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="CodeRay"><code class="java language-java"><span class="annotation">@Singleton</span>
+<pre class="CodeRay highlight"><code data-lang="java"><span class="annotation">@Singleton</span>
 <span class="directive">public</span> <span class="type">class</span> <span class="class">SingletonExample</span>{ }</code></pre>
 </div>
 </div>
@@ -799,7 +799,7 @@ This documentation highlights using package private field injection because it i
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="CodeRay"><code class="java language-java"><span class="directive">public</span> <span class="type">class</span> <span class="class">MapScope</span> <span class="directive">implements</span> Scope {
+<pre class="CodeRay highlight"><code data-lang="java"><span class="directive">public</span> <span class="type">class</span> <span class="class">MapScope</span> <span class="directive">implements</span> Scope {
 
     <span class="directive">private</span> <span class="predefined-type">ConcurrentMap</span>&lt;ScopeKey&lt;?&gt;, <span class="predefined-type">Object</span>&gt; values = <span class="keyword">new</span> <span class="predefined-type">ConcurrentHashMap</span>&lt;ScopeKey&lt;?&gt;, <span class="predefined-type">Object</span>&gt;();
 
@@ -826,7 +826,7 @@ This documentation highlights using package private field injection because it i
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="CodeRay"><code class="java language-java"><span class="annotation">@TransfuseModule</span>
+<pre class="CodeRay highlight"><code data-lang="java"><span class="annotation">@TransfuseModule</span>
 <span class="annotation">@DefineScope</span>(annotation = SimpleScope.class, scope = MapScope.class)
 <span class="directive">public</span> <span class="type">class</span> <span class="class">TransfuseAndroidModule</span> {}</code></pre>
 </div>
@@ -836,7 +836,7 @@ This documentation highlights using package private field injection because it i
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="CodeRay"><code class="java language-java"><span class="annotation">@Activity</span>
+<pre class="CodeRay highlight"><code data-lang="java"><span class="annotation">@Activity</span>
 <span class="directive">public</span> <span class="type">class</span> <span class="class">Example</span> {
     <span class="annotation">@Inject</span> <span class="annotation">@ScopeReference</span>(SimpleScope.class)
     MapScope scope;
@@ -848,7 +848,7 @@ This documentation highlights using package private field injection because it i
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="CodeRay"><code class="java language-java"><span class="annotation">@TransfuseModule</span>
+<pre class="CodeRay highlight"><code data-lang="java"><span class="annotation">@TransfuseModule</span>
 <span class="directive">public</span> <span class="type">class</span> <span class="class">TransfuseAndroidModule</span> {
     <span class="annotation">@Provides</span> <span class="annotation">@SimpleScope</span>
     <span class="directive">public</span> Example getScoped(){...}
@@ -866,13 +866,13 @@ This documentation highlights using package private field injection because it i
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="CodeRay"><code class="java language-java"><span class="annotation">@ImplementedBy</span>(Andy.class)
+<pre class="CodeRay highlight"><code data-lang="java"><span class="annotation">@ImplementedBy</span>(Andy.class)
 <span class="directive">public</span> <span class="type">interface</span> <span class="class">Android</span> {}</code></pre>
 </div>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="CodeRay"><code class="java language-java"><span class="directive">public</span> <span class="type">class</span> <span class="class">Andy</span> <span class="directive">implements</span> Android {}</code></pre>
+<pre class="CodeRay highlight"><code data-lang="java"><span class="directive">public</span> <span class="type">class</span> <span class="class">Andy</span> <span class="directive">implements</span> Android {}</code></pre>
 </div>
 </div>
 <div class="paragraph">
@@ -880,7 +880,7 @@ This documentation highlights using package private field injection because it i
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="CodeRay"><code class="java language-java"><span class="annotation">@Inject</span>
+<pre class="CodeRay highlight"><code data-lang="java"><span class="annotation">@Inject</span>
 Android andoid <span class="comment">// injected Andy</span></code></pre>
 </div>
 </div>
@@ -888,11 +888,11 @@ Android andoid <span class="comment">// injected Andy</span></code></pre>
 <div class="sect4">
 <h5 id="qualifiers">Qualifiers</h5>
 <div class="paragraph">
-<p>Qualifer annotation allow the developer to distingush between different instances of the same type within Transfuse.  For instance, it is common to define configuration paramters in Strings.  In this example, qualfier annotation allow the developer to determine which instance should be injected.  Qualifier annotations are configured along with the @Provides annotation in the +@TransfuseModule+:</p>
+<p>Qualifer annotation allow the developer to distingush between different instances of the same type within Transfuse.  For instance, it is common to define configuration paramters in Strings.  In this example, qualfier annotation allow the developer to determine which instance should be injected.  Qualifier annotations are configured along with the @Provides annotation in the @TransfuseModule:</p>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="CodeRay"><code class="java language-java"><span class="annotation">@TransfuseModule</span>
+<pre class="CodeRay highlight"><code data-lang="java"><span class="annotation">@TransfuseModule</span>
 <span class="directive">public</span> <span class="type">class</span> <span class="class">TransfuseAndroidModule</span> {
     <span class="annotation">@Provides</span> <span class="annotation">@Username</span>
     <span class="directive">public</span> <span class="predefined-type">String</span> getUsername(){...}
@@ -906,7 +906,7 @@ Android andoid <span class="comment">// injected Andy</span></code></pre>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="CodeRay"><code class="java language-java"><span class="annotation">@Activity</span>
+<pre class="CodeRay highlight"><code data-lang="java"><span class="annotation">@Activity</span>
 <span class="directive">public</span> <span class="type">class</span> <span class="class">Example</span> {
     <span class="annotation">@Inject</span> <span class="annotation">@Username</span>
     <span class="predefined-type">String</span> username;
@@ -920,7 +920,7 @@ Android andoid <span class="comment">// injected Andy</span></code></pre>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="CodeRay"><code class="java language-java"><span class="annotation">@TransfuseModule</span>
+<pre class="CodeRay highlight"><code data-lang="java"><span class="annotation">@TransfuseModule</span>
 <span class="directive">public</span> <span class="type">class</span> <span class="class">TransfuseAndroidModule</span> {
     <span class="annotation">@Provides</span> <span class="annotation">@Named</span>(<span class="string"><span class="delimiter">&quot;</span><span class="content">username</span><span class="delimiter">&quot;</span></span>)
     <span class="directive">public</span> <span class="predefined-type">String</span> getUsername(){...}
@@ -929,7 +929,7 @@ Android andoid <span class="comment">// injected Andy</span></code></pre>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="CodeRay"><code class="java language-java"><span class="annotation">@Activity</span>
+<pre class="CodeRay highlight"><code data-lang="java"><span class="annotation">@Activity</span>
 <span class="directive">public</span> <span class="type">class</span> <span class="class">Example</span> {
     <span class="annotation">@Inject</span> <span class="annotation">@Named</span>(<span class="string"><span class="delimiter">&quot;</span><span class="content">username</span><span class="delimiter">&quot;</span></span>)
     <span class="predefined-type">String</span> username;
@@ -981,13 +981,13 @@ If a return value is declared on the intercepted method, the Asynchronous and UI
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="CodeRay"><code class="java language-java"><span class="annotation">@Target</span>(METHOD)
+<pre class="CodeRay highlight"><code data-lang="java"><span class="annotation">@Target</span>(METHOD)
 <span class="directive">public</span> <span class="annotation">@interface</span> Log {}</code></pre>
 </div>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="CodeRay"><code class="java language-java"><span class="directive">public</span> <span class="type">class</span> <span class="class">LogInterceptor</span> <span class="directive">implements</span> MethodInterceptor {
+<pre class="CodeRay highlight"><code data-lang="java"><span class="directive">public</span> <span class="type">class</span> <span class="class">LogInterceptor</span> <span class="directive">implements</span> MethodInterceptor {
     <span class="annotation">@Override</span>
     <span class="directive">public</span> <span class="predefined-type">Object</span> invoke(MethodInvocation invocation) <span class="directive">throws</span> <span class="predefined-type">Throwable</span> {
         Log.i(<span class="string"><span class="delimiter">&quot;</span><span class="content">Interception</span><span class="delimiter">&quot;</span></span>, <span class="string"><span class="delimiter">&quot;</span><span class="content">start</span><span class="delimiter">&quot;</span></span>);
@@ -1004,7 +1004,7 @@ If a return value is declared on the intercepted method, the Asynchronous and UI
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="CodeRay"><code class="java language-java"><span class="directive">public</span> <span class="type">class</span> <span class="class">Example</span>{
+<pre class="CodeRay highlight"><code data-lang="java"><span class="directive">public</span> <span class="type">class</span> <span class="class">Example</span>{
     <span class="annotation">@Log</span>
     <span class="directive">public</span> <span class="type">void</span> methodCall() {
     }
@@ -1030,7 +1030,7 @@ If a return value is declared on the intercepted method, the Asynchronous and UI
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="CodeRay"><code class="java language-java"><span class="annotation">@TransfuseModule</span>
+<pre class="CodeRay highlight"><code data-lang="java"><span class="annotation">@TransfuseModule</span>
 <span class="annotation">@Bindings</span>({
     <span class="annotation">@Bind</span>(type=Example.class, to=ExampleImpl.class)
 })
@@ -1045,7 +1045,7 @@ If a return value is declared on the intercepted method, the Asynchronous and UI
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="CodeRay"><code class="java language-java"><span class="annotation">@TransfuseModule</span>
+<pre class="CodeRay highlight"><code data-lang="java"><span class="annotation">@TransfuseModule</span>
 <span class="annotation">@BindProviders</span>({
     <span class="annotation">@BindProvider</span>(type=Example.class, provider=ExampleProvider.class
 })
@@ -1060,7 +1060,7 @@ If a return value is declared on the intercepted method, the Asynchronous and UI
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="CodeRay"><code class="java language-java"><span class="annotation">@TransfuseModule</span>
+<pre class="CodeRay highlight"><code data-lang="java"><span class="annotation">@TransfuseModule</span>
 <span class="annotation">@BindInterceptors</span>({
     <span class="annotation">@BindInterceptor</span>(annotation = Log.class, interceptor = LogInterceptor.class)
 })
@@ -1075,7 +1075,7 @@ If a return value is declared on the intercepted method, the Asynchronous and UI
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="CodeRay"><code class="java language-java"><span class="annotation">@TransfuseModule</span>
+<pre class="CodeRay highlight"><code data-lang="java"><span class="annotation">@TransfuseModule</span>
 <span class="directive">public</span> <span class="type">interface</span> <span class="class">Module</span>{
     <span class="annotation">@Provides</span>
     <span class="directive">public</span> ExampleProvides buildExample(Depenendency dependency){
@@ -1096,7 +1096,7 @@ If a return value is declared on the intercepted method, the Asynchronous and UI
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="CodeRay"><code class="java language-java"><span class="directive">public</span> <span class="type">class</span> <span class="class">Event</span>{}
+<pre class="CodeRay highlight"><code data-lang="java"><span class="directive">public</span> <span class="type">class</span> <span class="class">Event</span>{}
 
 <span class="directive">public</span> <span class="type">class</span> <span class="class">ListenerExample</span>{
     <span class="annotation">@Observes</span>
@@ -1111,7 +1111,7 @@ If a return value is declared on the intercepted method, the Asynchronous and UI
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="CodeRay"><code class="java language-java"><span class="directive">public</span> <span class="type">class</span> <span class="class">Trigger</span>{
+<pre class="CodeRay highlight"><code data-lang="java"><span class="directive">public</span> <span class="type">class</span> <span class="class">Trigger</span>{
     <span class="annotation">@Inject</span>
     EventManager eventManager;
 
@@ -1133,7 +1133,7 @@ If a return value is declared on the intercepted method, the Asynchronous and UI
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="CodeRay"><code class="java language-java"><span class="annotation">@Parcel</span>
+<pre class="CodeRay highlight"><code data-lang="java"><span class="annotation">@Parcel</span>
 <span class="directive">public</span> <span class="type">void</span> CleanParcel{
     <span class="directive">private</span> <span class="predefined-type">String</span> name;
     <span class="directive">private</span> <span class="type">int</span> age;
@@ -1171,7 +1171,7 @@ If a return value is declared on the intercepted method, the Asynchronous and UI
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="CodeRay"><code class="java language-java"><span class="annotation">@Factory</span>
+<pre class="CodeRay highlight"><code data-lang="java"><span class="annotation">@Factory</span>
 <span class="directive">public</span> <span class="type">interface</span> <span class="class">TransfuseFactory</span>{
     Example getExample();
 }</code></pre>
@@ -1182,7 +1182,7 @@ If a return value is declared on the intercepted method, the Asynchronous and UI
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="CodeRay"><code class="java language-java"><span class="directive">public</span> <span class="type">class</span> <span class="class">ExampleUsage</span>{
+<pre class="CodeRay highlight"><code data-lang="java"><span class="directive">public</span> <span class="type">class</span> <span class="class">ExampleUsage</span>{
 
     <span class="annotation">@Inject</span> TransfuseFactory factory;
 
@@ -1201,7 +1201,7 @@ If a return value is declared on the intercepted method, the Asynchronous and UI
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="CodeRay"><code class="java language-java"><span class="annotation">@Factory</span>
+<pre class="CodeRay highlight"><code data-lang="java"><span class="annotation">@Factory</span>
 <span class="directive">public</span> <span class="type">interface</span> <span class="class">AssistedFactory</span> {
     AssistedTarget buildTarget(AssistedDependency dependency);
     AssistedDoubleTarget buildTarget(<span class="annotation">@Named</span>(<span class="string"><span class="delimiter">&quot;</span><span class="content">one</span><span class="delimiter">&quot;</span></span>) AssistedDependency dependencyOne,
@@ -1211,7 +1211,7 @@ If a return value is declared on the intercepted method, the Asynchronous and UI
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="CodeRay"><code class="java language-java"><span class="directive">public</span> <span class="type">class</span> <span class="class">AssistedTarget</span> {
+<pre class="CodeRay highlight"><code data-lang="java"><span class="directive">public</span> <span class="type">class</span> <span class="class">AssistedTarget</span> {
     <span class="annotation">@Inject</span>
     AssistedDependency dependency;
 }</code></pre>
@@ -1219,7 +1219,7 @@ If a return value is declared on the intercepted method, the Asynchronous and UI
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="CodeRay"><code class="java language-java"><span class="directive">public</span> <span class="type">class</span> <span class="class">AssistedDoubleTarget</span> {
+<pre class="CodeRay highlight"><code data-lang="java"><span class="directive">public</span> <span class="type">class</span> <span class="class">AssistedDoubleTarget</span> {
     <span class="annotation">@Inject</span> <span class="annotation">@Named</span>(<span class="string"><span class="delimiter">&quot;</span><span class="content">one</span><span class="delimiter">&quot;</span></span>)
     AssistedDependency dependencyOne;
     <span class="annotation">@Inject</span> <span class="annotation">@Named</span>(<span class="string"><span class="delimiter">&quot;</span><span class="content">two</span><span class="delimiter">&quot;</span></span>)
@@ -1261,7 +1261,7 @@ DI and the other code generation features are not available on legacy Android co
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="CodeRay"><code class="java language-java"><span class="annotation">@Activity</span>(label = <span class="string"><span class="delimiter">&quot;</span><span class="content">Transfuse Example</span><span class="delimiter">&quot;</span></span>)
+<pre class="CodeRay highlight"><code data-lang="java"><span class="annotation">@Activity</span>(label = <span class="string"><span class="delimiter">&quot;</span><span class="content">Transfuse Example</span><span class="delimiter">&quot;</span></span>)
 <span class="annotation">@IntentFilter</span>({
         <span class="annotation">@Intent</span>(type = IntentType.ACTION, name = android.content.Intent.ACTION_MAIN),
         <span class="annotation">@Intent</span>(type = IntentType.CATEGORY, name = android.content.Intent.CATEGORY_LAUNCHER)
@@ -1275,7 +1275,7 @@ DI and the other code generation features are not available on legacy Android co
 <div class="sect3">
 <h4 id="reference">Reference</h4>
 <div class="paragraph">
-<p><a href="https://oss.sonatype.org/service/local/repositories/releases/archive/org/androidtransfuse/transfuse-api/0.2.10/transfuse-api-0.2.10-javadoc.jar/!/index.html">API Javadocs</a></p>
+<p><a href="https://oss.sonatype.org/service/local/repositories/releases/archive/org/androidtransfuse/transfuse-api/0.3.0-beta-2/transfuse-api-0.3.0-beta-2-javadoc.jar/!/index.html">API Javadocs</a></p>
 </div>
 </div>
 </div>
