@@ -21,8 +21,8 @@ import org.androidtransfuse.adapter.ASTAnnotation;
 import org.androidtransfuse.adapter.ASTType;
 import org.androidtransfuse.adapter.element.ASTElementFactory;
 import org.androidtransfuse.annotations.WindowFeature;
-import org.androidtransfuse.experiment.*;
 import org.androidtransfuse.model.MethodDescriptor;
+import org.androidtransfuse.tomove.*;
 import org.androidtransfuse.util.AndroidLiterals;
 
 import javax.inject.Inject;

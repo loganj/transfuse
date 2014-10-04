@@ -13,12 +13,21 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.androidtransfuse.experiment;
+package org.androidtransfuse.tomove;
 
 /**
  * @author John Ericksen
  */
-public interface ComponentPartGenerator {
+public enum GenerationPhase {
 
-    void generate(ComponentDescriptor descriptor);
+    SUPER,
+    INIT,
+    LAYOUT,
+    SCOPES,
+    POSTSCOPES,
+    INJECTION,
+    POSTINJECTION,
+    REGISTRATION,
+    EVENT,
+    RETURN
 }

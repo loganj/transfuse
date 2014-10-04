@@ -16,8 +16,8 @@
 package org.androidtransfuse.gen.componentBuilder;
 
 import org.androidtransfuse.adapter.ASTMethod;
-import org.androidtransfuse.experiment.ComponentBuilder;
 import org.androidtransfuse.model.TypedExpression;
+import org.androidtransfuse.tomove.ComponentBuilder;
 
 /**
  * @author John Ericksen

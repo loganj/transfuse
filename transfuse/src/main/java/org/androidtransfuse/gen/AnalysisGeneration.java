@@ -18,7 +18,7 @@ package org.androidtransfuse.gen;
 import com.sun.codemodel.JDefinedClass;
 import org.androidtransfuse.adapter.ASTType;
 import org.androidtransfuse.analysis.Analysis;
-import org.androidtransfuse.experiment.ComponentDescriptor;
+import org.androidtransfuse.tomove.ComponentDescriptor;
 import org.androidtransfuse.transaction.AbstractCompletionTransactionWorker;
 
 import javax.inject.Provider;
@@ -31,7 +31,7 @@ public class AnalysisGeneration extends AbstractCompletionTransactionWorker<Prov
     private final Provider<? extends Analysis<ComponentDescriptor>> analysis;
     private final Provider<org.androidtransfuse.experiment.ComponentGenerator> generatorProvider;
 
-    public AnalysisGeneration(Provider<? extends Analysis<org.androidtransfuse.experiment.ComponentDescriptor>> analysis,
+    public AnalysisGeneration(Provider<? extends Analysis<ComponentDescriptor>> analysis,
                               Provider<org.androidtransfuse.experiment.ComponentGenerator> generatorProvider) {
         this.analysis = analysis;
         this.generatorProvider = generatorProvider;

@@ -19,7 +19,6 @@ import com.sun.codemodel.*;
 import org.androidtransfuse.adapter.ASTMethod;
 import org.androidtransfuse.adapter.ASTType;
 import org.androidtransfuse.adapter.element.ASTElementFactory;
-import org.androidtransfuse.experiment.*;
 import org.androidtransfuse.gen.ClassGenerationUtil;
 import org.androidtransfuse.gen.UniqueVariableNamer;
 import org.androidtransfuse.model.InjectionSignature;
@@ -27,6 +26,7 @@ import org.androidtransfuse.model.MethodDescriptor;
 import org.androidtransfuse.scope.ApplicationScope;
 import org.androidtransfuse.scope.ScopeKey;
 import org.androidtransfuse.scope.Scopes;
+import org.androidtransfuse.tomove.*;
 import org.androidtransfuse.util.AndroidLiterals;
 
 import javax.inject.Inject;

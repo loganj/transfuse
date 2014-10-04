@@ -20,7 +20,7 @@ import org.androidtransfuse.analysis.targets.MockActivityDelegate;
 import org.androidtransfuse.annotations.*;
 import org.androidtransfuse.bootstrap.Bootstrap;
 import org.androidtransfuse.bootstrap.Bootstraps;
-import org.androidtransfuse.experiment.ComponentDescriptor;
+import org.androidtransfuse.tomove.ComponentDescriptor;
 import org.junit.Before;
 import org.junit.Ignore;
 import org.junit.Test;

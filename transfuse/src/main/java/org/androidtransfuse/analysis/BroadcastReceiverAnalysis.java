@@ -23,7 +23,7 @@ import org.androidtransfuse.adapter.element.ASTTypeBuilderVisitor;
 import org.androidtransfuse.analysis.repository.InjectionNodeBuilderRepository;
 import org.androidtransfuse.analysis.repository.InjectionNodeBuilderRepositoryFactory;
 import org.androidtransfuse.annotations.BroadcastReceiver;
-import org.androidtransfuse.experiment.ComponentDescriptor;
+import org.androidtransfuse.experiment.ComponentDescriptorImpl;
 import org.androidtransfuse.experiment.ScopesGeneration;
 import org.androidtransfuse.experiment.generators.BroadcastReceiverManifestEntryGenerator;
 import org.androidtransfuse.experiment.generators.OnCreateInjectionGenerator;
@@ -31,6 +31,7 @@ import org.androidtransfuse.gen.variableBuilder.InjectionBindingBuilder;
 import org.androidtransfuse.gen.variableBuilder.ProviderInjectionNodeBuilderFactory;
 import org.androidtransfuse.model.InjectionSignature;
 import org.androidtransfuse.scope.ApplicationScope;
+import org.androidtransfuse.tomove.ComponentDescriptor;
 import org.androidtransfuse.util.AndroidLiterals;
 
 import javax.inject.Inject;
@@ -87,7 +88,7 @@ public class BroadcastReceiverAnalysis implements Analysis<ComponentDescriptor> 
             //vanilla Android broadcast receiver
             PackageClass activityPackageClass = astType.getPackageClass();
             PackageClass receiverClassName = componentAnalysis.buildComponentPackageClass(astType, activityPackageClass.getClassName(), "BroadcastReceiver");
-            receiverDescriptor = new ComponentDescriptor(astType, null, receiverClassName);
+            receiverDescriptor = new ComponentDescriptorImpl(astType, null, receiverClassName);
         } else {
             PackageClass receiverClassName = componentAnalysis.buildComponentPackageClass(astType, broadcastReceiverAnnotation.name(), "BroadcastReceiver");
 
@@ -117,7 +118,7 @@ public class BroadcastReceiverAnalysis implements Analysis<ComponentDescriptor> 
 
             AnalysisContext analysisContext = analysisContextFactory.buildAnalysisContext(injectionNodeBuilderRepository);
 
-            receiverDescriptor = new ComponentDescriptor(astType, receiverType, receiverClassName, analysisContext);
+            receiverDescriptor = new ComponentDescriptorImpl(astType, receiverType, receiverClassName, analysisContext);
 
             receiverDescriptor.getGenerators().add(scopesGenerationFactory.build(getASTMethod("onReceive", AndroidLiterals.CONTEXT, AndroidLiterals.INTENT)));
 

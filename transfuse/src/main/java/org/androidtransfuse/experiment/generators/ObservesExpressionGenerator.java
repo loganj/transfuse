@@ -26,11 +26,11 @@ import org.androidtransfuse.analysis.astAnalyzer.ObservesAspect;
 import org.androidtransfuse.annotations.Factory;
 import org.androidtransfuse.event.EventManager;
 import org.androidtransfuse.event.EventObserver;
-import org.androidtransfuse.experiment.*;
 import org.androidtransfuse.gen.*;
 import org.androidtransfuse.model.InjectionNode;
 import org.androidtransfuse.model.MethodDescriptor;
 import org.androidtransfuse.model.TypedExpression;
+import org.androidtransfuse.tomove.*;
 
 import javax.inject.Inject;
 import javax.inject.Named;

@@ -22,11 +22,11 @@ import com.sun.codemodel.JInvocation;
 import org.androidtransfuse.adapter.ASTMethod;
 import org.androidtransfuse.adapter.ASTParameter;
 import org.androidtransfuse.adapter.ASTVoidType;
-import org.androidtransfuse.experiment.ComponentBuilder;
-import org.androidtransfuse.experiment.ComponentMethodGenerator;
-import org.androidtransfuse.experiment.GenerationPhase;
 import org.androidtransfuse.model.MethodDescriptor;
 import org.androidtransfuse.model.TypedExpression;
+import org.androidtransfuse.tomove.ComponentBuilder;
+import org.androidtransfuse.tomove.ComponentMethodGenerator;
+import org.androidtransfuse.tomove.GenerationPhase;
 
 import javax.inject.Inject;
 

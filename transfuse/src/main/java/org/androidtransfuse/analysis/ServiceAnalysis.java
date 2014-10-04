@@ -25,7 +25,8 @@ import org.androidtransfuse.adapter.element.ASTTypeBuilderVisitor;
 import org.androidtransfuse.analysis.repository.InjectionNodeBuilderRepository;
 import org.androidtransfuse.analysis.repository.InjectionNodeBuilderRepositoryFactory;
 import org.androidtransfuse.annotations.Service;
-import org.androidtransfuse.experiment.*;
+import org.androidtransfuse.experiment.ComponentDescriptorImpl;
+import org.androidtransfuse.experiment.ScopesGeneration;
 import org.androidtransfuse.experiment.generators.ObservesExpressionGenerator;
 import org.androidtransfuse.experiment.generators.OnCreateInjectionGenerator;
 import org.androidtransfuse.experiment.generators.ServiceManifestEntryGenerator;
@@ -37,6 +38,7 @@ import org.androidtransfuse.intentFactory.ServiceIntentFactoryStrategy;
 import org.androidtransfuse.model.InjectionSignature;
 import org.androidtransfuse.model.MethodDescriptor;
 import org.androidtransfuse.scope.ApplicationScope;
+import org.androidtransfuse.tomove.*;
 import org.androidtransfuse.util.AndroidLiterals;
 
 import javax.inject.Inject;
@@ -105,7 +107,7 @@ public class ServiceAnalysis implements Analysis<ComponentDescriptor> {
             PackageClass packageClass = input.getPackageClass();
             serviceClassName = componentAnalysis.buildComponentPackageClass(input, packageClass.getClassName(), "Service");
 
-            serviceDescriptor = new ComponentDescriptor(input, null, packageClass);
+            serviceDescriptor = new ComponentDescriptorImpl(input, null, packageClass);
         } else {
             //generated Android Service
             serviceClassName = componentAnalysis.buildComponentPackageClass(input, serviceAnnotation.name(), "Service");
@@ -116,7 +118,7 @@ public class ServiceAnalysis implements Analysis<ComponentDescriptor> {
 
             AnalysisContext context = analysisContextFactory.buildAnalysisContext(buildVariableBuilderMap(serviceType));
 
-            serviceDescriptor = new ComponentDescriptor(input, serviceType, serviceClassName, context);
+            serviceDescriptor = new ComponentDescriptorImpl(input, serviceType, serviceClassName, context);
 
             componentAnalysis.setupGenerators(serviceDescriptor, serviceType, Service.class);
 

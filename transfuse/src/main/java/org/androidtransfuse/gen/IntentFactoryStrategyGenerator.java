@@ -24,14 +24,14 @@ import org.androidtransfuse.adapter.ASTUtils;
 import org.androidtransfuse.adapter.PackageClass;
 import org.androidtransfuse.adapter.classes.ASTClassFactory;
 import org.androidtransfuse.analysis.astAnalyzer.IntentFactoryExtraAspect;
-import org.androidtransfuse.experiment.ComponentBuilder;
-import org.androidtransfuse.experiment.ComponentDescriptor;
-import org.androidtransfuse.experiment.ComponentPartGenerator;
-import org.androidtransfuse.experiment.Generation;
 import org.androidtransfuse.intentFactory.AbstractIntentFactoryStrategy;
 import org.androidtransfuse.intentFactory.ActivityIntentFactoryStrategy;
 import org.androidtransfuse.model.InjectionNode;
 import org.androidtransfuse.model.TypedExpression;
+import org.androidtransfuse.tomove.ComponentBuilder;
+import org.androidtransfuse.tomove.ComponentDescriptor;
+import org.androidtransfuse.tomove.ComponentPartGenerator;
+import org.androidtransfuse.tomove.Generation;
 import org.androidtransfuse.util.AndroidLiterals;
 
 import javax.inject.Inject;
@@ -57,7 +57,7 @@ public class IntentFactoryStrategyGenerator implements Generation {
     private final UniqueVariableNamer namer;
 
     @Inject
-    public IntentFactoryStrategyGenerator(/*@Assisted*/ Class factoryStrategyClass,
+    public IntentFactoryStrategyGenerator(/*@Assisted*/ Class<? extends AbstractIntentFactoryStrategy> factoryStrategyClass,
                                           ASTClassFactory astClassFactory,
                                           ClassGenerationUtil generationUtil,
                                           UniqueVariableNamer namer) {
@@ -83,7 +83,7 @@ public class IntentFactoryStrategyGenerator implements Generation {
     public void schedule(final ComponentBuilder builder, ComponentDescriptor descriptor) {
         builder.add(new ComponentPartGenerator() {
             @Override
-            public void generate(org.androidtransfuse.experiment.ComponentDescriptor descriptor) {
+            public void generate(ComponentDescriptor descriptor) {
                 try {
                     JDefinedClass strategyClass = generationUtil.defineClass(descriptor.getPackageClass().append(STRATEGY_EXT));
                     strategyClass.annotate(SuppressWarnings.class).param("value", "unchecked");

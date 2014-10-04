@@ -23,12 +23,12 @@ import org.androidtransfuse.adapter.ASTParameter;
 import org.androidtransfuse.adapter.MethodSignature;
 import org.androidtransfuse.analysis.astAnalyzer.ManualSuperAspect;
 import org.androidtransfuse.annotations.Factory;
-import org.androidtransfuse.experiment.ComponentBuilder;
-import org.androidtransfuse.experiment.ComponentDescriptor;
-import org.androidtransfuse.experiment.ComponentMethodGenerator;
-import org.androidtransfuse.experiment.Generation;
 import org.androidtransfuse.model.InjectionNode;
 import org.androidtransfuse.model.MethodDescriptor;
+import org.androidtransfuse.tomove.ComponentBuilder;
+import org.androidtransfuse.tomove.ComponentDescriptor;
+import org.androidtransfuse.tomove.ComponentMethodGenerator;
+import org.androidtransfuse.tomove.Generation;
 
 import javax.inject.Inject;
 import java.util.List;

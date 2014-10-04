@@ -20,14 +20,14 @@ import com.sun.codemodel.JClassAlreadyExistsException;
 import com.sun.codemodel.JExpression;
 import org.androidtransfuse.TransfuseAnalysisException;
 import org.androidtransfuse.adapter.ASTMethod;
-import org.androidtransfuse.experiment.ComponentBuilder;
-import org.androidtransfuse.experiment.ComponentMethodGenerator;
-import org.androidtransfuse.experiment.GenerationPhase;
 import org.androidtransfuse.gen.InjectionFragmentGenerator;
 import org.androidtransfuse.gen.InstantiationStrategyFactory;
 import org.androidtransfuse.model.InjectionNode;
 import org.androidtransfuse.model.MethodDescriptor;
 import org.androidtransfuse.model.TypedExpression;
+import org.androidtransfuse.tomove.ComponentBuilder;
+import org.androidtransfuse.tomove.ComponentMethodGenerator;
+import org.androidtransfuse.tomove.GenerationPhase;
 
 import javax.inject.Inject;
 import javax.inject.Named;

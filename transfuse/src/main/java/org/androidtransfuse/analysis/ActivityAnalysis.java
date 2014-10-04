@@ -23,7 +23,7 @@ import org.androidtransfuse.adapter.element.ASTTypeBuilderVisitor;
 import org.androidtransfuse.analysis.repository.InjectionNodeBuilderRepository;
 import org.androidtransfuse.analysis.repository.InjectionNodeBuilderRepositoryFactory;
 import org.androidtransfuse.annotations.*;
-import org.androidtransfuse.experiment.ComponentDescriptor;
+import org.androidtransfuse.experiment.ComponentDescriptorImpl;
 import org.androidtransfuse.experiment.ScopesGeneration;
 import org.androidtransfuse.experiment.generators.*;
 import org.androidtransfuse.gen.GeneratorFactory;
@@ -33,6 +33,7 @@ import org.androidtransfuse.gen.variableBuilder.*;
 import org.androidtransfuse.intentFactory.ActivityIntentFactoryStrategy;
 import org.androidtransfuse.model.InjectionSignature;
 import org.androidtransfuse.scope.ApplicationScope;
+import org.androidtransfuse.tomove.ComponentDescriptor;
 import org.androidtransfuse.util.AndroidLiterals;
 
 import javax.inject.Inject;
@@ -128,7 +129,7 @@ public class ActivityAnalysis implements Analysis<ComponentDescriptor> {
             //vanilla Android activity
             PackageClass activityPackageClass = input.getPackageClass();
             activityClassName = componentAnalysis.buildComponentPackageClass(input, activityPackageClass.getClassName(), "Activity");
-            activityDescriptor = new ComponentDescriptor(input, null, activityClassName);
+            activityDescriptor = new ComponentDescriptorImpl(input, null, activityClassName);
         } else {
             //generated Android activity
             activityClassName = componentAnalysis.buildComponentPackageClass(input, activityAnnotation.name(), "Activity");
@@ -139,7 +140,9 @@ public class ActivityAnalysis implements Analysis<ComponentDescriptor> {
 
             AnalysisContext context = analysisContextFactory.buildAnalysisContext(buildVariableBuilderMap(activityType));
 
-            activityDescriptor = new ComponentDescriptor(input, activityType, activityClassName, context);
+            activityDescriptor = new ComponentDescriptorImpl(input, activityType, activityClassName, context);
+
+            componentAnalysis.buildDescriptor(activityDescriptor, activityType, Activity.class);
 
             activityDescriptor.getGenerators().add(layoutGenerator);
             activityDescriptor.getGenerators().add(layoutHandlerGenerator);

@@ -24,7 +24,7 @@ import org.androidtransfuse.adapter.element.ASTTypeBuilderVisitor;
 import org.androidtransfuse.analysis.repository.InjectionNodeBuilderRepository;
 import org.androidtransfuse.analysis.repository.InjectionNodeBuilderRepositoryFactory;
 import org.androidtransfuse.annotations.*;
-import org.androidtransfuse.experiment.ComponentDescriptor;
+import org.androidtransfuse.experiment.ComponentDescriptorImpl;
 import org.androidtransfuse.experiment.ScopesGeneration;
 import org.androidtransfuse.experiment.generators.FragmentLayoutGenerator;
 import org.androidtransfuse.experiment.generators.ObservesExpressionGenerator;
@@ -34,6 +34,7 @@ import org.androidtransfuse.gen.componentBuilder.ListenerRegistrationGenerator;
 import org.androidtransfuse.gen.variableBuilder.*;
 import org.androidtransfuse.model.InjectionSignature;
 import org.androidtransfuse.scope.ApplicationScope;
+import org.androidtransfuse.tomove.ComponentDescriptor;
 import org.androidtransfuse.util.AndroidLiterals;
 
 import javax.inject.Inject;
@@ -122,7 +123,7 @@ public class FragmentAnalysis implements Analysis<ComponentDescriptor> {
 
             AnalysisContext context = analysisContextFactory.buildAnalysisContext(buildVariableBuilderMap(fragmentType));
 
-            fragmentDescriptor = new ComponentDescriptor(astType, fragmentType, fragmentClassName, context);
+            fragmentDescriptor = new ComponentDescriptorImpl(astType, fragmentType, fragmentClassName, context);
 
             componentAnalysis.setupGenerators(fragmentDescriptor, fragmentType, Fragment.class);
 

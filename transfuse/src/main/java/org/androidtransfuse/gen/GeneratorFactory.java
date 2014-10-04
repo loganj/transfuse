@@ -16,6 +16,7 @@
 package org.androidtransfuse.gen;
 
 import org.androidtransfuse.annotations.Factory;
+import org.androidtransfuse.intentFactory.AbstractIntentFactoryStrategy;
 
 /**
  * @author John Ericksen
@@ -23,5 +24,5 @@ import org.androidtransfuse.annotations.Factory;
 @Factory
 public interface GeneratorFactory {
 
-    IntentFactoryStrategyGenerator buildStrategyGenerator(Class baseClass);
+    IntentFactoryStrategyGenerator buildStrategyGenerator(Class<? extends AbstractIntentFactoryStrategy> baseClass);
 }

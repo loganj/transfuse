@@ -22,10 +22,10 @@ import org.androidtransfuse.adapter.ASTType;
 import org.androidtransfuse.analysis.*;
 import org.androidtransfuse.annotations.*;
 import org.androidtransfuse.config.ScopesGeneratorWorker;
-import org.androidtransfuse.experiment.ComponentDescriptor;
 import org.androidtransfuse.gen.AnalysisGenerationFactory;
 import org.androidtransfuse.gen.ComponentsGenerator;
 import org.androidtransfuse.gen.PackageHelperGeneratorAdapter;
+import org.androidtransfuse.tomove.ComponentDescriptor;
 import org.androidtransfuse.transaction.*;
 
 import javax.inject.Inject;

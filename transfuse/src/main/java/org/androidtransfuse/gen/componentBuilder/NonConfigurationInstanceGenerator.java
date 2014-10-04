@@ -23,7 +23,6 @@ import org.androidtransfuse.adapter.PackageClass;
 import org.androidtransfuse.adapter.element.ASTElementFactory;
 import org.androidtransfuse.analysis.astAnalyzer.NonConfigurationAspect;
 import org.androidtransfuse.annotations.Factory;
-import org.androidtransfuse.experiment.*;
 import org.androidtransfuse.gen.ClassGenerationUtil;
 import org.androidtransfuse.gen.ClassNamer;
 import org.androidtransfuse.gen.InvocationBuilder;
@@ -33,6 +32,7 @@ import org.androidtransfuse.model.FieldInjectionPoint;
 import org.androidtransfuse.model.InjectionNode;
 import org.androidtransfuse.model.MethodDescriptor;
 import org.androidtransfuse.model.TypedExpression;
+import org.androidtransfuse.tomove.*;
 import org.androidtransfuse.util.AndroidLiterals;
 
 import javax.inject.Inject;

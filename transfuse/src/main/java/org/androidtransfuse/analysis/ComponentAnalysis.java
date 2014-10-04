@@ -17,6 +17,7 @@ package org.androidtransfuse.analysis;
 
 import com.google.common.base.Joiner;
 import com.google.common.collect.ImmutableMap;
+import org.androidtransfuse.DescriptorBuilder;
 import org.androidtransfuse.EventMapping;
 import org.androidtransfuse.TransfuseAnalysisException;
 import org.androidtransfuse.adapter.ASTMethod;
@@ -29,10 +30,10 @@ import org.androidtransfuse.analysis.astAnalyzer.RegistrationAnalyzer;
 import org.androidtransfuse.analysis.astAnalyzer.registration.RegistrationGenerators;
 import org.androidtransfuse.analysis.repository.InjectionNodeBuilderRepository;
 import org.androidtransfuse.analysis.repository.RegistrationGeneratorFactory;
-import org.androidtransfuse.experiment.ComponentDescriptor;
 import org.androidtransfuse.experiment.generators.MethodCallbackGenerator;
 import org.androidtransfuse.experiment.generators.SuperGenerator;
 import org.androidtransfuse.gen.componentBuilder.ComponentBuilderFactory;
+import org.androidtransfuse.tomove.ComponentDescriptor;
 import org.apache.commons.lang.StringUtils;
 
 import javax.inject.Inject;
@@ -141,6 +142,12 @@ public class ComponentAnalysis {
             return inputPackageClass.append(componentName);
         } else {
             return inputPackageClass.replaceName(className);
+        }
+    }
+
+    public void buildDescriptor(ComponentDescriptor descriptor, ASTType type, Class<? extends Annotation> componentAnnotation) {
+        for (DescriptorBuilder descriptorBuilder : repository.getDescriptorBuilders()) {
+            descriptorBuilder.buildDescriptor(descriptor, type, componentAnnotation);
         }
     }
 }

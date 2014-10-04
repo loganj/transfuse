@@ -28,13 +28,13 @@ import java.util.List;
 /**
  * @author John Ericksen
  */
-public class ComponentBuilder {
+public class ConfigurationRepositoryBuilder {
 
     ConfigurationRepository repository;
     Class<? extends Annotation> componentAnnotation;
     ASTType componentType;
 
-    public ComponentBuilder(ConfigurationRepository repository, Class<? extends Annotation> componentAnnotation) {
+    public ConfigurationRepositoryBuilder(ConfigurationRepository repository, Class<? extends Annotation> componentAnnotation) {
         this.repository = repository;
         this.componentAnnotation = componentAnnotation;
     }
@@ -63,7 +63,7 @@ public class ComponentBuilder {
         return new MethodBuilder(methodName, parameterList);
     }
 
-    public ComponentBuilder extending(String className) {
+    public ConfigurationRepositoryBuilder extending(String className) {
         if(componentType != null){
             //todo: throw Plugin Exception
         }
@@ -71,7 +71,7 @@ public class ComponentBuilder {
         return this;
     }
 
-    public ComponentBuilder extending(ASTType componentType){
+    public ConfigurationRepositoryBuilder extending(ASTType componentType){
         if(componentType != null){
             //todo: throw Plugin Exception
         }

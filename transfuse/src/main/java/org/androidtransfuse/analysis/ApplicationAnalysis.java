@@ -23,7 +23,7 @@ import org.androidtransfuse.adapter.element.ASTTypeBuilderVisitor;
 import org.androidtransfuse.analysis.repository.InjectionNodeBuilderRepository;
 import org.androidtransfuse.analysis.repository.InjectionNodeBuilderRepositoryFactory;
 import org.androidtransfuse.annotations.Application;
-import org.androidtransfuse.experiment.ComponentDescriptor;
+import org.androidtransfuse.experiment.ComponentDescriptorImpl;
 import org.androidtransfuse.experiment.ScopesGeneration;
 import org.androidtransfuse.experiment.generators.ApplicationManifestEntryGenerator;
 import org.androidtransfuse.experiment.generators.ApplicationScopeSeedGenerator;
@@ -32,6 +32,7 @@ import org.androidtransfuse.experiment.generators.OnCreateInjectionGenerator;
 import org.androidtransfuse.gen.variableBuilder.ProviderInjectionNodeBuilderFactory;
 import org.androidtransfuse.model.InjectionSignature;
 import org.androidtransfuse.scope.ApplicationScope;
+import org.androidtransfuse.tomove.ComponentDescriptor;
 import org.androidtransfuse.util.AndroidLiterals;
 
 import javax.inject.Inject;
@@ -81,18 +82,18 @@ public class ApplicationAnalysis implements Analysis<ComponentDescriptor> {
         this.applicationScopeSeedGenerator = applicationScopeSeedGenerator;
     }
 
-    public ComponentDescriptor analyze(ASTType astType) {
+    public ComponentDescriptorImpl analyze(ASTType astType) {
         Application applicationAnnotation = astType.getAnnotation(Application.class);
 
 
         PackageClass applicationClassName;
-        ComponentDescriptor applicationDescriptor = null;
+        ComponentDescriptorImpl applicationDescriptor = null;
 
         if (astType.extendsFrom(AndroidLiterals.APPLICATION)) {
             //vanilla Android Application
             PackageClass activityPackageClass = astType.getPackageClass();
             applicationClassName = componentAnalysis.buildComponentPackageClass(astType, activityPackageClass.getClassName(), "Application");
-            applicationDescriptor = new ComponentDescriptor(astType, null, applicationClassName);
+            applicationDescriptor = new ComponentDescriptorImpl(astType, null, applicationClassName);
         } else {
 
             applicationClassName = componentAnalysis.buildComponentPackageClass(astType, applicationAnnotation.name(), "Application");
@@ -104,7 +105,7 @@ public class ApplicationAnalysis implements Analysis<ComponentDescriptor> {
             //analyze delegate
             AnalysisContext analysisContext = analysisContextFactory.buildAnalysisContext(buildVariableBuilderMap(applicationType));
 
-            applicationDescriptor = new ComponentDescriptor(astType, applicationType, applicationClassName, analysisContext);
+            applicationDescriptor = new ComponentDescriptorImpl(astType, applicationType, applicationClassName, analysisContext);
 
             componentAnalysis.setupGenerators(applicationDescriptor, applicationType, Application.class);
 

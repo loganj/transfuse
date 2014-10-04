@@ -13,15 +13,12 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.androidtransfuse.experiment;
-
-import com.sun.codemodel.JBlock;
-import org.androidtransfuse.model.MethodDescriptor;
+package org.androidtransfuse.tomove;
 
 /**
  * @author John Ericksen
  */
-public interface ComponentMethodGenerator {
+public interface ComponentPartGenerator {
 
-    void generate(MethodDescriptor methodDescriptor, JBlock block);
+    void generate(ComponentDescriptor descriptor);
 }

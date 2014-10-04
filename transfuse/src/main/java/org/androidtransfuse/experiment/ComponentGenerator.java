@@ -16,6 +16,9 @@
 package org.androidtransfuse.experiment;
 
 import com.sun.codemodel.JDefinedClass;
+import org.androidtransfuse.tomove.ComponentBuilder;
+import org.androidtransfuse.tomove.ComponentDescriptor;
+import org.androidtransfuse.tomove.Generation;
 
 import javax.inject.Inject;
 

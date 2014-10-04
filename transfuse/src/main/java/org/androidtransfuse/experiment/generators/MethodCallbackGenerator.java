@@ -23,13 +23,13 @@ import org.androidtransfuse.analysis.ManualSuperGenerator;
 import org.androidtransfuse.analysis.astAnalyzer.ListenerAspect;
 import org.androidtransfuse.analysis.astAnalyzer.ManualSuperAspect;
 import org.androidtransfuse.event.SuperCaller;
-import org.androidtransfuse.experiment.*;
 import org.androidtransfuse.gen.ClassGenerationUtil;
 import org.androidtransfuse.gen.InvocationBuilder;
 import org.androidtransfuse.gen.UniqueVariableNamer;
 import org.androidtransfuse.model.InjectionNode;
 import org.androidtransfuse.model.MethodDescriptor;
 import org.androidtransfuse.model.TypedExpression;
+import org.androidtransfuse.tomove.*;
 
 import javax.inject.Inject;
 import javax.inject.Named;

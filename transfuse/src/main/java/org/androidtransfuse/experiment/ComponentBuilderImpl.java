@@ -27,6 +27,7 @@ import org.androidtransfuse.model.InjectionNode;
 import org.androidtransfuse.model.MethodDescriptor;
 import org.androidtransfuse.model.MethodDescriptorBuilder;
 import org.androidtransfuse.model.TypedExpression;
+import org.androidtransfuse.tomove.*;
 
 import javax.inject.Inject;
 import java.util.*;
@@ -34,7 +35,7 @@ import java.util.*;
 /**
  * @author John Ericksen
  */
-public class ComponentBuilder {
+public class ComponentBuilderImpl implements ComponentBuilder {
 
     private class MethodMetaData{
         private final Map<GenerationPhase, List<ComponentMethodGenerator>> generators = new HashMap<GenerationPhase, List<ComponentMethodGenerator>>();
@@ -106,9 +107,9 @@ public class ComponentBuilder {
     private JVar scopes;
 
     @Inject
-    public ComponentBuilder(ClassGenerationUtil generationUtil,
-                            ComponentDescriptor descriptor,
-                            UniqueVariableNamer variableNamer) {
+    public ComponentBuilderImpl(ClassGenerationUtil generationUtil,
+                                ComponentDescriptor descriptor,
+                                UniqueVariableNamer variableNamer) {
         this.generationUtil = generationUtil;
         this.descriptor = descriptor;
         this.variableNamer = variableNamer;

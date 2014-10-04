@@ -18,12 +18,12 @@ package org.androidtransfuse.experiment.generators;
 import org.androidtransfuse.analysis.IntentFilterFactory;
 import org.androidtransfuse.analysis.MetaDataBuilder;
 import org.androidtransfuse.annotations.BroadcastReceiver;
-import org.androidtransfuse.experiment.ComponentBuilder;
-import org.androidtransfuse.experiment.ComponentDescriptor;
-import org.androidtransfuse.experiment.ComponentPartGenerator;
-import org.androidtransfuse.experiment.Generation;
 import org.androidtransfuse.model.manifest.Receiver;
 import org.androidtransfuse.processor.ManifestManager;
+import org.androidtransfuse.tomove.ComponentBuilder;
+import org.androidtransfuse.tomove.ComponentDescriptor;
+import org.androidtransfuse.tomove.ComponentPartGenerator;
+import org.androidtransfuse.tomove.Generation;
 
 import javax.inject.Inject;
 import javax.inject.Provider;

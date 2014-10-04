@@ -13,21 +13,13 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.androidtransfuse.experiment;
+package org.androidtransfuse.tomove;
 
 /**
  * @author John Ericksen
  */
-public enum GenerationPhase {
+public interface Generation {
 
-    SUPER,
-    INIT,
-    LAYOUT,
-    SCOPES,
-    POSTSCOPES,
-    INJECTION,
-    POSTINJECTION,
-    REGISTRATION,
-    EVENT,
-    RETURN
+    void schedule(ComponentBuilder builder, ComponentDescriptor descriptor);
+
 }

@@ -26,11 +26,11 @@ import org.androidtransfuse.adapter.ASTType;
 import org.androidtransfuse.adapter.ASTVoidType;
 import org.androidtransfuse.adapter.element.ASTElementFactory;
 import org.androidtransfuse.analysis.astAnalyzer.ManualSuperAspect;
-import org.androidtransfuse.experiment.*;
 import org.androidtransfuse.gen.ClassGenerationUtil;
 import org.androidtransfuse.gen.UniqueVariableNamer;
 import org.androidtransfuse.model.InjectionNode;
 import org.androidtransfuse.model.MethodDescriptor;
+import org.androidtransfuse.tomove.*;
 
 import javax.inject.Inject;
 import java.util.Set;

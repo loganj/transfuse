@@ -20,6 +20,8 @@ import org.androidtransfuse.adapter.MethodSignature;
 import org.androidtransfuse.adapter.PackageClass;
 import org.androidtransfuse.analysis.AnalysisContext;
 import org.androidtransfuse.model.InjectionNode;
+import org.androidtransfuse.tomove.ComponentDescriptor;
+import org.androidtransfuse.tomove.Generation;
 
 import java.util.ArrayList;
 import java.util.Collection;
@@ -28,7 +30,7 @@ import java.util.List;
 /**
  * @author John Ericksen
  */
-public class ComponentDescriptor {
+public class ComponentDescriptorImpl implements ComponentDescriptor {
 
     private final ASTType target;
     private final ASTType componentType;
@@ -38,11 +40,11 @@ public class ComponentDescriptor {
     private final AnalysisContext analysisContext;
     private InjectionNode rootInjectionNode;
 
-    public ComponentDescriptor(ASTType target, ASTType componentType, PackageClass packageClass) {
+    public ComponentDescriptorImpl(ASTType target, ASTType componentType, PackageClass packageClass) {
         this(target, componentType, packageClass, null);
     }
 
-    public ComponentDescriptor(ASTType target, ASTType componentType, PackageClass packageClass, AnalysisContext analysisContext) {
+    public ComponentDescriptorImpl(ASTType target, ASTType componentType, PackageClass packageClass, AnalysisContext analysisContext) {
         this.target = target;
         this.packageClass = packageClass;
         this.componentType = componentType;

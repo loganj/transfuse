@@ -25,7 +25,7 @@ import java.util.List;
  */
 public interface ConfigurationRepository {
 
-    ComponentBuilder component(Class<? extends Annotation> annotation);
+    ConfigurationRepositoryBuilder component(Class<? extends Annotation> annotation);
 
     void addEvent(Class<? extends Annotation> componentType, ASTType type, EventMapping eventMapping);
 

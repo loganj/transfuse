@@ -24,13 +24,13 @@ import org.androidtransfuse.adapter.element.ASTTypeBuilderVisitor;
 import org.androidtransfuse.analysis.AnalysisContext;
 import org.androidtransfuse.analysis.InjectionPointFactory;
 import org.androidtransfuse.annotations.LayoutHandler;
-import org.androidtransfuse.experiment.*;
 import org.androidtransfuse.gen.*;
 import org.androidtransfuse.layout.LayoutHandlerDelegate;
 import org.androidtransfuse.model.InjectionNode;
 import org.androidtransfuse.model.MethodDescriptor;
 import org.androidtransfuse.model.TypedExpression;
 import org.androidtransfuse.scope.Scopes;
+import org.androidtransfuse.tomove.*;
 import org.androidtransfuse.util.AndroidLiterals;
 
 import javax.inject.Inject;

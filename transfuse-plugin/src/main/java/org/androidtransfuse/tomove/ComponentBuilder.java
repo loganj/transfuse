@@ -13,8 +13,12 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.androidtransfuse.experiment;
+package org.androidtransfuse.tomove;
 
+import com.sun.codemodel.JDefinedClass;
+import com.sun.codemodel.JVar;
+import org.androidtransfuse.adapter.ASTMethod;
+import org.androidtransfuse.analysis.AnalysisContext;
 import org.androidtransfuse.model.InjectionNode;
 import org.androidtransfuse.model.TypedExpression;
 
@@ -23,7 +27,23 @@ import java.util.Map;
 /**
  * @author John Ericksen
  */
-public interface InjectionGeneration {
+public interface ComponentBuilder {
 
-    void build(final ComponentBuilder builder, ComponentDescriptor descriptor, Map<InjectionNode, TypedExpression> expressionMap);
+    void build();
+
+    void add(ComponentPartGenerator partGenerator);
+
+    void addLazy(ASTMethod method, ComponentMethodGenerator partGenerator);
+
+    void add(ASTMethod method, GenerationPhase phase, ComponentMethodGenerator partGenerator);
+
+    JDefinedClass getDefinedClass();
+
+    AnalysisContext getAnalysisContext();
+
+    void setScopes(JVar scopes);
+
+    JVar getScopes();
+
+    Map<InjectionNode, TypedExpression> getExpressionMap();
 }

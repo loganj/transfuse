@@ -13,21 +13,35 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.androidtransfuse.gen.componentBuilder;
+package org.androidtransfuse.tomove;
 
-import com.sun.codemodel.JDefinedClass;
-import com.sun.codemodel.JExpression;
-import org.androidtransfuse.model.ComponentDescriptor;
+import org.androidtransfuse.adapter.ASTType;
+import org.androidtransfuse.adapter.MethodSignature;
+import org.androidtransfuse.adapter.PackageClass;
+import org.androidtransfuse.analysis.AnalysisContext;
 import org.androidtransfuse.model.InjectionNode;
-import org.androidtransfuse.model.MethodDescriptor;
-import org.androidtransfuse.model.TypedExpression;
 
-import java.util.Map;
+import java.util.Collection;
+import java.util.List;
 
 /**
  * @author John Ericksen
  */
-public interface ExpressionVariableDependentGenerator {
+public interface ComponentDescriptor {
 
-    void generate(JDefinedClass definedClass, MethodDescriptor methodDescriptor, Map<InjectionNode, TypedExpression> expressionMap, ComponentDescriptor descriptor, JExpression scopesExpression);
+    Collection<Generation> getGenerators();
+
+    PackageClass getPackageClass();
+
+    ASTType getTarget();
+
+    AnalysisContext getAnalysisContext();
+
+    ASTType getType();
+
+    List<MethodSignature> getGenerateFirst();
+
+    InjectionNode getRootInjectionNode();
+
+    void setRootInjectionNode(InjectionNode rootInjectionNode);
 }

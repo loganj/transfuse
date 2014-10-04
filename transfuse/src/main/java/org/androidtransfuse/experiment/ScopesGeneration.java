@@ -26,6 +26,7 @@ import org.androidtransfuse.gen.ScopesGenerator;
 import org.androidtransfuse.gen.UniqueVariableNamer;
 import org.androidtransfuse.model.MethodDescriptor;
 import org.androidtransfuse.scope.Scopes;
+import org.androidtransfuse.tomove.*;
 
 import javax.inject.Inject;
 

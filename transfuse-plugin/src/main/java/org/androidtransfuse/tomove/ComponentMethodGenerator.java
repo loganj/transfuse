@@ -13,16 +13,15 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.androidtransfuse.experiment;
+package org.androidtransfuse.tomove;
 
-import org.androidtransfuse.annotations.Factory;
-import org.androidtransfuse.tomove.ComponentDescriptor;
+import com.sun.codemodel.JBlock;
+import org.androidtransfuse.model.MethodDescriptor;
 
 /**
  * @author John Ericksen
  */
-@Factory
-public interface ComponentBuilderFactory {
+public interface ComponentMethodGenerator {
 
-    ComponentBuilderImpl build(ComponentDescriptor descriptor);
+    void generate(MethodDescriptor methodDescriptor, JBlock block);
 }

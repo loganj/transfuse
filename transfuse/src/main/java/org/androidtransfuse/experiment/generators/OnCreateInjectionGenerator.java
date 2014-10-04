@@ -22,11 +22,11 @@ import org.androidtransfuse.adapter.ASTParameter;
 import org.androidtransfuse.adapter.ASTType;
 import org.androidtransfuse.analysis.InjectionPointFactory;
 import org.androidtransfuse.annotations.Factory;
-import org.androidtransfuse.experiment.*;
 import org.androidtransfuse.gen.InjectionFragmentGenerator;
 import org.androidtransfuse.gen.InstantiationStrategyFactory;
 import org.androidtransfuse.gen.variableBuilder.InjectionBindingBuilder;
 import org.androidtransfuse.model.MethodDescriptor;
+import org.androidtransfuse.tomove.*;
 import org.androidtransfuse.util.TransfuseRuntimeException;
 import org.androidtransfuse.validation.Validator;
 

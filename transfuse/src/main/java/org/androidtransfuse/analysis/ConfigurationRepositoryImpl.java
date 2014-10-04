@@ -17,10 +17,7 @@ package org.androidtransfuse.analysis;
 
 import com.google.common.base.Function;
 import com.google.common.collect.FluentIterable;
-import org.androidtransfuse.ComponentBuilder;
-import org.androidtransfuse.ConfigurationRepository;
-import org.androidtransfuse.EventMapping;
-import org.androidtransfuse.InjectionMapping;
+import org.androidtransfuse.*;
 import org.androidtransfuse.adapter.ASTType;
 import org.androidtransfuse.adapter.classes.ASTClassFactory;
 import org.androidtransfuse.util.matcher.Matcher;
@@ -39,6 +36,11 @@ public class ConfigurationRepositoryImpl implements ConfigurationRepository{
     private final ASTClassFactory astClassFactory;
 
     private final Map<Matcher<AnnotatedType>, Configuration> configurations = new HashMap<Matcher<AnnotatedType>, Configuration>();
+    private final List<DescriptorBuilder> descriptorBuilders = new ArrayList<DescriptorBuilder>();
+
+    public List<DescriptorBuilder> getDescriptorBuilders() {
+        return descriptorBuilders;
+    }
 
     private static class Configuration{
         private final List<EventMapping> events = new ArrayList<EventMapping>();
@@ -84,8 +86,8 @@ public class ConfigurationRepositoryImpl implements ConfigurationRepository{
     }
 
     @Override
-    public ComponentBuilder component(Class<? extends Annotation> annotation) {
-        return new ComponentBuilder(this, annotation);
+    public ConfigurationRepositoryBuilder component(Class<? extends Annotation> annotation) {
+        return new ConfigurationRepositoryBuilder(this, annotation);
     }
 
     @Override

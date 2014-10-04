@@ -19,10 +19,10 @@ import com.sun.codemodel.JBlock;
 import org.androidtransfuse.adapter.ASTMethod;
 import org.androidtransfuse.analysis.astAnalyzer.RegistrationAspect;
 import org.androidtransfuse.annotations.Factory;
-import org.androidtransfuse.experiment.*;
 import org.androidtransfuse.model.InjectionNode;
 import org.androidtransfuse.model.MethodDescriptor;
 import org.androidtransfuse.model.TypedExpression;
+import org.androidtransfuse.tomove.*;
 
 import javax.inject.Inject;
 import java.util.Map;

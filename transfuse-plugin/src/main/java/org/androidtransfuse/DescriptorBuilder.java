@@ -13,13 +13,17 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.androidtransfuse.experiment;
+package org.androidtransfuse;
+
+import org.androidtransfuse.adapter.ASTType;
+import org.androidtransfuse.tomove.ComponentDescriptor;
+
+import java.lang.annotation.Annotation;
 
 /**
  * @author John Ericksen
  */
-public interface Generation {
+public interface DescriptorBuilder {
 
-    void schedule(ComponentBuilder builder, ComponentDescriptor descriptor);
-
+    void buildDescriptor(ComponentDescriptor descriptor, ASTType type, Class<? extends Annotation> componentAnnotation);
 }
