@@ -65,7 +65,7 @@ public class ManualSuperGenerator implements Generation {
     @Override
     public void schedule(final ComponentBuilder builder, final ComponentDescriptor descriptor) {
 
-        builder.add(registrationMethod, GenerationPhase.POSTINJECTION, new ComponentMethodGenerator() {
+        builder.add(registrationMethod, GenerationPhase.REGISTRATION, new ComponentMethodGenerator() {
             @Override
             public void generate(MethodDescriptor methodDescriptor, JBlock block) {
                 ImmutableSet<ManualSuperAspect.Method> methods = FluentIterable.from(builder.getExpressionMap().keySet())

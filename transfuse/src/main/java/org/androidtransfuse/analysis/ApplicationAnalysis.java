@@ -107,10 +107,10 @@ public class ApplicationAnalysis implements Analysis<ComponentDescriptor> {
 
             applicationDescriptor = new ComponentDescriptorImpl(astType, applicationType, applicationClassName, analysisContext);
 
-            componentAnalysis.setupGenerators(applicationDescriptor, applicationType, Application.class);
+            componentAnalysis.buildDescriptor(applicationDescriptor, applicationType, Application.class);
 
             applicationDescriptor.getGenerators().add(scopesGenerationFactory.build(getASTMethod("onCreate")));
-            applicationDescriptor.getGenerators().add(injectionGeneratorFactory.build(getASTMethod("onCreate"), astType));
+            applicationDescriptor.getGenerators().add(injectionGeneratorFactory.build(getASTMethod("onCreate")));
             applicationDescriptor.getGenerators().add(observesExpressionGeneratorFactory.build(
                     getASTMethod("onCreate"),
                     getASTMethod("onCreate"),
@@ -130,7 +130,7 @@ public class ApplicationAnalysis implements Analysis<ComponentDescriptor> {
     }
 
     private InjectionNodeBuilderRepository buildVariableBuilderMap(ASTType applicationType) {
-        InjectionNodeBuilderRepository injectionNodeBuilderRepository = componentAnalysis.setupInjectionNodeBuilderRepository(applicationType, Application.class);
+        InjectionNodeBuilderRepository injectionNodeBuilderRepository = componentAnalysis.setupInjectionNodeBuilderRepository();
 
 
         ASTType applicationScopeType = astElementFactory.getType(ApplicationScope.ApplicationScopeQualifier.class);
@@ -145,8 +145,6 @@ public class ApplicationAnalysis implements Analysis<ComponentDescriptor> {
             applicationType = applicationType.getSuperClass();
         }*/
 
-
-        injectionNodeBuilderRepository.addRepository(variableBuilderRepositoryFactory.buildApplicationInjections());
         injectionNodeBuilderRepository.addRepository(variableBuilderRepositoryFactory.buildModuleConfiguration());
 
         return injectionNodeBuilderRepository;

@@ -1,0 +1,49 @@
+/**
+ * Copyright 2013 John Ericksen
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *    http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+package org.androidtransfuse.plugins;
+
+import org.androidtransfuse.DescriptorBuilder;
+import org.androidtransfuse.adapter.ASTType;
+import org.androidtransfuse.adapter.classes.ASTClassFactory;
+import org.androidtransfuse.tomove.ComponentDescriptor;
+import org.androidtransfuse.util.matcher.Matcher;
+
+import java.lang.annotation.Annotation;
+
+/**
+ * @author John Ericksen
+ */
+public class ComponentTypeDescriptorBuilderDecorator implements DescriptorBuilder {
+
+    private final ASTClassFactory astClassFactory;
+    private final Matcher<AnnotatedType> matcher;
+    private final DescriptorBuilder delegate;
+
+    public ComponentTypeDescriptorBuilderDecorator(ASTClassFactory astClassFactory, Matcher<AnnotatedType> matcher, DescriptorBuilder delegate) {
+        this.astClassFactory = astClassFactory;
+        this.matcher = matcher;
+        this.delegate = delegate;
+    }
+
+
+    @Override
+    public void buildDescriptor(ComponentDescriptor descriptor, ASTType type, Class<? extends Annotation> componentAnnotation) {
+        AnnotatedType signature = new AnnotatedType(type, astClassFactory.getType(componentAnnotation));
+        if(matcher.matches(signature)){
+            delegate.buildDescriptor(descriptor, type, componentAnnotation);
+        }
+    }
+}

@@ -95,14 +95,11 @@ public class BroadcastReceiverAnalysis implements Analysis<ComponentDescriptor> 
             TypeMirror type = getTypeMirror(broadcastReceiverAnnotation, "type");
             ASTType receiverType = type == null || type.toString().equals("java.lang.Object") ? AndroidLiterals.BROADCAST_RECEIVER : type.accept(astTypeBuilderVisitor, null);
 
-            InjectionNodeBuilderRepository injectionNodeBuilderRepository = componentAnalysis.setupInjectionNodeBuilderRepository(receiverType, BroadcastReceiver.class);
+            InjectionNodeBuilderRepository injectionNodeBuilderRepository = componentAnalysis.setupInjectionNodeBuilderRepository();
             ASTType applicationScopeType = astElementFactory.getType(ApplicationScope.ApplicationScopeQualifier.class);
             ASTType applicationProvider = astElementFactory.getType(ApplicationScope.ApplicationProvider.class);
             injectionNodeBuilderRepository.putType(AndroidLiterals.APPLICATION, providerInjectionNodeBuilder.builderProviderBuilder(applicationProvider));
             injectionNodeBuilderRepository.putScoped(new InjectionSignature(AndroidLiterals.APPLICATION), applicationScopeType);
-
-            injectionNodeBuilderRepository.addRepository(
-                    injectionNodeBuilderRepositoryFactory.buildApplicationInjections());
 
             injectionNodeBuilderRepository.addRepository(
                     injectionNodeBuilderRepositoryFactory.buildModuleConfiguration());
@@ -122,9 +119,9 @@ public class BroadcastReceiverAnalysis implements Analysis<ComponentDescriptor> 
 
             receiverDescriptor.getGenerators().add(scopesGenerationFactory.build(getASTMethod("onReceive", AndroidLiterals.CONTEXT, AndroidLiterals.INTENT)));
 
-            receiverDescriptor.getGenerators().add(onCreateInjectionGeneratorFactory.build(getASTMethod("onReceive", AndroidLiterals.CONTEXT, AndroidLiterals.INTENT), astType));
+            receiverDescriptor.getGenerators().add(onCreateInjectionGeneratorFactory.build(getASTMethod("onReceive", AndroidLiterals.CONTEXT, AndroidLiterals.INTENT)));
 
-            componentAnalysis.setupGenerators(receiverDescriptor, receiverType, BroadcastReceiver.class);
+            componentAnalysis.buildDescriptor(receiverDescriptor, receiverType, BroadcastReceiver.class);
         }
 
         receiverDescriptor.getGenerators().add(manifestEntryGenerator);

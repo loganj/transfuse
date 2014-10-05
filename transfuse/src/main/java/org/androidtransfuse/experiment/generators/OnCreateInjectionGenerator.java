@@ -19,7 +19,6 @@ import com.sun.codemodel.JBlock;
 import com.sun.codemodel.JClassAlreadyExistsException;
 import org.androidtransfuse.adapter.ASTMethod;
 import org.androidtransfuse.adapter.ASTParameter;
-import org.androidtransfuse.adapter.ASTType;
 import org.androidtransfuse.analysis.InjectionPointFactory;
 import org.androidtransfuse.annotations.Factory;
 import org.androidtransfuse.gen.InjectionFragmentGenerator;
@@ -38,7 +37,6 @@ import javax.inject.Inject;
 public class OnCreateInjectionGenerator implements Generation {
 
     private final ASTMethod method;
-    private final ASTType target;
     private final InjectionFragmentGenerator injectionFragmentGenerator;
     private final InstantiationStrategyFactory instantiationStrategyFactory;
     private final InjectionBindingBuilder injectionBindingBuilder;
@@ -47,12 +45,11 @@ public class OnCreateInjectionGenerator implements Generation {
 
     @Factory
     public interface InjectionGeneratorFactory {
-        OnCreateInjectionGenerator build(ASTMethod method, ASTType target);
+        OnCreateInjectionGenerator build(ASTMethod method);
     }
 
     @Inject
     public OnCreateInjectionGenerator(/*@Assisted*/ASTMethod method,
-                                      /*@Assisted*/ASTType target,
                                       InjectionFragmentGenerator injectionFragmentGenerator,
                                       InstantiationStrategyFactory instantiationStrategyFactory,
                                       InjectionBindingBuilder injectionBindingBuilder,
@@ -61,7 +58,6 @@ public class OnCreateInjectionGenerator implements Generation {
         this.method = method;
         this.injectionFragmentGenerator = injectionFragmentGenerator;
         this.instantiationStrategyFactory = instantiationStrategyFactory;
-        this.target = target;
         this.injectionBindingBuilder = injectionBindingBuilder;
         this.injectionPointFactory = injectionPointFactory;
         this.validator = validator;
@@ -77,7 +73,7 @@ public class OnCreateInjectionGenerator implements Generation {
                     builder.getAnalysisContext().getInjectionNodeBuilders().putType(astParameter.getASTType(), injectionBindingBuilder.buildExpression(methodDescriptor.getParameter(astParameter)));
                 }
 
-                descriptor.setRootInjectionNode(injectionPointFactory.buildInjectionNode(target, builder.getAnalysisContext()));
+                descriptor.setRootInjectionNode(injectionPointFactory.buildInjectionNode(descriptor.getTarget(), builder.getAnalysisContext()));
 
                 if(!validator.isInError()) {
 

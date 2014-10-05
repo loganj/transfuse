@@ -22,15 +22,11 @@ import org.androidtransfuse.adapter.element.ASTElementFactory;
 import org.androidtransfuse.adapter.element.ASTTypeBuilderVisitor;
 import org.androidtransfuse.analysis.repository.InjectionNodeBuilderRepository;
 import org.androidtransfuse.analysis.repository.InjectionNodeBuilderRepositoryFactory;
-import org.androidtransfuse.annotations.*;
+import org.androidtransfuse.annotations.Activity;
 import org.androidtransfuse.experiment.ComponentDescriptorImpl;
-import org.androidtransfuse.experiment.ScopesGeneration;
-import org.androidtransfuse.experiment.generators.*;
-import org.androidtransfuse.gen.GeneratorFactory;
-import org.androidtransfuse.gen.componentBuilder.ListenerRegistrationGenerator;
-import org.androidtransfuse.gen.componentBuilder.NonConfigurationInstanceGenerator;
-import org.androidtransfuse.gen.variableBuilder.*;
-import org.androidtransfuse.intentFactory.ActivityIntentFactoryStrategy;
+import org.androidtransfuse.experiment.generators.ActivityManifestEntryGenerator;
+import org.androidtransfuse.gen.variableBuilder.InjectionBindingBuilder;
+import org.androidtransfuse.gen.variableBuilder.ProviderInjectionNodeBuilderFactory;
 import org.androidtransfuse.model.InjectionSignature;
 import org.androidtransfuse.scope.ApplicationScope;
 import org.androidtransfuse.tomove.ComponentDescriptor;
@@ -55,21 +51,7 @@ public class ActivityAnalysis implements Analysis<ComponentDescriptor> {
     private final ProviderInjectionNodeBuilderFactory providerInjectionNodeBuilder;
     private final ASTTypeBuilderVisitor astTypeBuilderVisitor;
     private final InjectionBindingBuilder injectionBindingBuilder;
-    private final ObservesExpressionGenerator.ObservesExpressionGeneratorFactory observesExpressionGeneratorFactory;
-    private final ViewInjectionNodeBuilder viewVariableBuilder;
-    private final ExtraInjectionNodeBuilder extraInjectionNodeBuilder;
-    private final SystemServiceBindingInjectionNodeBuilder systemServiceBindingInjectionNodeBuilder;
-    private final ResourceInjectionNodeBuilder resourceInjectionNodeBuilder;
-    private final PreferenceInjectionNodeBuilder preferenceInjectionNodeBuilder;
     private final Provider<ActivityManifestEntryGenerator> manifestGeneratorProvider;
-    private final LayoutGenerator layoutGenerator;
-    private final LayoutHandlerGenerator layoutHandlerGenerator;
-    private final WindowFeatureGenerator windowFeatureGenerator;
-    private final GeneratorFactory generatorFactory;
-    private final ListenerRegistrationGenerator.ListerRegistrationGeneratorFactory listerRegistrationGeneratorFactory;
-    private final NonConfigurationInstanceGenerator.NonconfigurationInstanceGeneratorFactory nonConfigurationInstanceGeneratorFactory;
-    private final OnCreateInjectionGenerator.InjectionGeneratorFactory onCreateInjectionGeneratorFactory;
-    private final ScopesGeneration.ScopesGenerationFactory scopesGenerationFactory;
     private final ComponentAnalysis componentAnalysis;
 
     @Inject
@@ -79,21 +61,7 @@ public class ActivityAnalysis implements Analysis<ComponentDescriptor> {
                             ProviderInjectionNodeBuilderFactory providerInjectionNodeBuilder,
                             ASTTypeBuilderVisitor astTypeBuilderVisitor,
                             InjectionBindingBuilder injectionBindingBuilder,
-                            ObservesExpressionGenerator.ObservesExpressionGeneratorFactory observesExpressionGeneratorFactory,
-                            ViewInjectionNodeBuilder viewVariableBuilder,
-                            ExtraInjectionNodeBuilder extraInjectionNodeBuilder,
-                            SystemServiceBindingInjectionNodeBuilder systemServiceBindingInjectionNodeBuilder,
-                            ResourceInjectionNodeBuilder resourceInjectionNodeBuilder,
-                            PreferenceInjectionNodeBuilder preferenceInjectionNodeBuilder,
                             Provider<ActivityManifestEntryGenerator> manifestGeneratorProvider,
-                            LayoutGenerator layoutGenerator,
-                            LayoutHandlerGenerator layoutHandlerGenerator,
-                            WindowFeatureGenerator windowFeatureGenerator,
-                            GeneratorFactory generatorFactory,
-                            ListenerRegistrationGenerator.ListerRegistrationGeneratorFactory listerRegistrationGeneratorFactory,
-                            NonConfigurationInstanceGenerator.NonconfigurationInstanceGeneratorFactory nonConfigurationInstanceGeneratorFactory,
-                            OnCreateInjectionGenerator.InjectionGeneratorFactory onCreateInjectionGeneratorFactory,
-                            ScopesGeneration.ScopesGenerationFactory scopesGenerationFactory,
                             ComponentAnalysis componentAnalysis) {
         this.injectionNodeBuilderRepositoryFactory = injectionNodeBuilderRepositoryFactory;
         this.analysisContextFactory = analysisContextFactory;
@@ -101,21 +69,7 @@ public class ActivityAnalysis implements Analysis<ComponentDescriptor> {
         this.providerInjectionNodeBuilder = providerInjectionNodeBuilder;
         this.astTypeBuilderVisitor = astTypeBuilderVisitor;
         this.injectionBindingBuilder = injectionBindingBuilder;
-        this.observesExpressionGeneratorFactory = observesExpressionGeneratorFactory;
-        this.viewVariableBuilder = viewVariableBuilder;
-        this.extraInjectionNodeBuilder = extraInjectionNodeBuilder;
-        this.systemServiceBindingInjectionNodeBuilder = systemServiceBindingInjectionNodeBuilder;
-        this.resourceInjectionNodeBuilder = resourceInjectionNodeBuilder;
-        this.preferenceInjectionNodeBuilder = preferenceInjectionNodeBuilder;
         this.manifestGeneratorProvider = manifestGeneratorProvider;
-        this.layoutGenerator = layoutGenerator;
-        this.layoutHandlerGenerator = layoutHandlerGenerator;
-        this.windowFeatureGenerator = windowFeatureGenerator;
-        this.generatorFactory = generatorFactory;
-        this.listerRegistrationGeneratorFactory = listerRegistrationGeneratorFactory;
-        this.nonConfigurationInstanceGeneratorFactory = nonConfigurationInstanceGeneratorFactory;
-        this.onCreateInjectionGeneratorFactory = onCreateInjectionGeneratorFactory;
-        this.scopesGenerationFactory = scopesGenerationFactory;
         this.componentAnalysis = componentAnalysis;
     }
 
@@ -143,25 +97,6 @@ public class ActivityAnalysis implements Analysis<ComponentDescriptor> {
             activityDescriptor = new ComponentDescriptorImpl(input, activityType, activityClassName, context);
 
             componentAnalysis.buildDescriptor(activityDescriptor, activityType, Activity.class);
-
-            activityDescriptor.getGenerators().add(layoutGenerator);
-            activityDescriptor.getGenerators().add(layoutHandlerGenerator);
-            activityDescriptor.getGenerators().add(windowFeatureGenerator);
-            activityDescriptor.getGenerators().add(scopesGenerationFactory.build(getASTMethod("onCreate", AndroidLiterals.BUNDLE)));
-            activityDescriptor.getGenerators().add(onCreateInjectionGeneratorFactory.build(getASTMethod("onCreate", AndroidLiterals.BUNDLE), input));
-            //extra intent factory
-            activityDescriptor.getGenerators().add(generatorFactory.buildStrategyGenerator(ActivityIntentFactoryStrategy.class));
-            //listener registration
-            activityDescriptor.getGenerators().add(listerRegistrationGeneratorFactory.build(getASTMethod("onCreate", AndroidLiterals.BUNDLE)));
-            //non configuration instance update
-            activityDescriptor.getGenerators().add(nonConfigurationInstanceGeneratorFactory.build(getASTMethod("onCreate", AndroidLiterals.BUNDLE)));
-
-            componentAnalysis.setupGenerators(activityDescriptor, activityType, Activity.class);
-
-            activityDescriptor.getGenerators().add(observesExpressionGeneratorFactory.build(
-                    getASTMethod("onCreate", AndroidLiterals.BUNDLE),
-                    getASTMethod("onResume"),
-                    getASTMethod("onPause")));
         }
 
         //add manifest elements
@@ -172,13 +107,13 @@ public class ActivityAnalysis implements Analysis<ComponentDescriptor> {
 
     private InjectionNodeBuilderRepository buildVariableBuilderMap(ASTType activityType) {
 
-        InjectionNodeBuilderRepository injectionNodeBuilderRepository = componentAnalysis.setupInjectionNodeBuilderRepository(activityType, Activity.class);
+        InjectionNodeBuilderRepository injectionNodeBuilderRepository = componentAnalysis.setupInjectionNodeBuilderRepository();
 
         ASTType applicationScopeType = astElementFactory.getType(ApplicationScope.ApplicationScopeQualifier.class);
         ASTType applicationProvider = astElementFactory.getType(ApplicationScope.ApplicationProvider.class);
+        injectionNodeBuilderRepository.putScoped(new InjectionSignature(AndroidLiterals.APPLICATION), applicationScopeType);
         injectionNodeBuilderRepository.putType(AndroidLiterals.APPLICATION, providerInjectionNodeBuilder.builderProviderBuilder(applicationProvider));
         injectionNodeBuilderRepository.putType(AndroidLiterals.CONTEXT, injectionBindingBuilder.buildThis(AndroidLiterals.CONTEXT));
-        injectionNodeBuilderRepository.putScoped(new InjectionSignature(AndroidLiterals.APPLICATION), applicationScopeType);
 
         injectionNodeBuilderRepository.putType(AndroidLiterals.ACTIVITY, injectionBindingBuilder.buildThis(AndroidLiterals.ACTIVITY));
 
@@ -186,15 +121,6 @@ public class ActivityAnalysis implements Analysis<ComponentDescriptor> {
             injectionNodeBuilderRepository.putType(activityType, injectionBindingBuilder.buildThis(activityType));
             activityType = activityType.getSuperClass();
         }
-
-        injectionNodeBuilderRepository.putAnnotation(Extra.class, extraInjectionNodeBuilder);
-        injectionNodeBuilderRepository.putAnnotation(Resource.class, resourceInjectionNodeBuilder);
-        injectionNodeBuilderRepository.putAnnotation(SystemService.class, systemServiceBindingInjectionNodeBuilder);
-        injectionNodeBuilderRepository.putAnnotation(Preference.class, preferenceInjectionNodeBuilder);
-        injectionNodeBuilderRepository.putAnnotation(View.class, viewVariableBuilder);
-
-        injectionNodeBuilderRepository.addRepository(
-                injectionNodeBuilderRepositoryFactory.buildApplicationInjections());
 
         injectionNodeBuilderRepository.addRepository(
                 injectionNodeBuilderRepositoryFactory.buildModuleConfiguration());

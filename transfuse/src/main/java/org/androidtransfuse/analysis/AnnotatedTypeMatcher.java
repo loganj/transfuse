@@ -16,6 +16,7 @@
 package org.androidtransfuse.analysis;
 
 import org.androidtransfuse.adapter.ASTType;
+import org.androidtransfuse.plugins.AnnotatedType;
 import org.androidtransfuse.util.matcher.Matcher;
 import org.apache.commons.lang.builder.EqualsBuilder;
 import org.apache.commons.lang.builder.HashCodeBuilder;

@@ -69,6 +69,37 @@ public final class AndroidLiterals {
     public static final ASTType GRAPHICS_DRAWABLE = new ASTStringType("android.graphics.drawable.Drawable");
     public static final ASTType ANIMATION = new ASTStringType("android.view.animation.Animation");
     public static final ASTType ANIMATION_UTILS = new ASTStringType("android.view.animation.AnimationUtils");
+    public static final ASTType ACCESSIBILITY_MANAGER = new ASTStringType("android.view.accessibility.AccessibilityManager");
+    public static final ASTType ACCOUNT_MANAGER = new ASTStringType("android.accounts.AccountManager");
+    public static final ASTType ACTIVITY_MANAGER = new ASTStringType("android.app.ActivityManager");
+    public static final ASTType ALARM_MANAGER = new ASTStringType("android.app.AlarmManager");
+    public static final ASTType AUDIO_MANAGER = new ASTStringType("android.media.AudioManager");
+    public static final ASTType CLIPBOARD_MANAGER = new ASTStringType("android.text.ClipboardManager");
+    public static final ASTType CONNECTIVITY_MANAGER = new ASTStringType("android.net.ConnectivityManager");
+    public static final ASTType DEVICE_POLICY_MANAGER = new ASTStringType("android.app.admin.DevicePolicyManager");
+    public static final ASTType DOWNLOAD_MANAGER = new ASTStringType("android.app.DownloadManager");
+    public static final ASTType DROP_BOX_MANAGER = new ASTStringType("android.os.DropBoxManager");
+    public static final ASTType INPUT_METHOD_MANAGER = new ASTStringType("android.view.inputmethod.InputMethodManager");
+    public static final ASTType INPUT_MANAGER = new ASTStringType("android.hardware.input.InputManager");
+    public static final ASTType KEYGUARD_MANAGER = new ASTStringType("android.app.KeyguardManager");
+    public static final ASTType LOCATION_MANAGER = new ASTStringType("android.location.LocationManager");
+    public static final ASTType MEDIA_ROUTER = new ASTStringType("android.media.MediaRouter");
+    public static final ASTType NFC_MANAGER = new ASTStringType("android.nfc.NfcManager");
+    public static final ASTType NSD_MANAGER = new ASTStringType("android.net.nsd.NsdManager");
+    public static final ASTType NOTIFICATION_MANAGER = new ASTStringType("android.app.NotificationManager");
+    public static final ASTType POWER_MANAGER = new ASTStringType("android.os.PowerManager");
+    public static final ASTType SEARCH_MANAGER = new ASTStringType("android.app.SearchManager");
+    public static final ASTType SENSOR_MANAGER = new ASTStringType("android.hardware.SensorManager");
+    public static final ASTType STORAGE_MANAGER = new ASTStringType("android.os.storage.StorageManager");
+    public static final ASTType TELEPHONY_MANAGER = new ASTStringType("android.telephony.TelephonyManager");
+    public static final ASTType TEXT_SERVICES_MANAGER = new ASTStringType("android.view.textservice.TextServicesManager");
+    public static final ASTType UI_MODE_MANAGER = new ASTStringType("android.app.UiModeManager");
+    public static final ASTType USB_MANAGER = new ASTStringType("android.hardware.usb.UsbManager");
+    public static final ASTType VIBRATOR = new ASTStringType("android.os.Vibrator");
+    public static final ASTType WALLPAPER_SERVICE = new ASTStringType("android.service.wallpaper.WallpaperService");
+    public static final ASTType WIFI_P2P_MANAGER = new ASTStringType("android.net.wifi.p2p.WifiP2pManager");
+    public static final ASTType WIFI_MANAGER = new ASTStringType("android.net.wifi.WifiManager");
+    public static final ASTType WINDOW_MANAGER = new ASTStringType("android.view.WindowManager");
 
     private AndroidLiterals(){
         //private utility class constructor

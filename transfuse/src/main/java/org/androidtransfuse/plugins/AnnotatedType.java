@@ -13,28 +13,28 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.androidtransfuse;
+package org.androidtransfuse.plugins;
 
 import org.androidtransfuse.adapter.ASTType;
-import org.androidtransfuse.gen.variableBuilder.InjectionNodeBuilder;
 
 /**
  * @author John Ericksen
  */
-public class InjectionMapping {
-    private ASTType type;
-    private InjectionNodeBuilder injectionNodeBuilder;
+public class AnnotatedType {
 
-    public InjectionMapping(ASTType type, InjectionNodeBuilder injectionNodeBuilder) {
+    private ASTType type;
+    private ASTType annotation;
+
+    public AnnotatedType(ASTType type, ASTType annotation) {
         this.type = type;
-        this.injectionNodeBuilder = injectionNodeBuilder;
+        this.annotation = annotation;
     }
 
-    public org.androidtransfuse.adapter.ASTType getType() {
+    public ASTType getType() {
         return type;
     }
 
-    public InjectionNodeBuilder getInjectionNodeBuilder() {
-        return injectionNodeBuilder;
+    public ASTType getAnnotation() {
+        return annotation;
     }
 }

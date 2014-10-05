@@ -28,7 +28,11 @@ import org.androidtransfuse.annotations.TransfuseModule;
         @Plugin(ServicePlugin.class),
         @Plugin(ActivityPlugin.class),
         @Plugin(FragmentPlugin.class),
-        @Plugin(BroadcastReceiverPlugin.class)
+        @Plugin(BroadcastReceiverPlugin.class),
+        @Plugin(SystemServicePlugin.class),
+        @Plugin(SharedPreferencesPlugin.class),
+        @Plugin(ResourcesPlugin.class),
+        @Plugin(ModulePlugin.class)
 })
 public class PluginModule {
 }

@@ -125,7 +125,7 @@ public class FragmentAnalysis implements Analysis<ComponentDescriptor> {
 
             fragmentDescriptor = new ComponentDescriptorImpl(astType, fragmentType, fragmentClassName, context);
 
-            componentAnalysis.setupGenerators(fragmentDescriptor, fragmentType, Fragment.class);
+            componentAnalysis.buildDescriptor(fragmentDescriptor, fragmentType, Fragment.class);
 
             //application generation profile
             setupFragmentProfile(fragmentDescriptor, astType);
@@ -137,7 +137,7 @@ public class FragmentAnalysis implements Analysis<ComponentDescriptor> {
     private void setupFragmentProfile(ComponentDescriptor fragmentDescriptor, ASTType astType) {
         ASTMethod onCreateViewMethod = getASTMethod("onCreateView", AndroidLiterals.LAYOUT_INFLATER, AndroidLiterals.VIEW_GROUP, AndroidLiterals.BUNDLE);
 
-        fragmentDescriptor.getGenerators().add(injectionGeneratorFactory.build(onCreateViewMethod, astType));
+        fragmentDescriptor.getGenerators().add(injectionGeneratorFactory.build(onCreateViewMethod));
         fragmentDescriptor.getGenerators().add(scopesGenerationFactory.build(onCreateViewMethod));
 
         fragmentDescriptor.getGenerators().add(fragmentLayoutGenerator);
@@ -168,7 +168,7 @@ public class FragmentAnalysis implements Analysis<ComponentDescriptor> {
 
     private InjectionNodeBuilderRepository buildVariableBuilderMap(ASTType fragmentType) {
 
-        InjectionNodeBuilderRepository injectionNodeBuilderRepository = componentAnalysis.setupInjectionNodeBuilderRepository(fragmentType, Fragment.class);
+        InjectionNodeBuilderRepository injectionNodeBuilderRepository = componentAnalysis.setupInjectionNodeBuilderRepository();
 
         ASTType applicationScopeType = astElementFactory.getType(ApplicationScope.ApplicationScopeQualifier.class);
         ASTType applicationProvider = astElementFactory.getType(ApplicationScope.ApplicationProvider.class);
@@ -192,7 +192,6 @@ public class FragmentAnalysis implements Analysis<ComponentDescriptor> {
         injectionNodeBuilderRepository.putAnnotation(Preference.class, preferenceInjectionNodeBuilder);
         injectionNodeBuilderRepository.putAnnotation(org.androidtransfuse.annotations.View.class, fragmentViewInjectionNodeBuilder);
 
-        injectionNodeBuilderRepository.addRepository(injectionNodeBuilderRepositoryFactory.buildApplicationInjections());
         injectionNodeBuilderRepository.addRepository(injectionNodeBuilderRepositoryFactory.buildModuleConfiguration());
 
         return injectionNodeBuilderRepository;

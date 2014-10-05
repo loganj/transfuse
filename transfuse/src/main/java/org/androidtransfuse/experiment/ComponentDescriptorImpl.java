@@ -15,6 +15,7 @@
  */
 package org.androidtransfuse.experiment;
 
+import org.androidtransfuse.adapter.ASTMethod;
 import org.androidtransfuse.adapter.ASTType;
 import org.androidtransfuse.adapter.MethodSignature;
 import org.androidtransfuse.adapter.PackageClass;
@@ -39,6 +40,7 @@ public class ComponentDescriptorImpl implements ComponentDescriptor {
     private final List<MethodSignature> generateFirst = new ArrayList<MethodSignature>();
     private final AnalysisContext analysisContext;
     private InjectionNode rootInjectionNode;
+    private ASTMethod registrationMethod;
 
     public ComponentDescriptorImpl(ASTType target, ASTType componentType, PackageClass packageClass) {
         this(target, componentType, packageClass, null);
@@ -81,5 +83,13 @@ public class ComponentDescriptorImpl implements ComponentDescriptor {
 
     public void setRootInjectionNode(InjectionNode rootInjectionNode) {
         this.rootInjectionNode = rootInjectionNode;
+    }
+
+    public ASTMethod getRegistrationMethod() {
+        return registrationMethod;
+    }
+
+    public void setRegistrationMethod(ASTMethod registrationMethod) {
+        this.registrationMethod = registrationMethod;
     }
 }

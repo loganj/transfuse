@@ -120,9 +120,9 @@ public class ServiceAnalysis implements Analysis<ComponentDescriptor> {
 
             serviceDescriptor = new ComponentDescriptorImpl(input, serviceType, serviceClassName, context);
 
-            componentAnalysis.setupGenerators(serviceDescriptor, serviceType, Service.class);
+            componentAnalysis.buildDescriptor(serviceDescriptor, serviceType, Service.class);
 
-            serviceDescriptor.getGenerators().add(onCreateInjectionGeneratorFactory.build(getASTMethod("onCreate"), input));
+            serviceDescriptor.getGenerators().add(onCreateInjectionGeneratorFactory.build(getASTMethod("onCreate")));
             serviceDescriptor.getGenerators().add(scopesGenerationFactory.build(getASTMethod("onCreate")));
             serviceDescriptor.getGenerators().add(new OnBindGenerator());
             serviceDescriptor.getGenerators().add(listenerRegistrationGeneratorFactory.build(getASTMethod("onCreate")));
@@ -149,7 +149,7 @@ public class ServiceAnalysis implements Analysis<ComponentDescriptor> {
 
     private InjectionNodeBuilderRepository buildVariableBuilderMap(ASTType serviceType) {
 
-        InjectionNodeBuilderRepository injectionNodeBuilderRepository = componentAnalysis.setupInjectionNodeBuilderRepository(serviceType, Service.class);
+        InjectionNodeBuilderRepository injectionNodeBuilderRepository = componentAnalysis.setupInjectionNodeBuilderRepository();
 
 
         ASTType applicationScopeType = astElementFactory.getType(ApplicationScope.ApplicationScopeQualifier.class);
@@ -165,7 +165,6 @@ public class ServiceAnalysis implements Analysis<ComponentDescriptor> {
             serviceType = serviceType.getSuperClass();
         }
 
-        injectionNodeBuilderRepository.addRepository(injectionNodeBuilderRepositoryFactory.buildApplicationInjections());
         injectionNodeBuilderRepository.addRepository(injectionNodeBuilderRepositoryFactory.buildModuleConfiguration());
 
         return injectionNodeBuilderRepository;

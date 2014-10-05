@@ -23,22 +23,28 @@ import org.androidtransfuse.listeners.ServiceOnStartCommand;
 import org.androidtransfuse.listeners.ServiceOnUnbind;
 import org.androidtransfuse.util.AndroidLiterals;
 
+import javax.inject.Inject;
+
 /**
  * @author John Ericksen
  */
 @Bootstrap
 public class ServicePlugin implements TransfusePlugin{
+
+    @Inject
+    DescriptorBuilderUtil builder;
+
     @Override
     public void run(ConfigurationRepository repository) {
-        repository.component(Service.class).method("onCreate").event(OnCreate.class).registration().superCall();
-        repository.component(Service.class).method("onDestroy").event(OnDestroy.class).superCall();
-        repository.component(Service.class).method("onLowMemory").event(OnLowMemory.class).superCall();
-        repository.component(Service.class).method("onRebind", AndroidLiterals.INTENT).event(OnRebind.class).superCall();
-        repository.component(Service.class).method("onConfigurationChanged", AndroidLiterals.CONTENT_CONFIGURATION).event(OnConfigurationChanged.class).superCall();
-        repository.component(Service.class).extending(AndroidLiterals.INTENT_SERVICE)
-                .method("onHandleIntent", AndroidLiterals.INTENT).event(OnHandleIntent.class).superCall();
+        repository.add(builder.component(Service.class).method("onCreate").registration().event(OnCreate.class).superCall());
+        repository.add(builder.component(Service.class).method("onDestroy").event(OnDestroy.class).superCall());
+        repository.add(builder.component(Service.class).method("onLowMemory").event(OnLowMemory.class).superCall());
+        repository.add(builder.component(Service.class).method("onRebind", AndroidLiterals.INTENT).event(OnRebind.class).superCall());
+        repository.add(builder.component(Service.class).method("onConfigurationChanged", AndroidLiterals.CONTENT_CONFIGURATION).event(OnConfigurationChanged.class).superCall());
+        repository.add(builder.component(Service.class).extending(AndroidLiterals.INTENT_SERVICE)
+                .method("onHandleIntent", AndroidLiterals.INTENT).event(OnHandleIntent.class).superCall());
 
-        repository.component(Service.class).callThroughEvent(ServiceOnStartCommand.class);
-        repository.component(Service.class).callThroughEvent(ServiceOnUnbind.class);
+        repository.add(builder.component(Service.class).callThroughEvent(ServiceOnStartCommand.class));
+        repository.add(builder.component(Service.class).callThroughEvent(ServiceOnUnbind.class));
     }
 }

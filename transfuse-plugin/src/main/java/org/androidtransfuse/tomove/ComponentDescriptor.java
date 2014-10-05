@@ -15,6 +15,7 @@
  */
 package org.androidtransfuse.tomove;
 
+import org.androidtransfuse.adapter.ASTMethod;
 import org.androidtransfuse.adapter.ASTType;
 import org.androidtransfuse.adapter.MethodSignature;
 import org.androidtransfuse.adapter.PackageClass;
@@ -44,4 +45,8 @@ public interface ComponentDescriptor {
     InjectionNode getRootInjectionNode();
 
     void setRootInjectionNode(InjectionNode rootInjectionNode);
+
+    ASTMethod getRegistrationMethod();
+
+    void setRegistrationMethod(ASTMethod registrationMethod);
 }

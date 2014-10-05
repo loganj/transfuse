@@ -21,5 +21,4 @@ package org.androidtransfuse.tomove;
 public interface Generation {
 
     void schedule(ComponentBuilder builder, ComponentDescriptor descriptor);
-
 }

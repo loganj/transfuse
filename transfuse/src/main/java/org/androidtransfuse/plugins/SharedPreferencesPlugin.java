@@ -16,27 +16,35 @@
 package org.androidtransfuse.plugins;
 
 import org.androidtransfuse.ConfigurationRepository;
+import org.androidtransfuse.DescriptorBuilder;
 import org.androidtransfuse.TransfusePlugin;
-import org.androidtransfuse.annotations.*;
+import org.androidtransfuse.adapter.ASTType;
 import org.androidtransfuse.bootstrap.Bootstrap;
+import org.androidtransfuse.gen.variableBuilder.InjectionBindingBuilder;
+import org.androidtransfuse.tomove.ComponentDescriptor;
 import org.androidtransfuse.util.AndroidLiterals;
 
 import javax.inject.Inject;
+import java.lang.annotation.Annotation;
 
 /**
  * @author John Ericksen
  */
 @Bootstrap
-public class ApplicationPlugin implements TransfusePlugin{
+public class SharedPreferencesPlugin implements TransfusePlugin {
 
     @Inject
-    DescriptorBuilderUtil builder;
+    InjectionBindingBuilder injectionBindingBuilder;
 
     @Override
     public void run(ConfigurationRepository repository) {
-        repository.add(builder.component(Application.class).method("onCreate").registration().event(OnCreate.class).superCall());
-        repository.add(builder.component(Application.class).method("onLowMemory").event(OnLowMemory.class));
-        repository.add(builder.component(Application.class).method("onTerminate").event(OnTerminate.class));
-        repository.add(builder.component(Application.class).method("onConfigurationChanged", AndroidLiterals.CONTENT_CONFIGURATION).event(OnConfigurationChanged.class));
+
+        repository.add(new DescriptorBuilder() {
+            @Override
+            public void buildDescriptor(ComponentDescriptor descriptor, ASTType type, Class<? extends Annotation> componentAnnotation) {
+                descriptor.getAnalysisContext().getInjectionNodeBuilders().putType(AndroidLiterals.SHARED_PREFERENCES,
+                        injectionBindingBuilder.staticInvoke(AndroidLiterals.PREFERENCE_MANAGER, AndroidLiterals.SHARED_PREFERENCES, "getDefaultSharedPreferences").dependencyArg(AndroidLiterals.CONTEXT).build());
+            }
+        });
     }
 }

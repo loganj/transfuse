@@ -254,6 +254,10 @@ public class ASTElementFactory {
         return annotationBuilder.build();
     }
 
+    public ASTMethod findMethod(ASTType type, String methodName, List<ASTType> args) {
+        return findMethod(type, methodName, args.toArray(new ASTType[args.size()]));
+    }
+
     public ASTMethod findMethod(ASTType type, String methodName, ASTType... args) {
         TypeElement typeElement = elements.getTypeElement(type.getName());
 

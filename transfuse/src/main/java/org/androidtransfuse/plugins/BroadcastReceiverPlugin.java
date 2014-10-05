@@ -33,9 +33,11 @@ public class BroadcastReceiverPlugin implements TransfusePlugin{
 
     @Inject
     InjectionBindingBuilder injectionBindingBuilder;
+    @Inject
+    DescriptorBuilderUtil builder;
 
     @Override
     public void run(ConfigurationRepository repository) {
-        repository.component(BroadcastReceiver.class).method("onReceive", AndroidLiterals.CONTEXT, AndroidLiterals.INTENT).event(OnReceive.class).registration();
+        repository.add(builder.component(BroadcastReceiver.class).method("onReceive", AndroidLiterals.CONTEXT, AndroidLiterals.INTENT).registration().event(OnReceive.class));
     }
 }

@@ -31,6 +31,7 @@ import org.androidtransfuse.tomove.*;
 
 import javax.inject.Inject;
 import java.util.*;
+import java.util.concurrent.ConcurrentHashMap;
 
 /**
  * @author John Ericksen
@@ -102,7 +103,7 @@ public class ComponentBuilderImpl implements ComponentBuilder {
     private final UniqueVariableNamer variableNamer;
 
     private final Set<ComponentPartGenerator> generators = new HashSet<ComponentPartGenerator>();
-    private final Map<MethodSignature, MethodMetaData> methodData = new HashMap<MethodSignature, MethodMetaData>();
+    private final Map<MethodSignature, MethodMetaData> methodData = new ConcurrentHashMap<MethodSignature, MethodMetaData>();
     private JDefinedClass definedClass = null;
     private JVar scopes;
 
