@@ -15,20 +15,14 @@
  */
 package org.androidtransfuse.analysis;
 
-import org.androidtransfuse.adapter.ASTMethod;
 import org.androidtransfuse.adapter.ASTType;
 import org.androidtransfuse.adapter.PackageClass;
-import org.androidtransfuse.adapter.element.ASTElementFactory;
 import org.androidtransfuse.adapter.element.ASTTypeBuilderVisitor;
 import org.androidtransfuse.analysis.repository.InjectionNodeBuilderRepository;
 import org.androidtransfuse.analysis.repository.InjectionNodeBuilderRepositoryFactory;
 import org.androidtransfuse.annotations.Activity;
 import org.androidtransfuse.experiment.ComponentDescriptorImpl;
 import org.androidtransfuse.experiment.generators.ActivityManifestEntryGenerator;
-import org.androidtransfuse.gen.variableBuilder.InjectionBindingBuilder;
-import org.androidtransfuse.gen.variableBuilder.ProviderInjectionNodeBuilderFactory;
-import org.androidtransfuse.model.InjectionSignature;
-import org.androidtransfuse.scope.ApplicationScope;
 import org.androidtransfuse.tomove.ComponentDescriptor;
 import org.androidtransfuse.util.AndroidLiterals;
 
@@ -47,28 +41,19 @@ public class ActivityAnalysis implements Analysis<ComponentDescriptor> {
 
     private final InjectionNodeBuilderRepositoryFactory injectionNodeBuilderRepositoryFactory;
     private final AnalysisContextFactory analysisContextFactory;
-    private final ASTElementFactory astElementFactory;
-    private final ProviderInjectionNodeBuilderFactory providerInjectionNodeBuilder;
     private final ASTTypeBuilderVisitor astTypeBuilderVisitor;
-    private final InjectionBindingBuilder injectionBindingBuilder;
     private final Provider<ActivityManifestEntryGenerator> manifestGeneratorProvider;
     private final ComponentAnalysis componentAnalysis;
 
     @Inject
     public ActivityAnalysis(InjectionNodeBuilderRepositoryFactory injectionNodeBuilderRepositoryFactory,
                             AnalysisContextFactory analysisContextFactory,
-                            ASTElementFactory astElementFactory,
-                            ProviderInjectionNodeBuilderFactory providerInjectionNodeBuilder,
                             ASTTypeBuilderVisitor astTypeBuilderVisitor,
-                            InjectionBindingBuilder injectionBindingBuilder,
                             Provider<ActivityManifestEntryGenerator> manifestGeneratorProvider,
                             ComponentAnalysis componentAnalysis) {
         this.injectionNodeBuilderRepositoryFactory = injectionNodeBuilderRepositoryFactory;
         this.analysisContextFactory = analysisContextFactory;
-        this.astElementFactory = astElementFactory;
-        this.providerInjectionNodeBuilder = providerInjectionNodeBuilder;
         this.astTypeBuilderVisitor = astTypeBuilderVisitor;
-        this.injectionBindingBuilder = injectionBindingBuilder;
         this.manifestGeneratorProvider = manifestGeneratorProvider;
         this.componentAnalysis = componentAnalysis;
     }
@@ -92,7 +77,7 @@ public class ActivityAnalysis implements Analysis<ComponentDescriptor> {
 
             ASTType activityType = type == null || type.toString().equals("java.lang.Object") ? AndroidLiterals.ACTIVITY : type.accept(astTypeBuilderVisitor, null);
 
-            AnalysisContext context = analysisContextFactory.buildAnalysisContext(buildVariableBuilderMap(activityType));
+            AnalysisContext context = analysisContextFactory.buildAnalysisContext(buildVariableBuilderMap());
 
             activityDescriptor = new ComponentDescriptorImpl(input, activityType, activityClassName, context);
 
@@ -105,35 +90,13 @@ public class ActivityAnalysis implements Analysis<ComponentDescriptor> {
         return activityDescriptor;
     }
 
-    private InjectionNodeBuilderRepository buildVariableBuilderMap(ASTType activityType) {
+    private InjectionNodeBuilderRepository buildVariableBuilderMap() {
 
         InjectionNodeBuilderRepository injectionNodeBuilderRepository = componentAnalysis.setupInjectionNodeBuilderRepository();
-
-        ASTType applicationScopeType = astElementFactory.getType(ApplicationScope.ApplicationScopeQualifier.class);
-        ASTType applicationProvider = astElementFactory.getType(ApplicationScope.ApplicationProvider.class);
-        injectionNodeBuilderRepository.putScoped(new InjectionSignature(AndroidLiterals.APPLICATION), applicationScopeType);
-        injectionNodeBuilderRepository.putType(AndroidLiterals.APPLICATION, providerInjectionNodeBuilder.builderProviderBuilder(applicationProvider));
-        injectionNodeBuilderRepository.putType(AndroidLiterals.CONTEXT, injectionBindingBuilder.buildThis(AndroidLiterals.CONTEXT));
-
-        injectionNodeBuilderRepository.putType(AndroidLiterals.ACTIVITY, injectionBindingBuilder.buildThis(AndroidLiterals.ACTIVITY));
-
-        while(!activityType.equals(AndroidLiterals.ACTIVITY) && activityType.inheritsFrom(AndroidLiterals.ACTIVITY)){
-            injectionNodeBuilderRepository.putType(activityType, injectionBindingBuilder.buildThis(activityType));
-            activityType = activityType.getSuperClass();
-        }
 
         injectionNodeBuilderRepository.addRepository(
                 injectionNodeBuilderRepositoryFactory.buildModuleConfiguration());
 
         return injectionNodeBuilderRepository;
-
-    }
-
-    private ASTMethod getASTMethod(String methodName, ASTType... args) {
-        return getASTMethod(AndroidLiterals.ACTIVITY, methodName, args);
-    }
-
-    private ASTMethod getASTMethod(ASTType type, String methodName, ASTType... args) {
-        return astElementFactory.findMethod(type, methodName, args);
     }
 }

@@ -25,9 +25,7 @@ import org.androidtransfuse.adapter.ASTFactory;
 import org.androidtransfuse.adapter.ASTType;
 import org.androidtransfuse.analysis.ConfigurationRepositoryImpl;
 import org.androidtransfuse.analysis.module.ModuleRepository;
-import org.androidtransfuse.analysis.repository.InjectionNodeBuilderRepository;
 import org.androidtransfuse.analysis.repository.InjectionNodeBuilderRepositoryFactory;
-import org.androidtransfuse.analysis.repository.InjectionNodeBuilderRepositoryProvider;
 import org.androidtransfuse.annotations.*;
 import org.androidtransfuse.bootstrap.BootstrapModule;
 import org.androidtransfuse.bootstrap.Namespace;
@@ -75,8 +73,7 @@ import java.util.Map;
 @BindProviders({
         @BindProvider(type = JAXBContext.class, provider = JAXBContextProvider.class),
         @BindProvider(type = VariableExpressionBuilder.class, provider = ExpressionDecoratorFactory.class),
-        @BindProvider(type = GeneratorRepository.class, provider = GeneratorRepositoryProvider.class),
-        @BindProvider(type = InjectionNodeBuilderRepository.class, provider = InjectionNodeBuilderRepositoryProvider.class)
+        @BindProvider(type = GeneratorRepository.class, provider = GeneratorRepositoryProvider.class)
 })
 @Install({
         ASTFactory.class,

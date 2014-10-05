@@ -309,7 +309,9 @@ public class CoreFactory {
                 new MirroredMethodGeneratorFactory(variableNamer, generationUtil),
                 generationUtil,
                 variableNamer,
-                validator);
+                validator,
+                new InjectionAnalyzer(buildInjectionPointFactory()),
+                new ScopeAnalysis(scopePredicate, validator));
     }
 
     public FactoriesGenerator buildFactoriesGenerator() {

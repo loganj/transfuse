@@ -60,10 +60,8 @@ public class InjectionNodeBuilderRepositoryFactory implements ModuleRepository {
 
     public InjectionNodeBuilderRepository buildModuleConfiguration() {
         InjectionNodeBuilderRepository builderRepository = injectionNodeBuilderRepositoryProvider.get();
-        builderRepository.addRepository(this.repository.moduleRepository);
+        builderRepository.addRepository(repository.moduleRepository);
         builderRepository.addRepository(scopeAspectFactoryRepositoryProvider.get());
-        builderRepository.addRepository(injectionNodeBuilderRepositoryProvider.get());
-
         return builderRepository;
     }
 

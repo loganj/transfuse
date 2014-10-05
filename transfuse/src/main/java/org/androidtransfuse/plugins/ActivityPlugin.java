@@ -23,6 +23,7 @@ import org.androidtransfuse.adapter.ASTPrimitiveType;
 import org.androidtransfuse.adapter.ASTType;
 import org.androidtransfuse.adapter.classes.ASTClassFactory;
 import org.androidtransfuse.adapter.element.ASTElementFactory;
+import org.androidtransfuse.analysis.repository.InjectionNodeBuilderRepository;
 import org.androidtransfuse.annotations.*;
 import org.androidtransfuse.bootstrap.Bootstrap;
 import org.androidtransfuse.experiment.ScopesGeneration;
@@ -33,6 +34,8 @@ import org.androidtransfuse.gen.componentBuilder.NonConfigurationInstanceGenerat
 import org.androidtransfuse.gen.variableBuilder.*;
 import org.androidtransfuse.intentFactory.ActivityIntentFactoryStrategy;
 import org.androidtransfuse.listeners.*;
+import org.androidtransfuse.model.InjectionSignature;
+import org.androidtransfuse.scope.ApplicationScope;
 import org.androidtransfuse.tomove.ComponentDescriptor;
 import org.androidtransfuse.util.AndroidLiterals;
 
@@ -84,6 +87,8 @@ public class ActivityPlugin implements TransfusePlugin{
     OnCreateInjectionGenerator.InjectionGeneratorFactory onCreateInjectionGeneratorFactory;
     @Inject
     ScopesGeneration.ScopesGenerationFactory scopesGenerationFactory;
+    @Inject
+    ProviderInjectionNodeBuilderFactory providerInjectionNodeBuilder;
 
     @Override
     public void run(ConfigurationRepository repository) {
@@ -158,6 +163,23 @@ public class ActivityPlugin implements TransfusePlugin{
 
                 descriptor.getAnalysisContext().getInjectionNodeBuilders()
                         .putType(AndroidLiterals.MENU_INFLATER, injectionBindingBuilder.dependency(AndroidLiterals.ACTIVITY).invoke(AndroidLiterals.MENU_INFLATER, "getMenuInflater").build());
+
+                InjectionNodeBuilderRepository injectionNodeBuilderRepository = descriptor.getAnalysisContext().getInjectionNodeBuilders();
+
+                ASTType applicationScopeType = astElementFactory.getType(ApplicationScope.ApplicationScopeQualifier.class);
+                ASTType applicationProvider = astElementFactory.getType(ApplicationScope.ApplicationProvider.class);
+                injectionNodeBuilderRepository.putScoped(new InjectionSignature(AndroidLiterals.APPLICATION), applicationScopeType);
+                injectionNodeBuilderRepository.putType(AndroidLiterals.APPLICATION, providerInjectionNodeBuilder.builderProviderBuilder(applicationProvider));
+                injectionNodeBuilderRepository.putType(AndroidLiterals.CONTEXT, injectionBindingBuilder.buildThis(AndroidLiterals.CONTEXT));
+
+                injectionNodeBuilderRepository.putType(AndroidLiterals.ACTIVITY, injectionBindingBuilder.buildThis(AndroidLiterals.ACTIVITY));
+
+                ASTType activityType = descriptor.getType();
+
+                while(!activityType.equals(AndroidLiterals.ACTIVITY) && activityType.inheritsFrom(AndroidLiterals.ACTIVITY)){
+                    injectionNodeBuilderRepository.putType(activityType, injectionBindingBuilder.buildThis(activityType));
+                    activityType = activityType.getSuperClass();
+                }
             }
         }));
     }

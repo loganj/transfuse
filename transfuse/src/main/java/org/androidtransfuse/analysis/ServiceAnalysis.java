@@ -15,30 +15,13 @@
  */
 package org.androidtransfuse.analysis;
 
-import com.sun.codemodel.JBlock;
-import com.sun.codemodel.JExpr;
-import org.androidtransfuse.adapter.ASTMethod;
 import org.androidtransfuse.adapter.ASTType;
 import org.androidtransfuse.adapter.PackageClass;
-import org.androidtransfuse.adapter.element.ASTElementFactory;
 import org.androidtransfuse.adapter.element.ASTTypeBuilderVisitor;
-import org.androidtransfuse.analysis.repository.InjectionNodeBuilderRepository;
-import org.androidtransfuse.analysis.repository.InjectionNodeBuilderRepositoryFactory;
 import org.androidtransfuse.annotations.Service;
 import org.androidtransfuse.experiment.ComponentDescriptorImpl;
-import org.androidtransfuse.experiment.ScopesGeneration;
-import org.androidtransfuse.experiment.generators.ObservesExpressionGenerator;
-import org.androidtransfuse.experiment.generators.OnCreateInjectionGenerator;
 import org.androidtransfuse.experiment.generators.ServiceManifestEntryGenerator;
-import org.androidtransfuse.gen.GeneratorFactory;
-import org.androidtransfuse.gen.componentBuilder.ListenerRegistrationGenerator;
-import org.androidtransfuse.gen.variableBuilder.InjectionBindingBuilder;
-import org.androidtransfuse.gen.variableBuilder.ProviderInjectionNodeBuilderFactory;
-import org.androidtransfuse.intentFactory.ServiceIntentFactoryStrategy;
-import org.androidtransfuse.model.InjectionSignature;
-import org.androidtransfuse.model.MethodDescriptor;
-import org.androidtransfuse.scope.ApplicationScope;
-import org.androidtransfuse.tomove.*;
+import org.androidtransfuse.tomove.ComponentDescriptor;
 import org.androidtransfuse.util.AndroidLiterals;
 
 import javax.inject.Inject;
@@ -53,46 +36,19 @@ import static org.androidtransfuse.util.TypeMirrorUtil.getTypeMirror;
  */
 public class ServiceAnalysis implements Analysis<ComponentDescriptor> {
 
-    private final InjectionNodeBuilderRepositoryFactory injectionNodeBuilderRepositoryFactory;
     private final AnalysisContextFactory analysisContextFactory;
-    private final ASTElementFactory astElementFactory;
-    private final ProviderInjectionNodeBuilderFactory providerInjectionNodeBuilder;
-    private final InjectionBindingBuilder injectionBindingBuilder;
     private final ASTTypeBuilderVisitor astTypeBuilderVisitor;
-    private final GeneratorFactory generatorFactory;
-    private final ListenerRegistrationGenerator.ListerRegistrationGeneratorFactory listenerRegistrationGeneratorFactory;
-    private final ObservesExpressionGenerator.ObservesExpressionGeneratorFactory observesExpressionDecoratorFactory;
     private final ServiceManifestEntryGenerator serviceManifestEntryGenerator;
-    private final OnCreateInjectionGenerator.InjectionGeneratorFactory onCreateInjectionGeneratorFactory;
-    private final ScopesGeneration.ScopesGenerationFactory scopesGenerationFactory;
     private final ComponentAnalysis componentAnalysis;
 
     @Inject
-    public ServiceAnalysis(InjectionNodeBuilderRepositoryFactory injectionNodeBuilderRepositoryFactory,
-                           AnalysisContextFactory analysisContextFactory,
-                           ASTElementFactory astElementFactory,
-                           ProviderInjectionNodeBuilderFactory providerInjectionNodeBuilder,
-                           InjectionBindingBuilder injectionBindingBuilder,
+    public ServiceAnalysis(AnalysisContextFactory analysisContextFactory,
                            ASTTypeBuilderVisitor astTypeBuilderVisitor,
-                           GeneratorFactory generatorFactory,
-                           ListenerRegistrationGenerator.ListerRegistrationGeneratorFactory listenerRegistrationGeneratorFactory,
-                           ObservesExpressionGenerator.ObservesExpressionGeneratorFactory observesExpressionDecoratorFactory,
                            ServiceManifestEntryGenerator serviceManifestEntryGenerator,
-                           OnCreateInjectionGenerator.InjectionGeneratorFactory onCreateInjectionGeneratorFactory,
-                           ScopesGeneration.ScopesGenerationFactory scopesGenerationFactory,
                            ComponentAnalysis componentAnalysis) {
-        this.injectionNodeBuilderRepositoryFactory = injectionNodeBuilderRepositoryFactory;
         this.analysisContextFactory = analysisContextFactory;
-        this.astElementFactory = astElementFactory;
-        this.providerInjectionNodeBuilder = providerInjectionNodeBuilder;
-        this.injectionBindingBuilder = injectionBindingBuilder;
         this.astTypeBuilderVisitor = astTypeBuilderVisitor;
-        this.generatorFactory = generatorFactory;
-        this.listenerRegistrationGeneratorFactory = listenerRegistrationGeneratorFactory;
-        this.observesExpressionDecoratorFactory = observesExpressionDecoratorFactory;
         this.serviceManifestEntryGenerator = serviceManifestEntryGenerator;
-        this.onCreateInjectionGeneratorFactory = onCreateInjectionGeneratorFactory;
-        this.scopesGenerationFactory = scopesGenerationFactory;
         this.componentAnalysis = componentAnalysis;
     }
 
@@ -100,14 +56,14 @@ public class ServiceAnalysis implements Analysis<ComponentDescriptor> {
 
         Service serviceAnnotation = input.getAnnotation(Service.class);
         PackageClass serviceClassName;
-        ComponentDescriptor serviceDescriptor = null;
+        ComponentDescriptor serviceDescriptor;
 
         if (input.extendsFrom(AndroidLiterals.SERVICE)) {
             //vanilla Android Service
             PackageClass packageClass = input.getPackageClass();
             serviceClassName = componentAnalysis.buildComponentPackageClass(input, packageClass.getClassName(), "Service");
 
-            serviceDescriptor = new ComponentDescriptorImpl(input, null, packageClass);
+            serviceDescriptor = new ComponentDescriptorImpl(input, null, serviceClassName);
         } else {
             //generated Android Service
             serviceClassName = componentAnalysis.buildComponentPackageClass(input, serviceAnnotation.name(), "Service");
@@ -116,70 +72,15 @@ public class ServiceAnalysis implements Analysis<ComponentDescriptor> {
 
             ASTType serviceType = type == null || type.toString().equals("java.lang.Object") ? AndroidLiterals.SERVICE : type.accept(astTypeBuilderVisitor, null);
 
-            AnalysisContext context = analysisContextFactory.buildAnalysisContext(buildVariableBuilderMap(serviceType));
+            AnalysisContext context = analysisContextFactory.buildAnalysisContext(componentAnalysis.setupInjectionNodeBuilderRepository());
 
             serviceDescriptor = new ComponentDescriptorImpl(input, serviceType, serviceClassName, context);
 
             componentAnalysis.buildDescriptor(serviceDescriptor, serviceType, Service.class);
-
-            serviceDescriptor.getGenerators().add(onCreateInjectionGeneratorFactory.build(getASTMethod("onCreate")));
-            serviceDescriptor.getGenerators().add(scopesGenerationFactory.build(getASTMethod("onCreate")));
-            serviceDescriptor.getGenerators().add(new OnBindGenerator());
-            serviceDescriptor.getGenerators().add(listenerRegistrationGeneratorFactory.build(getASTMethod("onCreate")));
-            serviceDescriptor.getGenerators().add(observesExpressionDecoratorFactory.build(
-                    getASTMethod("onCreate"),
-                    getASTMethod("onCreate"),
-                    getASTMethod("onDestroy")
-            ));
-            serviceDescriptor.getGenerators().add(generatorFactory.buildStrategyGenerator(ServiceIntentFactoryStrategy.class));
         }
 
         serviceDescriptor.getGenerators().add(serviceManifestEntryGenerator);
 
         return serviceDescriptor;
-    }
-
-    private ASTMethod getASTMethod(String methodName, ASTType... args) {
-        return getASTMethod(AndroidLiterals.SERVICE, methodName, args);
-    }
-
-    private ASTMethod getASTMethod(ASTType type, String methodName, ASTType... args) {
-        return astElementFactory.findMethod(type, methodName, args);
-    }
-
-    private InjectionNodeBuilderRepository buildVariableBuilderMap(ASTType serviceType) {
-
-        InjectionNodeBuilderRepository injectionNodeBuilderRepository = componentAnalysis.setupInjectionNodeBuilderRepository();
-
-
-        ASTType applicationScopeType = astElementFactory.getType(ApplicationScope.ApplicationScopeQualifier.class);
-        ASTType applicationProvider = astElementFactory.getType(ApplicationScope.ApplicationProvider.class);
-        injectionNodeBuilderRepository.putType(AndroidLiterals.APPLICATION, providerInjectionNodeBuilder.builderProviderBuilder(applicationProvider));
-        injectionNodeBuilderRepository.putType(AndroidLiterals.CONTEXT, injectionBindingBuilder.buildThis(AndroidLiterals.CONTEXT));
-        injectionNodeBuilderRepository.putScoped(new InjectionSignature(AndroidLiterals.APPLICATION), applicationScopeType);
-
-        injectionNodeBuilderRepository.putType(AndroidLiterals.SERVICE, injectionBindingBuilder.buildThis(AndroidLiterals.SERVICE));
-
-        while(!serviceType.equals(AndroidLiterals.SERVICE) && serviceType.inheritsFrom(AndroidLiterals.SERVICE)){
-            injectionNodeBuilderRepository.putType(serviceType, injectionBindingBuilder.buildThis(serviceType));
-            serviceType = serviceType.getSuperClass();
-        }
-
-        injectionNodeBuilderRepository.addRepository(injectionNodeBuilderRepositoryFactory.buildModuleConfiguration());
-
-        return injectionNodeBuilderRepository;
-
-    }
-
-    private final class OnBindGenerator implements Generation {
-        @Override
-        public void schedule(ComponentBuilder builder, ComponentDescriptor descriptor) {
-            builder.add(getASTMethod("onBind", AndroidLiterals.INTENT), GenerationPhase.INIT, new ComponentMethodGenerator() {
-                @Override
-                public void generate(MethodDescriptor methodDescriptor, JBlock block) {
-                    block._return(JExpr._null());
-                }
-            });
-        }
     }
 }

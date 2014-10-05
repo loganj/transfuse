@@ -23,6 +23,8 @@ import org.androidtransfuse.adapter.ASTType;
 import org.androidtransfuse.adapter.PackageClass;
 import org.androidtransfuse.analysis.AnalysisContext;
 import org.androidtransfuse.analysis.AnalysisContextFactory;
+import org.androidtransfuse.analysis.astAnalyzer.InjectionAnalyzer;
+import org.androidtransfuse.analysis.astAnalyzer.ScopeAnalysis;
 import org.androidtransfuse.analysis.module.ModuleRepository;
 import org.androidtransfuse.analysis.repository.InjectionNodeBuilderRepository;
 import org.androidtransfuse.gen.componentBuilder.InjectionNodeFactory;
@@ -54,6 +56,8 @@ public class FactoryGenerator {
     private final ModuleRepository injectionNodeBuilderRepositoryFactory;
     private final UniqueVariableNamer variableNamer;
     private final Validator validator;
+    private final InjectionAnalyzer injectionAnalyzer;
+    private final ScopeAnalysis scopeAnalysis;
 
     @Inject
     public FactoryGenerator(InjectionFragmentGenerator injectionFragmentGenerator,
@@ -64,7 +68,7 @@ public class FactoryGenerator {
                             MirroredMethodGeneratorFactory mirroredMethodGeneratorFactory,
                             ClassGenerationUtil generationUtil,
                             UniqueVariableNamer variableNamer,
-                            Validator validator) {
+                            Validator validator, InjectionAnalyzer injectionAnalyzer, ScopeAnalysis scopeAnalysis) {
         this.injectionFragmentGenerator = injectionFragmentGenerator;
         this.instantiationStrategyFactory = instantiationStrategyFactory;
         this.analysisContextFactory = analysisContextFactory;
@@ -75,6 +79,8 @@ public class FactoryGenerator {
         this.injectionNodeBuilderRepositoryFactory = injectionNodeBuilderRepositoryFactory;
         this.variableNamer = variableNamer;
         this.validator = validator;
+        this.injectionAnalyzer = injectionAnalyzer;
+        this.scopeAnalysis = scopeAnalysis;
     }
 
     public static PackageClass getFactoryName(ASTType factoryType) {
@@ -122,9 +128,7 @@ public class FactoryGenerator {
                 MethodDescriptor methodDescriptor = mirroredMethodGenerator.buildMethod(implClass);
                 JBlock block = methodDescriptor.getMethod().body();
 
-                InjectionNodeBuilderRepository injectionNodeBuilderRepository = injectionNodeBuilderRepositoryProvider.get();
-                injectionNodeBuilderRepository.addRepository(injectionNodeBuilderRepositoryFactory.buildModuleConfiguration());
-                AnalysisContext context = analysisContextFactory.buildAnalysisContext(injectionNodeBuilderRepository);
+                AnalysisContext context = analysisContextFactory.buildAnalysisContext(buildInjectionNodeBuilderRepository());
                 InjectionNodeFactory injectionNodeFactory = injectionNodeImplFactory.buildInjectionNodeFactory(interfaceMethod.getAnnotations(), interfaceMethod.getReturnType(), context);
 
                 //Injections
@@ -141,5 +145,15 @@ public class FactoryGenerator {
         } catch (JClassAlreadyExistsException e) {
             throw new TransfuseAnalysisException("Class already exists for generated type " + descriptor.getName(), e);
         }
+    }
+
+    private InjectionNodeBuilderRepository buildInjectionNodeBuilderRepository(){
+        InjectionNodeBuilderRepository injectionNodeBuilderRepository = injectionNodeBuilderRepositoryProvider.get();
+        injectionNodeBuilderRepository.addRepository(injectionNodeBuilderRepositoryFactory.buildModuleConfiguration());
+        injectionNodeBuilderRepository.getAnalysisRepository().clear();
+        injectionNodeBuilderRepository.getAnalysisRepository().add(injectionAnalyzer);
+        injectionNodeBuilderRepository.getAnalysisRepository().add(scopeAnalysis);
+
+        return injectionNodeBuilderRepository;
     }
 }

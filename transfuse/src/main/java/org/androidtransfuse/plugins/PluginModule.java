@@ -32,7 +32,8 @@ import org.androidtransfuse.annotations.TransfuseModule;
         @Plugin(SystemServicePlugin.class),
         @Plugin(SharedPreferencesPlugin.class),
         @Plugin(ResourcesPlugin.class),
-        @Plugin(ModulePlugin.class)
+        @Plugin(ModulePlugin.class),
+        @Plugin(AnalyzerPlugin.class)
 })
 public class PluginModule {
 }
