@@ -1,9 +1,7 @@
 language: ruby
-
 env:
   global:
-    - secure: 'EYbHbyIzF+G1xFZZNuus5fLMwl+pRQGE7kinTEu7cEjzbcr428xqRcQ3J6EA 8z/DYxKWfkPY+9/wYI+b8FelVK9vByzcxScUWAmqPrhaLJkwlmkEVC3U//Rb weyYYZhDriNcnYHeAcVOSeaI3O9zR8+LGaD/Ju1qpQkHXdP2Y08='
+    - secure: bk6MHK9F2ZBhKMPRUjEGFZ3RubkgnG9sKEdaAbBuui0NSJgWpv5AiMWj06JbeA4bE5mw7GmiuCKER6ke22Y5ys00+4Ic2ffthGMWZpP9Pr0tczLTDBcm5vSNnRj/aWm/NGPQpbOAo/6WSMKN1pOhAPtixbfUffrQqTIUd0e+RPY= weyYYZhDriNcnYHeAcVOSeaI3O9zR8+LGaD/Ju1qpQkHXdP2Y08=
     - POST_BUILD=true
-
-script: 
+script:
     - ./build.sh

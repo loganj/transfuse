@@ -20,7 +20,7 @@ if [ "$POST_BUILD" == "true" ] && [ "$TRAVIS_PULL_REQUEST" == "false" ]; then
 
 	echo -e "Committing site\n"
 	git commit -a -m "Travis build $TRAVIS_BUILD_NUMBER"
-	git push origin
+	git push --quiet origin gh-pages > /dev/null 2>&1
 
         cd ..
 	rm -rf site
