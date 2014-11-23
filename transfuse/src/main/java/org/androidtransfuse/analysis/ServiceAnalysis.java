@@ -70,7 +70,7 @@ public class ServiceAnalysis implements Analysis<ComponentDescriptor> {
 
             TypeMirror type = getTypeMirror(serviceAnnotation, "type");
 
-            ASTType serviceType = type == null || type.toString().equals("java.lang.Object") ? AndroidLiterals.SERVICE : type.accept(astTypeBuilderVisitor, null);
+            ASTType serviceType = type == null || type.toString().equals(AndroidLiterals.OBJECT.getName()) ? AndroidLiterals.SERVICE : type.accept(astTypeBuilderVisitor, null);
 
             AnalysisContext context = analysisContextFactory.buildAnalysisContext(componentAnalysis.setupInjectionNodeBuilderRepository());
 

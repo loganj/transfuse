@@ -75,7 +75,7 @@ public class ActivityAnalysis implements Analysis<ComponentDescriptor> {
 
             TypeMirror type = getTypeMirror(activityAnnotation, "type");
 
-            ASTType activityType = type == null || type.toString().equals("java.lang.Object") ? AndroidLiterals.ACTIVITY : type.accept(astTypeBuilderVisitor, null);
+            ASTType activityType = type == null || type.toString().equals(AndroidLiterals.OBJECT.getName()) ? AndroidLiterals.ACTIVITY : type.accept(astTypeBuilderVisitor, null);
 
             AnalysisContext context = analysisContextFactory.buildAnalysisContext(buildVariableBuilderMap());
 

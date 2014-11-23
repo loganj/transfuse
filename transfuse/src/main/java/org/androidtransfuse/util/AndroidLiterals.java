@@ -23,6 +23,7 @@ import org.androidtransfuse.adapter.ASTType;
  */
 public final class AndroidLiterals {
 
+    public static final ASTType OBJECT = new ASTStringType("java.lang.Object");
     public static final ASTType ACTIVITY = new ASTStringType("android.app.Activity");
     public static final ASTType LIST_ACTIVITY = new ASTStringType("android.app.ListActivity");
     public static final ASTType APPLICATION = new ASTStringType("android.app.Application");

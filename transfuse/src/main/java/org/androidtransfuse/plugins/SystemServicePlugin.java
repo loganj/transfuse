@@ -20,7 +20,6 @@ import com.sun.codemodel.JExpr;
 import org.androidtransfuse.ConfigurationRepository;
 import org.androidtransfuse.DescriptorBuilder;
 import org.androidtransfuse.TransfusePlugin;
-import org.androidtransfuse.adapter.ASTStringType;
 import org.androidtransfuse.adapter.ASTType;
 import org.androidtransfuse.bootstrap.Bootstrap;
 import org.androidtransfuse.gen.variableBuilder.InjectionBindingBuilder;
@@ -121,7 +120,7 @@ public class SystemServicePlugin implements TransfusePlugin {
                 public void buildDescriptor(ComponentDescriptor descriptor, ASTType type, Class<? extends Annotation> componentAnnotation) {
                     descriptor.getAnalysisContext().getInjectionNodeBuilders().putType(systemServiceEntry.getValue(),
                             injectionBindingBuilder.dependency(AndroidLiterals.CONTEXT)
-                                    .invoke(new ASTStringType("java.lang.Object"), "getSystemService").arg(JExpr.lit(systemServiceEntry.getKey())).build());
+                                    .invoke(AndroidLiterals.OBJECT, "getSystemService").arg(JExpr.lit(systemServiceEntry.getKey())).build());
                 }
             });
         }

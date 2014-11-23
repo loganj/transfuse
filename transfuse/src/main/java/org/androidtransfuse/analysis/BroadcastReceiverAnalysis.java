@@ -66,7 +66,7 @@ public class BroadcastReceiverAnalysis implements Analysis<ComponentDescriptor> 
             PackageClass receiverClassName = componentAnalysis.buildComponentPackageClass(astType, broadcastReceiverAnnotation.name(), "BroadcastReceiver");
 
             TypeMirror type = getTypeMirror(broadcastReceiverAnnotation, "type");
-            ASTType receiverType = type == null || type.toString().equals("java.lang.Object") ? AndroidLiterals.BROADCAST_RECEIVER : type.accept(astTypeBuilderVisitor, null);
+            ASTType receiverType = type == null || type.toString().equals(AndroidLiterals.OBJECT.getName()) ? AndroidLiterals.BROADCAST_RECEIVER : type.accept(astTypeBuilderVisitor, null);
 
             InjectionNodeBuilderRepository injectionNodeBuilderRepository = componentAnalysis.setupInjectionNodeBuilderRepository();
 

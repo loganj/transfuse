@@ -68,7 +68,7 @@ public class ApplicationAnalysis implements Analysis<ComponentDescriptor> {
             applicationClassName = componentAnalysis.buildComponentPackageClass(astType, applicationAnnotation.name(), "Application");
 
             TypeMirror type = getTypeMirror(applicationAnnotation, "type");
-            ASTType applicationType = type == null || type.toString().equals("java.lang.Object") ? AndroidLiterals.APPLICATION : type.accept(astTypeBuilderVisitor, null);
+            ASTType applicationType = type == null || type.toString().equals(AndroidLiterals.OBJECT.getName()) ? AndroidLiterals.APPLICATION : type.accept(astTypeBuilderVisitor, null);
 
             InjectionNodeBuilderRepository injectionNodeBuilderRepository = componentAnalysis.setupInjectionNodeBuilderRepository();
 

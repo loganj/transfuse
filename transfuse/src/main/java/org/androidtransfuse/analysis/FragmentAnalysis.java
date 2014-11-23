@@ -63,7 +63,7 @@ public class FragmentAnalysis implements Analysis<ComponentDescriptor> {
 
             TypeMirror type = getTypeMirror(fragmentAnnotation, "type");
 
-            ASTType fragmentType = type == null  || type.toString().equals("java.lang.Object") ? AndroidLiterals.FRAGMENT : type.accept(astTypeBuilderVisitor, null);
+            ASTType fragmentType = type == null  || type.toString().equals(AndroidLiterals.OBJECT.getName()) ? AndroidLiterals.FRAGMENT : type.accept(astTypeBuilderVisitor, null);
 
             AnalysisContext context = analysisContextFactory.buildAnalysisContext(buildVariableBuilderMap());
 
