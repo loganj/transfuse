@@ -1,6 +1,6 @@
 #!/bin/bash
 
-if [ "$POST_BUILD" == "true" ] && [ "$TRAVIS_PULL_REQUEST" == "false" ]; then
+if [ "$TRAVIS_PULL_REQUEST" == "false" ]; then
 
 	#Set git user
 	git config --global user.email "johncarl81@gmail.com"
