@@ -37,8 +37,8 @@ import org.androidtransfuse.gen.componentBuilder.MirroredMethodGeneratorFactory;
 import org.androidtransfuse.gen.invocationBuilder.*;
 import org.androidtransfuse.gen.proxy.AOPProxyGenerator;
 import org.androidtransfuse.gen.proxy.VirtualProxyGenerator;
+import org.androidtransfuse.gen.scopeBuilder.CustomScopeAspectFactory;
 import org.androidtransfuse.gen.scopeBuilder.CustomScopeAspectFactoryFactory;
-import org.androidtransfuse.gen.scopeBuilder.SingletonScopeAspectFactory;
 import org.androidtransfuse.gen.variableBuilder.*;
 import org.androidtransfuse.gen.variableDecorator.*;
 import org.androidtransfuse.model.InjectionNode;
@@ -210,8 +210,10 @@ public class CoreFactory {
 
         InjectionNodeBuilderRepository scopeRepository = new InjectionNodeBuilderRepository(buildAnalysisRepository(), astClassFactory);
 
-        scopeRepository.putScopeAspectFactory(astClassFactory.getType(Singleton.class), astClassFactory.getType(ConcurrentDoubleLockingScope.class), new SingletonScopeAspectFactory(buildVariableFactoryBuilderFactory(), astClassFactory));
-        scopeRepository.putScopeAspectFactory(astClassFactory.getType(BootstrapModule.class), astClassFactory.getType(ConcurrentDoubleLockingScope.class), new SingletonScopeAspectFactory(buildVariableFactoryBuilderFactory(), astClassFactory));
+        ASTType singletonType = astClassFactory.getType(Singleton.class);
+        scopeRepository.putScopeAspectFactory(singletonType, astClassFactory.getType(ConcurrentDoubleLockingScope.class), new CustomScopeAspectFactory(Providers.of(buildVariableFactoryBuilderFactory()), singletonType));
+        ASTType bootstrapModuleType = astClassFactory.getType(BootstrapModule.class);
+        scopeRepository.putScopeAspectFactory(bootstrapModuleType, astClassFactory.getType(ConcurrentDoubleLockingScope.class), new CustomScopeAspectFactory(Providers.of(buildVariableFactoryBuilderFactory()), bootstrapModuleType));
         scopeRepository.putType(Scopes.class, new ScopesInjectionNodeBuilder(buildAnalyser(), typedExpressionFactory));
 
         return scopeRepository;
@@ -286,7 +288,7 @@ public class CoreFactory {
 
         ScopeReferenceInjectionFactory scopeInjectionFactory = new ScopeReferenceInjectionFactory(typedExpressionFactory, generationUtil, buildAnalyser());
 
-        CustomScopeAspectFactoryFactory scopeAspectFactoryFactory = new CustomScopeAspectFactoryFactory(buildVariableFactoryBuilderFactory());
+        CustomScopeAspectFactoryFactory scopeAspectFactoryFactory = new CustomScopeAspectFactoryFactory(Providers.of(buildVariableFactoryBuilderFactory()));
 
         DefineScopeProcessor defineScopeProcessor = new DefineScopeProcessor(astClassFactory, scopeInjectionFactory, scopeAspectFactoryFactory);
 

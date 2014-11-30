@@ -19,20 +19,21 @@ import org.androidtransfuse.adapter.ASTType;
 import org.androidtransfuse.gen.variableBuilder.VariableFactoryBuilderFactory2;
 
 import javax.inject.Inject;
+import javax.inject.Provider;
 
 /**
  * @author John Ericksen
  */
 public class CustomScopeAspectFactoryFactory {
 
-    private final VariableFactoryBuilderFactory2 variableFactoryBuilderFactory;
+    private final Provider<VariableFactoryBuilderFactory2> variableFactoryBuilderFactoryProvider;
 
     @Inject
-    public CustomScopeAspectFactoryFactory(VariableFactoryBuilderFactory2 variableFactoryBuilderFactory) {
-        this.variableFactoryBuilderFactory = variableFactoryBuilderFactory;
+    public CustomScopeAspectFactoryFactory(Provider<VariableFactoryBuilderFactory2> variableFactoryBuilderFactoryProvider) {
+        this.variableFactoryBuilderFactoryProvider = variableFactoryBuilderFactoryProvider;
     }
 
     public ScopeAspectFactory buildScopeBuilder(ASTType key) {
-        return new CustomScopeAspectFactory(variableFactoryBuilderFactory, key);
+        return new CustomScopeAspectFactory(variableFactoryBuilderFactoryProvider, key);
     }
 }

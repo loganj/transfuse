@@ -20,14 +20,11 @@ import org.androidtransfuse.annotations.Bindings;
 import org.androidtransfuse.annotations.Factory;
 import org.androidtransfuse.annotations.Provides;
 import org.androidtransfuse.bootstrap.BootstrapModule;
-import org.androidtransfuse.scope.ConcurrentDoubleLockingScope;
-import org.androidtransfuse.scope.Scopes;
 import org.atinject.tck.Tck;
 import org.atinject.tck.auto.*;
 import org.atinject.tck.auto.accessories.SpareTire;
 
 import javax.inject.Named;
-import javax.inject.Singleton;
 
 /**
  * @author John Ericksen
@@ -60,9 +57,7 @@ public class JSR330TckTest {
 
     public static junit.framework.Test suite(){
 
-        Scopes scopes = new Scopes().addScope(Singleton.class, new ConcurrentDoubleLockingScope());
-
-        Car car = Factories.get(CarFactory.class, scopes).buildCar();
+        Car car = Factories.get(CarFactory.class).buildCar();
 
         return Tck.testsFor(car, false, true);
     }

@@ -24,11 +24,20 @@ import android.os.Looper;
 import org.androidtransfuse.annotations.*;
 import org.androidtransfuse.aop.AsynchronousMethodInterceptor;
 import org.androidtransfuse.aop.UIThreadMethodInterceptor;
+import org.androidtransfuse.scope.ApplicationScope;
+import org.androidtransfuse.scope.ConcurrentDoubleLockingScope;
+
+import javax.inject.Singleton;
 
 @TransfuseModule
 @BindInterceptors({
     @BindInterceptor(annotation = Asynchronous.class, interceptor = AsynchronousMethodInterceptor.class),
     @BindInterceptor(annotation = UIThread.class, interceptor = UIThreadMethodInterceptor.class)
+})
+@DefineScopes({
+        @DefineScope(annotation = Singleton.class, scope = ConcurrentDoubleLockingScope.class),
+        @DefineScope(annotation = TransfuseModule.class, scope = ConcurrentDoubleLockingScope.class),
+        @DefineScope(annotation = ApplicationScope.ApplicationScopeQualifier.class, scope = ApplicationScope.class)
 })
 public class APIModule {
 

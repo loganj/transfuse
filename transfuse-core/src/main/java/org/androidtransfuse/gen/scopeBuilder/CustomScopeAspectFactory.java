@@ -20,21 +20,23 @@ import org.androidtransfuse.analysis.AnalysisContext;
 import org.androidtransfuse.analysis.astAnalyzer.ScopeAspect;
 import org.androidtransfuse.gen.variableBuilder.VariableFactoryBuilderFactory2;
 
+import javax.inject.Provider;
+
 /**
  * @author John Ericksen
  */
 public class CustomScopeAspectFactory implements ScopeAspectFactory {
 
     private final ASTType scopeKey;
-    private final VariableFactoryBuilderFactory2 variableFactoryBuilderFactory;
+    private final Provider<VariableFactoryBuilderFactory2> variableFactoryBuilderFactoryProvider;
 
-    public CustomScopeAspectFactory(VariableFactoryBuilderFactory2 variableFactoryBuilderFactory, ASTType scopeKey) {
-        this.variableFactoryBuilderFactory = variableFactoryBuilderFactory;
+    public CustomScopeAspectFactory(Provider<VariableFactoryBuilderFactory2> variableFactoryBuilderFactoryProvider, ASTType scopeKey) {
+        this.variableFactoryBuilderFactoryProvider = variableFactoryBuilderFactoryProvider;
         this.scopeKey = scopeKey;
     }
 
     @Override
     public ScopeAspect buildAspect(AnalysisContext context) {
-        return new ScopeAspect(variableFactoryBuilderFactory.buildScopeVariableBuilder(scopeKey));
+        return new ScopeAspect(variableFactoryBuilderFactoryProvider.get().buildScopeVariableBuilder(scopeKey));
     }
 }

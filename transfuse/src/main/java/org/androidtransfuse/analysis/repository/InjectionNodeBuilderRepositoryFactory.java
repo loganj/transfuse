@@ -47,21 +47,17 @@ public class InjectionNodeBuilderRepositoryFactory implements ModuleRepository {
 
     private final InjectionNodeRepository repository;
     private final Provider<InjectionNodeBuilderRepository> injectionNodeBuilderRepositoryProvider;
-    private final ScopeAspectFactoryRepositoryProvider scopeAspectFactoryRepositoryProvider;
 
     @Inject
     public InjectionNodeBuilderRepositoryFactory(Provider<InjectionNodeBuilderRepository> injectionNodeBuilderRepositoryProvider,
-                                                 ScopeAspectFactoryRepositoryProvider scopeAspectFactoryRepositoryProvider,
                                                  InjectionNodeRepository repository) {
         this.injectionNodeBuilderRepositoryProvider = injectionNodeBuilderRepositoryProvider;
-        this.scopeAspectFactoryRepositoryProvider = scopeAspectFactoryRepositoryProvider;
         this.repository = repository;
     }
 
     public InjectionNodeBuilderRepository buildModuleConfiguration() {
         InjectionNodeBuilderRepository builderRepository = injectionNodeBuilderRepositoryProvider.get();
         builderRepository.addRepository(repository.moduleRepository);
-        builderRepository.addRepository(scopeAspectFactoryRepositoryProvider.get());
         return builderRepository;
     }
 
